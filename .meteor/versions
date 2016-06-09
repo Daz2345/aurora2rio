@@ -2,7 +2,6 @@ accounts-base@1.2.2
 accounts-oauth@1.1.8
 accounts-ui@1.1.6
 accounts-ui-unstyled@1.1.8
-autopublish@1.0.4
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
@@ -16,8 +15,6 @@ caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
 check@1.1.0
-darren:accounts-strava@0.2.0
-darren:strava@0.3.0
 ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.2
@@ -36,7 +33,6 @@ html-tools@1.0.5
 htmljs@1.0.5
 http@1.1.1
 id-map@1.0.4
-insecure@1.0.4
 jquery@1.11.4
 launch-screen@1.0.4
 less@2.5.1
@@ -51,6 +47,7 @@ mobile-experience@1.0.1
 mobile-status-bar@1.0.6
 mongo@1.1.3
 mongo-id@1.0.1
+mrt:cron@0.0.1
 npm-mongo@1.4.39_1
 oauth@1.1.6
 oauth2@1.1.5
@@ -64,6 +61,8 @@ reactive-var@1.0.6
 reload@1.1.4
 retry@1.0.4
 routepolicy@1.0.6
+selaias:accounts-strava@0.2.0
+selaias:strava@0.3.0
 service-configuration@1.0.5
 session@1.1.1
 spacebars@1.0.7

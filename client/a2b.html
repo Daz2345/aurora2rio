@@ -1,0 +1,35 @@
+<head>
+  <title>a2b</title>
+</head>
+
+<body>
+    {{> loginButtons}}
+  <h1>Aurora to Rio</h1>
+  
+  <p>Want to get fit for the summer whilst raising money for an amazing cause?</p>
+  
+  <p>Collectively we would like you to Run, Cycle or Swim your way to Rio Brazil all for Charity!</p>
+  <p>This is an amazing chance to raise money for Great Ormand Street and coincide with the start of the olympics</p>
+  
+  <p>So there are 9,272,000 metres between Aurora House and Rio</p>
+  <p>Sign up at Strava.com if you are not already a member - record your activities, its that simple!!</p>
+  
+  <p>Best of all Simon Hay has personally pledged to double whatever has been raised* - what could be better!</p>
+  
+  <p>* source unknown currently to be confirmed</p>
+  
+  {{ > logo}}  
+
+  {{ > newsfeed}}
+
+</body>
+
+<template name="logo">
+  <img width=400 height=300 src="/img/uk2Brazil.jpg"/>
+</template>
+
+<template name="newsfeed">
+  {{# each activity in activities}}
+    <p>{{activity._id}} {{activity.type}}</p>
+  {{/each }}
+</template>
