@@ -1,6 +1,8 @@
 function insertActivity(element, index, array) {
-    console.log('checking duplicate activity');
+    
     if (!!Activities.findOne({id: element.id})) {
+        console.log('duplicate activity');  
+    } else {
         console.log('get activity username');
         var user = Meteor.users.findOne({id: element.athlete.id});
         if (!!user) {
@@ -20,9 +22,7 @@ Meteor.methods({
     'fetchActivities'() {
         console.log('fetching activities');
         Meteor.users.find().forEach(function(user) {
-            
-            console.log(user);
-            
+
             var options = {
                 "headers": {
                     "authorization": "Bearer " + user.services.strava.accessToken,

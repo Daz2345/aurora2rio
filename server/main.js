@@ -1,11 +1,11 @@
 var publicActivityFields = {
     id:1,
-    athlete:1,
     name:1,
     distance:1,
     location_city:1,
     location_country:1,
-    type:1
+    type:1,
+    username:1
 };
 
 Meteor.publish('activities.all', function() {
