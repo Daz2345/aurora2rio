@@ -1,9 +1,11 @@
-function insertActivity(element, index, array, user) {
+var username = '';
+
+function insertActivity(element, index, array) {
     
     if (!!Activities.findOne({id: element.id})) {
         console.log('duplicate activity');  
     } else {
-        element.username = user.profile.fullName;
+        element.username = username;
         Meteor.call('Activities.insert', element);
     }
 }
@@ -16,7 +18,9 @@ Meteor.methods({
     'fetchActivities'() {
         console.log('fetching activities');
         Meteor.users.find().forEach(function(user) {
-
+            
+            username = user.profile.fullName;
+            
             var options = {
                 "headers": {
                     "authorization": "Bearer " + user.services.strava.accessToken
@@ -26,7 +30,7 @@ Meteor.methods({
             try {
                 var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities", options);
                 // console.log(result);
-                result.data.forEach(insertActivity(user));
+                result.data.forEach(insertActivity);
                 return true;
             }
             catch (e) {
