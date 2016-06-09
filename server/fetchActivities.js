@@ -56,7 +56,6 @@ Meteor.methods({
                 }
             };
 
-            this.unblock();
             try {
                 var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities", options);
                 // console.log(result);
