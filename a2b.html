@@ -3,18 +3,11 @@
 </head>
 
 <body>
+    {{> loginButtons}}
   <h1>Dunnhumby's going to Brazil!</h1>
   {{ > logo}}  
-  {{> hello}}
-</body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-  
-  {{> loginButtons}}
-  
-</template>
+</body>
 
 <template name="logo">
   <img src="/img/uk2Brazil.jpg"/>
