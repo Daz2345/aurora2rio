@@ -20,7 +20,7 @@
   
   {{ > logo}}  
 
-  {{ > newsfeed}}
+  {{ > activityFeed}}
 
 </body>
 
@@ -32,9 +32,9 @@
 
 </template>
 
-<template name="newsfeed">
-  <h1>Newsfeed</h1>
+<template name="activityFeed">
+  <h1>Activity feed</h1>
   {{# each activity in activities}}
-    <p>{{username activity}} has just completed a {{activity.type}} of {{activity.distance}} metres!</p>
+    <p>{{username activity}} has just completed a {{activity.type}} of {{activity.distance}} metres in {{activity.location_city}}, {{activity.location_country}}</p>
   {{/each }}
 </template>
