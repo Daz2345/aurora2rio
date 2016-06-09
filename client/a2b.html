@@ -28,8 +28,12 @@
   <img width=400 height=300 src="/img/uk2Brazil.jpg"/>
 </template>
 
+<template name="countDown">
+  {{metresToGo}}
+</template>
+
 <template name="newsfeed">
   {{# each activity in activities}}
-    <p>{{activity._id}} {{activity.type}}</p>
+    <p>{{username activity}} has just completed a {{activity.type}} of {{activity.distance}}</p>
   {{/each }}
 </template>

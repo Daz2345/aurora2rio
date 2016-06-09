@@ -38,8 +38,9 @@ fetchActivities = function() {
 // });
 
 function insertActivity(element, index, array) {
-    console.log(element);
-    Meteor.call('Activities.insert', element);
+    if (!!Activities.findOne({id: element.id})) {
+        Meteor.call('Activities.insert', element);
+    }
 }
 
 Meteor.methods({

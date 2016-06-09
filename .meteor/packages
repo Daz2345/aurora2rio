@@ -21,3 +21,4 @@ selaias:accounts-strava
 accounts-ui
 mrt:cron
 http
+kadira:flow-router
