@@ -29,11 +29,12 @@
 </template>
 
 <template name="countDown">
-  {{metresToGo}}
+
 </template>
 
 <template name="newsfeed">
+  <h1>Newsfeed</h1>
   {{# each activity in activities}}
-    <p>{{username activity}} has just completed a {{activity.type}} of {{activity.distance}}</p>
+    <p>{{username activity}} has just completed a {{activity.type}} of {{activity.distance}} metres!</p>
   {{/each }}
 </template>
