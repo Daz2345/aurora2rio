@@ -11,6 +11,7 @@ Template.activityFeed.helpers({
     username: function(activity) {
         var stravaId = activity.athlete.id;
         var user = Meteor.users.findOne({id: stravaId});
+        
         if (!!user) {
             return user.profile.fullName;
         }

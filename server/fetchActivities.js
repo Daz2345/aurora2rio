@@ -1,44 +1,12 @@
-
-fetchActivities = function() {
-
-//   Users.find().forEach(function(user) {
-
-        var options = {
-          "method": "GET",
-          "hostname": "www.strava.com",
-          "port": null,
-          "path": "/api/v3/athlete/activities",
-          "headers": {
-            "authorization": "Bearer b803f7e4376e6b4f1ee94c9148cb6345e9e97bed" //+ user.services.strava.accessToken,
-          }
-        };
-        
-        var req = HTTP.request(options, function (res) {
-          var chunks = [];
-        
-          res.on("data", function (chunk) {
-            chunks.push(chunk);
-          });
-        
-          res.on("end", function () {
-            var body = Buffer.concat(chunks);
-            console.log(body.toString());
-          });
-        });
-        
-        req.end();
-//   });
-};
-
-// Meteor.methods({
-//   fetchActivities: function () {
-//     fetchActivities();
-//   },
-
-// });
-
 function insertActivity(element, index, array) {
     if (!!Activities.findOne({id: element.id})) {
+        var user = Meteor.users.findOne({id: element.athlete.id});
+        if (!!user) {
+            element.username = user.profile.fullName;
+        } else {
+            element.username = "Who Knows";
+        }
+        
         Meteor.call('Activities.insert', element);
     }
 }
@@ -67,5 +35,5 @@ Meteor.methods({
                 // Got a network error, time-out or HTTP error in the 400 or 500 range.
                 return false;
             }
-    })
+    });
 }});

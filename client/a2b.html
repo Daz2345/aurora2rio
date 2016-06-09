@@ -35,6 +35,6 @@
 <template name="activityFeed">
   <h1>Activity feed</h1>
   {{# each activity in activities}}
-    <p>{{username activity}} has just completed a {{activity.type}} of {{activity.distance}} metres in {{activity.location_city}}, {{activity.location_country}}</p>
+    <p>{{activity.username}} has just completed a {{activity.type}} of {{activity.distance}} metres in {{activity.location_city}}, {{activity.location_country}}</p>
   {{/each }}
 </template>
