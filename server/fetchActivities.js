@@ -1,15 +1,9 @@
-function insertActivity(element, index, array) {
+function insertActivity(element, index, array, user) {
     
     if (!!Activities.findOne({id: element.id})) {
         console.log('duplicate activity');  
     } else {
-        console.log('get activity username');
-        var user = Meteor.users.findOne({id: element.athlete.id});
-        if (!!user) {
-            element.username = user.profile.fullName;
-        } else {
-            element.username = "Who Knows";
-        }
+        element.username = user.profile.fullName;
         Meteor.call('Activities.insert', element);
     }
 }
@@ -25,14 +19,14 @@ Meteor.methods({
 
             var options = {
                 "headers": {
-                    "authorization": "Bearer " + user.services.strava.accessToken,
+                    "authorization": "Bearer " + user.services.strava.accessToken
                 }
             };
 
             try {
                 var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities", options);
                 // console.log(result);
-                result.data.forEach(insertActivity);
+                result.data.forEach(insertActivity(user));
                 return true;
             }
             catch (e) {
