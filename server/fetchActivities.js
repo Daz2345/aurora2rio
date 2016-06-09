@@ -48,7 +48,7 @@ Meteor.methods({
     },
     'fetchActivities'() {
     
-        Users.find().forEach(function(user) {
+        Meteor.users.find().forEach(function(user) {
 
             var options = {
                 "headers": {
