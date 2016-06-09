@@ -22,3 +22,4 @@ accounts-ui
 mrt:cron
 http
 kadira:flow-router
+kadira:blaze-layout
