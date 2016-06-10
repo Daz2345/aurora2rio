@@ -73,19 +73,22 @@ Template.imageswapper.helpers({
 });
 
 Template.imageswapper.onCreated(function() {
-    Session.set("CurrentImage", 0);
-    var run = false;
-    this.runimages = setInterval(function(){
-        var currentImageCount = Session.get("CurrentImage");
-        if (currentImageCount === 18) {
-            // if (!run) {
-            //     Session.set("CurrentImage", 0);
-            // } else {
-            //     run === true;
-                clearInterval(this.runimages);
-            // }
-        } else {
-            Session.set("CurrentImage", currentImageCount + 1);
-        }
-    },500);    
+    Session.set("hasRun", false);
+    if (!Session.get("hasRun")) {
+        Session.set("CurrentImage", 0);
+
+        this.runimages = setInterval(function(){
+            var currentImageCount = Session.get("CurrentImage");
+            if (currentImageCount === 18) {
+                if (!Session.get("hasRun")) {
+                    Session.set("CurrentImage", 0);
+                    Session.set("hasRun", true);                    
+                } else {
+                    clearInterval(this.runimages);
+                }
+            } else {
+                Session.set("CurrentImage", currentImageCount + 1);
+            }
+        },500);    
+    }
 })
