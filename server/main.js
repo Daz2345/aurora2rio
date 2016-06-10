@@ -10,7 +10,7 @@ var publicActivityFields = {
 
 Meteor.publish('activities.all', function() {
     if (this.userId) {
-        return Activities.find({},{sortBy:{start_date:1}, limit:10, fields: publicActivityFields });
+        return Activities.find({},{sortBy:{start_date:-1}, limit:10, fields: publicActivityFields });
     } else {
         return [];
     }
