@@ -1,0 +1,108 @@
+.twa {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.1em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1em 1em; }
+
+.twa-lg {
+  height: 1.33em;
+  width: 1.33em;
+  margin: 0 0.0665em 0 0.133em;
+  vertical-align: -0.133em;
+  background-size: 1.33em 1.33em; }
+
+.twa-2x {
+  height: 2em;
+  width: 2em;
+  margin: 0 0.1em 0 0.2em;
+  vertical-align: -0.2em;
+  background-size: 2em 2em; }
+
+.twa-3x {
+  height: 3em;
+  width: 3em;
+  margin: 0 0.15em 0 0.3em;
+  vertical-align: -0.3em;
+  background-size: 3em 3em; }
+
+.twa-4x {
+  height: 4em;
+  width: 4em;
+  margin: 0 0.2em 0 0.4em;
+  vertical-align: -0.4em;
+  background-size: 4em 4em; }
+
+.twa-5x {
+  height: 10em;
+  width: 10em;
+  margin: 0 0.25em 0 0.5em;
+  vertical-align: -0.5em;
+  background-size: 10em 10em; }
+
+.twa-pizza {
+  background-image: url("https://twemoji.maxcdn.com/svg/1f355.svg"); }
+  
+.twa-sleeping {
+  background-image: url("https://twemoji.maxcdn.com/svg/1f634.svg"); }
+  
+.twa-swimmer {
+  background-image: url("https://twemoji.maxcdn.com/svg/1f3ca.svg"); }
+  
+.twa-runner {
+  background-image: url("https://twemoji.maxcdn.com/svg/1f3c3.svg"); }
+
+.twa-bicyclist {
+  background-image: url("https://twemoji.maxcdn.com/svg/1f6b4.svg"); }
+  
+.twa-repeat {
+  background-image: url("https://twemoji.maxcdn.com/svg/1f501.svg"); }  
+  
+.dunnhumbyLogo {
+  background-image: url("http://www.fashinvest.com/wp-content/uploads/2013/09/Dunnhumby-logo-alpha.png"); 
+    display: inline-block;
+  height: 1em;
+  width: 1em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.1em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1em 1em; 
+}  
+    
+  #rioLogo {
+      float:left;
+      width: 33%;
+  }
+  
+  #rioLogo img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;    
+  }
+  
+  #goshLogo img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;    
+  }
+  
+    #goshLogo {
+              float:left;
+      width: 33%;
+  }
+  #centreLogo {
+    float:left;
+    width: 33%;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .header {
+      height: 350px;
+  }

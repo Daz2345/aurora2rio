@@ -16,3 +16,5 @@ Meteor.publish('activities.all', function() {
     }
 });
 
+
+

@@ -7,8 +7,20 @@
 </body>
 
 <template name="mainLayout">
-    <img width=200 src="https://d2r4pw5uddxm3r.cloudfront.net/content/uploads/imported/uploads/2011/01/rio569_0.jpg"/>
-    <img width=200 src="http://www.nouse.co.uk/wp-content/article_images/body/2013/02/GOSH-logo.gif"/>
+  
+  <div class="header">
+    <div id="rioLogo">
+      <img  height=240 src="https://d2r4pw5uddxm3r.cloudfront.net/content/uploads/imported/uploads/2011/01/rio569_0.jpg"/>      
+    </div>
+    {{ > imageswapper }}  	
+    <!--<div id="centreLogo">-->
+    <!--  <p></p>-->
+    <!--</div>-->
+    <div id="goshLogo">
+      <img  height=240 src="https://www.nouse.co.uk/wp-content/article_images/body/2013/02/GOSH-logo.gif"/>
+    </div>
+  </div>
+    	
   {{> loginButtons}}
   <h1>Aurora to Rio</h1>
   
@@ -45,4 +57,18 @@
   {{# each activity in activities}}
     <p>{{activity.username}} has just completed a {{activity.type}} of {{activity.distance}} metres around {{activity.location_city}}, {{activity.location_country}}</p>
   {{/each }}
+</template>
+
+<template name="imageswapper">
+  <div id="centreLogo">
+    
+    
+    {{#if showImage}}
+    <img style="width:100%;margin-top:5em;" src="http://www.fashinvest.com/wp-content/uploads/2013/09/Dunnhumby-logo-alpha.png"/>
+    {{else}}
+    <i class={{currentImage}}></i>
+    {{/if}}
+    
+    <h1>{{currentText}}</h1>
+  </div>
 </template>
