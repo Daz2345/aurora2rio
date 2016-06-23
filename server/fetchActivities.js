@@ -50,17 +50,14 @@ Meteor.methods({
         });
     },
     'updateDistanceCompleted' () {
-        var completedDistance = Activities.find({}, {
-                fields: {
-                    distance: 1
-                }
-            }),
-            completedDistanceTotal = completedDistance.reduce(function(previousValue, currentValue, currentIndex, array) {
-                return previousValue + currentValue;
-            });
-
+        var completedDistanceTotal = Activities.aggregate([
+              {$group: {_id: null, distance: {$sum: "$distance"}}}
+            ]);
+            
+            console.log(completedDistanceTotal);
+            
         Distance.insert({
-            "distanceCompleted": completedDistanceTotal,
+            "distanceCompleted": completedDistanceTotal.distance,
             createdAt: new Date()
         });
     }
