@@ -2,6 +2,12 @@
   <title>Aurora 2 Rio</title>
   <link rel="icon" type="image/png" href="img/favicon.ico">
   <style type="text/css">
+    .map {
+        width: 100%;
+        max-width: 100%;
+        height: 60vw;
+    }
+  
     .ui.secondary.pointing.menu.noborder {
       border-width: 0px !important;
     }
@@ -60,8 +66,13 @@
       background-size: 100%;
     }
     
-    .masthead.segment {
+    .active.masthead.segment {
       min-height: 35vw;
+      padding: 1em 0em;
+    }
+
+    .masthead.segment {
+      min-height: 15vw;
       padding: 1em 0em;
     }
     
@@ -74,7 +85,7 @@
     }
     
     .masthead h1.ui.header {
-      margin-top: 1.5em;
+      margin-top: 0.5em;
       margin-bottom: 0em;
       font-size: 6em;
       font-weight: normal;
@@ -180,6 +191,7 @@
         <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
         <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
         <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
+      <a class="{{isActiveRoute 'map'}} item" href="{{pathFor 'map'}}">Map</a>         
       {{/if}}
     </div>
   </div>
@@ -191,6 +203,7 @@
       <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
       <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
       <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
+      <a class="{{isActiveRoute 'map'}} item" href="{{pathFor 'map'}}">Map</a> 
     {{/if}}
     <a class="item">Sign in with Strava</a>
   </div>
@@ -201,6 +214,7 @@
      <main>
       {{>Template.dynamic template=content}}
     </main>
+
   </div>
   {{> footer}}
 
@@ -229,7 +243,7 @@
 
 <template name="top">
 
-    <div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui {{isActiveRoute 'home'}} inverted vertical masthead center aligned segment">
   
       <div class="ui container">
         <div class="ui large secondary inverted pointing menu noborder">
@@ -241,6 +255,7 @@
             <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
             <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
             <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
+      <a class="{{isActiveRoute 'map'}} item" href="{{pathFor 'map'}}">Map</a>             
           {{/if}}          
           <div class="right active item">
             {{ > loginButtons }}
@@ -256,6 +271,7 @@
         {{ > countdown}}
       {{/if}}
     </div>
+
 </template>
 
 <template name="countdown">
@@ -291,7 +307,9 @@
         </div>
       </div>
     </div>  
+    
   
+    
     <div class="ui vertical segment">
       <div class="ui text container">
         <h3>So we're leaving Aurora House but were going all the way to Rio!</h3>    
@@ -345,18 +363,12 @@
     </div>
 </template>
 
-<template name="text">
-    <h1>Aurora to Rio</h1>
-  
-  <p>Want to get fit for the summer whilst raising money for an amazing cause?</p>
-  
-  <p>Collectively we would like you to Run, Cycle or Swim your way to Rio Brazil all for Charity!</p>
-  <p>This is an amazing chance to raise money for Great Ormand Street and coincide with the start of the olympics</p>
-  
-  <p>So there are 9,272,000 metres between Aurora House and Rio</p>
-  <p>Sign up at Strava.com if you are not already a member - record your activities, its that simple!!</p>
-  
-  <p>Best of all Simon Hay has personally pledged to double whatever has been raised* - what could be better!</p>
-  
-  <p>* source unknown currently to be confirmed</p>
+<template name="mapView">
+  <div id="map"></div>
 </template>
+
+<template name="map">  
+  <div class="map">
+    {{> googleMap name="map" options=mapOptions}}
+  </div>
+</template>  

@@ -1,3 +1,9 @@
+if (Meteor.isClient) {
+  Meteor.startup(function() {
+    GoogleMaps.load({key: 'AIzaSyCwvQIJCGO7gvCF1hqQXaptl-8HsdU40Ls', libraries: 'geometry'});
+  });
+}
+
 Template.activityFeed.onCreated(function() {
     this.autorun(() => {
         this.subscribe('activities.feed');
@@ -76,85 +82,39 @@ Template.countdown.onRendered(function(){
         }, 1000);
 });
 
-// var images = [
-//     "pizza",
-//     "sleeping",
-//     "swimmer",
-//     "bicyclist",
-//     "runner",
-//     "repeat",
-//     ,
-//     ,
-//     ,
-//     ,
-//     ,
-//     ,
-//     "pizza",
-//     "sleeping",
-//     "swimmer",
-//     "bicyclist",
-//     "runner",
-//     "repeat",
-//     "dunnhumbyLogo"
-//     ];
+Template.map.helpers({  
+  mapOptions: function() {
+    if (GoogleMaps.loaded()) {
+      return {
+        center: new google.maps.LatLng(19.366, -46.475),
+        zoom: 3,
+        scrollwheel: false
+      };
+    }
+  }
+});
 
-// var text = [
-//     ,
-//     ,
-//     ,
-//     ,
-//     ,
-//     ,
-//     "eat.",
-//     "sleep.",
-//     "swim.",
-//     "bike.",
-//     "run.",
-//     "repeat.",
-//     "eat.",
-//     "sleep.",
-//     "swim.",
-//     "bike.",
-//     "run.",
-//     "repeat.",
-// ];
-
-
-// Template.imageswapper.helpers({
-//     currentText: function() {
-//         return text[Session.get("CurrentImage")];
-//     },
-//     currentImage: function() {
-//         var currentImageCount = Session.get("CurrentImage");
-//         if (currentImageCount === 18) {
-//         } else {
-//             // <i class={{currentImage}}></i>
-//         return "twa twa-5x twa-" + images[Session.get("CurrentImage")];
-//         }
-//     },
-//     showImage: function() {
-//         return Session.get("CurrentImage") === 18;
-//     }
+Template.map.onCreated(function(){
+  GoogleMaps.ready('map', function(map) {
+      
+    var aurora = new google.maps.LatLng(51.5119793,-0.3104522),
+        rio = new google.maps.LatLng(-22.9068467,-43.1728965);
     
-// });
-
-// Template.imageswapper.onCreated(function() {
-//     Session.set("hasRun", false);
-//     if (!Session.get("hasRun")) {
-//         Session.set("CurrentImage", 0);
-
-//         this.runimages = setInterval(function(){
-//             var currentImageCount = Session.get("CurrentImage");
-//             if (currentImageCount === 18) {
-//                 if (!Session.get("hasRun")) {
-//   Session.set("CurrentImage", 0);
-//   Session.set("hasRun", true);  
-//                 } else {
-//   clearInterval(this.runimages);
-//                 }
-//             } else {
-//                 Session.set("CurrentImage", currentImageCount + 1);
-//             }
-//         },500);    
-//     }
-// })
+    var heading = google.maps.geometry.spherical.computeHeading(aurora, rio),
+        startPoint = aurora,
+        distance = 300000,
+        endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance, heading);
+        
+    var journey = new google.maps.Polyline({
+        path: [aurora, endPoint],
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        map: map.instance
+    });
+    // var markerCurrent = new google.maps.Marker({
+    //       position: endPoint,
+    //       map: map.instance
+    //     });        
+  });    
+})
