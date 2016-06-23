@@ -1,77 +1,362 @@
 <head>
-  <title>a2b</title>
+  <title>Aurora 2 Rio</title>
+  <link rel="icon" type="image/png" href="img/favicon.ico">
+  <style type="text/css">
+    .ui.secondary.pointing.menu.noborder {
+      border-width: 0px !important;
+    }
+    
+    .logoIcons {
+        max-height: 120px;
+    }
+    
+    .goshIcons {
+      max-height: 200px;
+    }
+    
+    .rioIcons {
+      max-height: 100px;
+    }
+    
+    .logoBG {
+      background-color: #4faa33;
+    }
+    
+    .titleColor {
+      color: #D7DF21 !important;
+      text-decoration: underline;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    .distanceColor {
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    .middlealignedcontent {
+      text-align: middle;
+    }
+    
+    .countdown {
+      width: auto;
+      display: inline-block;
+    }
+    
+    .clock {
+      width: auto;
+      display: inline-block;
+    }
+    
+    .centerText {
+      text-align: center;
+    }
+    
+    .hidden.menu {
+      display: none;
+    }
+    
+    div.ui.inverted.vertical.masthead.center.aligned.segment {
+      background-image: url("/img/brazil.jpg");
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+    
+    .masthead.segment {
+      min-height: 35vw;
+      padding: 1em 0em;
+    }
+    
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    
+    .masthead h1.ui.header {
+      margin-top: 1.5em;
+      margin-bottom: 0em;
+      font-size: 6em;
+      font-weight: normal;
+    }
+    
+    .masthead h2 {
+      font-size: 2.5em;
+      font-weight: normal;
+    }
+    
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    
+    .ui.vertical.stripe .button+ h3,
+    .ui.vertical.stripe p+ h3 {
+      margin-top: 3em;
+    }
+    
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+    
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+    
+    .footer.segment {
+      padding: 5em 0em;
+    }
+    
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+    
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 250px;
+      }
+      .masthead h1.ui.header {
+        font-size: 3em;
+        margin-top: 1.0em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+      .logoIcons {
+        max-height: 60px;
+      }
+      .rioIcons {
+        max-height: 60px;
+      }
+      .goshIcons {
+        max-height: 60px;
+      }
+      .clock {
+        display: hidden;
+      }
+    }
+  </style>
+
 </head>
 
-<body>
+<body class="pushable">
 
 </body>
 
 <template name="mainLayout">
   
-  <div class="header">
-    <div id="rioLogo">
-      <img  height=240 src="https://d2r4pw5uddxm3r.cloudfront.net/content/uploads/imported/uploads/2011/01/rio569_0.jpg"/>      
-    </div>
-    {{ > imageswapper }}  	
-    <!--<div id="centreLogo">-->
-    <!--  <p></p>-->
-    <!--</div>-->
-    <div id="goshLogo">
-      <img  height=240 src="https://www.nouse.co.uk/wp-content/article_images/body/2013/02/GOSH-logo.gif"/>
+    <!-- Following Menu -->
+  <div class="ui large top fixed hidden menu">
+    <div class="ui container">
+      <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
+      {{#if currentUser}}
+        <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
+        <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
+        <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
+      {{/if}}
     </div>
   </div>
-    	
-  {{> loginButtons}}
-  <h1>Were leaving Aurora and were off to Rio!</h1>
-
-  <p>We think it would be awesome if we could collectively Swim, Bike or Run our way to Rio!</p>
-  <p>This is an amazing chance to celebrate the start of the olympics with some fundraising for this years helping hands charity Great Ormond Street Hospital</p>
-  <p>There are 9,272km standing between Aurora House and Rio</p>
-  <p>Sign in / Register at Strava.com at the button above - record your activities with your phone, its that simple!!</p>
-  <p>Best of all Simon Hay has personally pledged to double whatever has been raised* - what could be better!</p>
-  <p>(* source unknown and currently TBC)</p>
   
-   <main>
-    {{>Template.dynamic template=content}}
-  </main>
-  <footer>
+  <!-- Sidebar Menu -->
+  <div class="ui vertical inverted sidebar menu left">
+    <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a> 
+    {{#if currentUser}}
+      <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
+      <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
+      <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
+    {{/if}}
+    <a class="item">Sign in with Strava</a>
+  </div>
+    <!-- Page Contents -->
+  <div class="pusher">
+    {{>Template.dynamic template=topSection}}
+  
+     <main>
+      {{>Template.dynamic template=content}}
+    </main>
+  </div>
+  {{> footer}}
 
-  </footer>
 </template>
 
 <template name="logo">
-  <img width=200 height=150 src="/img/uk2Brazil.jpg"/>
+  <img width=400 height=300 src="/img/uk2Brazil.jpg"/>
 </template>
 
 <template name="countDown">
-  
+
 </template>
 
 <template name="activityFeed">
-  <h1>Activity feed</h1>
-  {{# each activity in activities}}
-    <p>{{activity.username}} has just completed a {{activity.type}} of {{activity.distance}} metres around {{activity.location_city}}, {{activity.location_country}}</p>
-  {{/each }}
+  {{#if currentUser}}
+    <h1>Activity feed</h1>
+    {{# each activity in activities}}
+      <p>{{activity.username}} has just completed a {{activity.type}} of {{distanceInKm activity}}km around 
+        {{#if activity.location_city}}
+          {{activity.location_city}}, {{activity.location_country}}
+        {{/if}}    
+      </p>
+    {{/each }}
+  {{/if}}
 </template>
 
-<template name="imageswapper">
-  <div id="centreLogo">
-    
-    
-    {{#if showImage}}
-    <img style="width:100%;margin-top:5em;" src="/img/Dunnhumby-logo-alpha.png"/>
-    {{else}}
-    <i class={{currentImage}}></i>
-    {{/if}}
-    
-    <h1>{{currentText}}</h1>
-  </div>
-</template>
+<template name="top">
 
-<template name="user">
+    <div class="ui inverted vertical masthead center aligned segment">
   
+      <div class="ui container">
+        <div class="ui large secondary inverted pointing menu noborder">
+          <a class="toc item">
+            <i class="sidebar icon"></i>
+          </a>
+          <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
+          {{#if currentUser}}
+            <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
+            <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
+            <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
+          {{/if}}          
+          <div class="right active item">
+            {{ > loginButtons }}
+          </div>
+        </div>
+      </div>
+      <div class="ui text container">
+        <h1 class="ui inverted header titleColor">
+          Aurora 2 Rio
+        </h1>
+      </div>
+      {{#if currentUser}}
+        {{ > countdown}}
+      {{/if}}
+    </div>
 </template>
 
-<template name="leaderboard">
+<template name="countdown">
+    <div class="ui vertical stripe quote segment">
+
+          <div class="ui text container">
+            <h2 class="ui header center inverted align">Only</h2>
+          </div>
+          <div class="centerText">
+            <div class="countdown"></div>
+          </div>
+          <div class="ui text container">
+            <h2 class="ui header center inverted align">Km To Go!</h2>
+          </div>
+
+    </div>  
+</template>
+
+<template name="homeContent">
+
+  <div class="ui vertical stripe quote segment">
+      <div class="ui equal width internally celled stackable grid">
+        <div class="center aligned row">
+          <div class="column logoBG">
+            <img class="logoIcons" src="https://smsprio2016-a.akamaihd.net/data/content/1.32c/images/sports/big-icons/big-sw.png" />
+          </div>
+          <div class="column logoBG">
+            <img class="logoIcons" src="https://smsprio2016-a.akamaihd.net/data/content/1.32c/images/sports/big-icons/big-cr.png" />
+          </div>
+          <div class="column logoBG">
+            <img class="logoIcons" src="https://smsprio2016-a.akamaihd.net/data/content/1.32c/images/sports/big-icons/big-at.png" />
+          </div>        
+        </div>
+      </div>
+    </div>  
   
+    <div class="ui vertical segment">
+      <div class="ui text container">
+        <h3>So we're leaving Aurora House but were going all the way to Rio!</h3>    
+        <p>Collectively we are going to Swim, Bike and Run our way to Rio Brazil for the start of the olympics</p>
+        <p>Fantastic opportunity to raise money for <strong>Great Ormond Street Hospital</strong> our helping hands charity of the year</p>
+        <p>Plus get ready for this summers olympics in Rio, Brazil</p>
+        
+        <h3 class="ui header">After signing in, you can record your activities automatically via Strava or input them manually</h3>
+        {{#if currentUser}}
+          <div class="ui button">Manual Input</div>
+        {{/if}}
+      </div>
+    </div>
+
+
+
+    <div class="ui vertical quote segment">
+      <div class="ui equal width stackable internally celled grid">
+        <div class="center aligned row">
+          <div class="column">
+            <a href="http://www.gosh.org/" target="_blank" class="item">
+              <img class="goshIcons" src="https://www.kineo.com/m/0/charity-great-ormond-street.png" />
+            </a>
+          </div>
+          <div class="column">
+              <div class="ui basic center aligned  compact segment">
+                <div class="clock"></div>                
+                <a href="https://www.rio2016.com/en" target="_blank" class="item">
+                    <img class="rioIcons" src="http://keepernotes.com/wp-content/uploads/2015/08/Rio2016-LogoFORMATTED.jpg"/>
+                </a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<template name="footer">
+    <div class="ui inverted vertical footer segment">
+      <div class="ui container">
+        <div class="ui stackable inverted divided equal height stackable grid">
+          <div class="four wide column">
+            <img src="https://www.dunnhumby.com/sites/all/themes/dunnhumby/images/logo.png" />
+          </div>
+          <div class="twelve wide column">
+            <h4 class="ui inverted header">Aurora to Rio</h4>
+            <p>Join us on the journey to Rio and raise money for an amazing charity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<template name="text">
+    <h1>Aurora to Rio</h1>
+  
+  <p>Want to get fit for the summer whilst raising money for an amazing cause?</p>
+  
+  <p>Collectively we would like you to Run, Cycle or Swim your way to Rio Brazil all for Charity!</p>
+  <p>This is an amazing chance to raise money for Great Ormand Street and coincide with the start of the olympics</p>
+  
+  <p>So there are 9,272,000 metres between Aurora House and Rio</p>
+  <p>Sign up at Strava.com if you are not already a member - record your activities, its that simple!!</p>
+  
+  <p>Best of all Simon Hay has personally pledged to double whatever has been raised* - what could be better!</p>
+  
+  <p>* source unknown currently to be confirmed</p>
 </template>

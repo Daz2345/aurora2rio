@@ -1,4 +1,5 @@
 var username = '';
+var userIdVal = '';
 
 function insertActivity(element, index, array) {
     
@@ -6,6 +7,7 @@ function insertActivity(element, index, array) {
         console.log('duplicate activity');  
     } else {
         element.username = username;
+        element.userId = userIdVal
         Meteor.call('Activities.insert', element);
     }
 }
@@ -18,24 +20,26 @@ Meteor.methods({
     'fetchActivities'() {
         console.log('fetching activities');
         Meteor.users.find().forEach(function(user) {
-            
-            username = user.profile.fullName;
-            
-            var options = {
-                "headers": {
-                    "authorization": "Bearer " + user.services.strava.accessToken
+            if (!!user.services.strava.accessToken) {
+                username = user.profile.fullName;
+                userIdVal = user.Id;
+                
+                var options = {
+                    "headers": {
+                        "authorization": "Bearer " + user.services.strava.accessToken
+                    }
+                };
+    
+                try {
+                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities", options);
+                    // console.log(result);
+                    result.data.forEach(insertActivity);
+                    return true;
                 }
-            };
-
-            try {
-                var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities", options);
-                // console.log(result);
-                result.data.forEach(insertActivity);
-                return true;
-            }
-            catch (e) {
-                // Got a network error, time-out or HTTP error in the 400 or 500 range.
-                return false;
+                catch (e) {
+                    // Got a network error, time-out or HTTP error in the 400 or 500 range.
+                    return false;
+                }
             }
     });
 }});
