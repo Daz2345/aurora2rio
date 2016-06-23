@@ -209,14 +209,17 @@
   </div>
     <!-- Page Contents -->
   <div class="pusher">
+    
     {{>Template.dynamic template=topSection}}
   
-     <main>
+    <main>
       {{>Template.dynamic template=content}}
     </main>
-
+    
+    {{> footer}}
+    
   </div>
-  {{> footer}}
+
 
 </template>
 
@@ -232,9 +235,9 @@
   {{#if currentUser}}
     <h1>Activity feed</h1>
     {{# each activity in activities}}
-      <p>{{activity.username}} has just completed a {{activity.type}} of {{distanceInKm activity}}km around 
+      <p>{{activity.start_date}} - {{activity.username}} has completed a {{activity.type}} of {{distanceInKm activity}}km 
         {{#if activity.location_city}}
-          {{activity.location_city}}, {{activity.location_country}}
+          around {{activity.location_city}}, {{activity.location_country}}
         {{/if}}    
       </p>
     {{/each }}

@@ -10,9 +10,9 @@ var publicActivityFields = {
 };
 
 Meteor.publish(
-    'distance.all', function() {
+    'distances', function() {
         if (this.userId) {
-            return Distance.find({});
+            return Distance.find({},{sort:{createdAt:-1}, limit: 10});
         } else {
             return [];
         }

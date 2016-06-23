@@ -11,10 +11,10 @@ Template.activityFeed.onCreated(function() {
       });
 });
 
-Template.countDown.onCreated(function() {
+Template.mainLayout.onCreated(function() {
     var self = this;
       self.autorun(function() {
-        self.subscribe('distance.all');
+        self.subscribe('distances');
     });
 });
 
@@ -23,7 +23,7 @@ Template.activityFeed.helpers({
         return Activities.find({}).fetch();
     },
     distanceInKm: function(activity) {
-        return activity.distance / 1000;
+        return Math.floor(activity.distance / 1000);
     }
 });
 
@@ -103,8 +103,7 @@ Template.map.onCreated(function(){
         rio = new google.maps.LatLng(-22.9068467,-43.1728965);
     
     var heading = google.maps.geometry.spherical.computeHeading(aurora, rio),
-        startPoint = aurora,
-        distance = 300000,
+        distance = Math.floor(Distance.findOne({}).distanceCompleted),
         endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance, heading);
         
     var journey = new google.maps.Polyline({
