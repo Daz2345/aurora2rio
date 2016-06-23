@@ -109,7 +109,7 @@ Template.map.onCreated(function(){
         path: [aurora, endPoint],
         strokeColor: '#FF0000',
         strokeOpacity: 1.0,
-        strokeWeight: 2,
+        strokeWeight: 3,
         map: map.instance
     });
     // var markerCurrent = new google.maps.Marker({
