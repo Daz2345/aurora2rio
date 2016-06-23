@@ -56,9 +56,16 @@ Meteor.methods({
             
             console.log(completedDistanceTotal);
             
-        Distance.insert({
-            "distanceCompleted": completedDistanceTotal.distance,
+            previousDistance = Distance.find({'distanceType': 'current'}).distanceCompleted
+            
+        Distance.update({'distanceType': 'previous'},{
+            "distanceCompleted": previousDistance,
             createdAt: new Date()
-        });
+        },{upsert:true});
+            
+        Distance.update({'distanceType': 'current'},{
+            "distanceCompleted": completedDistanceTotal[0].distance,
+            createdAt: new Date()
+        },{upsert:true});
     }
 });

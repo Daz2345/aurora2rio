@@ -64,8 +64,8 @@ Template.top.onRendered(function() {
 }); 
 
 Template.countdown.onRendered(function(){
-    var distanceToGo = 9270; //- Distance.findOne({"distanceType": "current"}).distance
-	var distanceLast = 9280; //- Distance.findOne({"distanceType": "last"}).distance
+    var distanceToGo = Distance.findOne({"distanceType": "current"}).distance;
+	var distanceLast = Distance.findOne({"distanceType": "previous"}).distance;
     
 	var countdown = $('.countdown').FlipClock(distanceLast, {
 		clockFace: 'Counter',
@@ -103,7 +103,7 @@ Template.map.onCreated(function(){
         rio = new google.maps.LatLng(-22.9068467,-43.1728965);
     
     var heading = google.maps.geometry.spherical.computeHeading(aurora, rio),
-        distance = Math.floor(Distance.findOne({}).distanceCompleted),
+        distance = Math.floor(Distance.findOne({'distanceType': 'current'}).distanceCompleted),
         endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance, heading);
         
     var journey = new google.maps.Polyline({
