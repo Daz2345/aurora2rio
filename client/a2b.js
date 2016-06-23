@@ -113,9 +113,6 @@ Template.map.onCreated(function(){
         strokeWeight: 3,
         map: map.instance
     });
-    // var markerCurrent = new google.maps.Marker({
-    //       position: endPoint,
-    //       map: map.instance
-    //     });        
+     
   });    
 })
