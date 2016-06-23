@@ -34,12 +34,14 @@ Meteor.methods({
                     var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities", options);
                     // console.log(result);
                     result.data.forEach(insertActivity);
+                    
                     var completedDistance = Activities.find({}, {fields:{distance:1}}),
                         completedDistanceTotal = completedDistance.reduce(function(previousValue, currentValue, currentIndex, array){
                             return previousValue + currentValue;
                         });
                     
                     Distance.insert({"distanceCompleted" : completedDistanceTotal, createdAt: new Date()});
+                    
                     return true;
                 }
                 catch (e) {
