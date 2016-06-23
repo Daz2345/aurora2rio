@@ -16,21 +16,27 @@ Meteor.publish(
         } else {
             return [];
         }
-    },
+    });
+    
+Meteor.publish(
     'activities.feed', function() {
         if (this.userId) {
             return Activities.find({},{sort:{start_date:-1}, limit:10, fields: publicActivityFields });
         } else {
             return [];
         }
-    },
+    });
+    
+Meteor.publish(
     'activities.user', function() {
         if (this.userId) {
-            return Activities.find({_id: this.userId},{sort:{start_date:-1}, limit:10, fields: publicActivityFields });
+            return Activities.find({_id: this.userId},{sort:{start_date:-1}, fields: publicActivityFields });
         } else {
             return [];
         }
-    },
+    });
+    
+Meteor.publish(
     'activities.team', function() {
         var user = Meteor.users.find({_id: this.userId});
         if (this.userId) {

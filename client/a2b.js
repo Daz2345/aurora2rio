@@ -5,14 +5,16 @@ if (Meteor.isClient) {
 }
 
 Template.activityFeed.onCreated(function() {
-    this.autorun(() => {
-        this.subscribe('activities.feed');
-    });
+    var self = this;
+      self.autorun(function() {
+        self.subscribe('activities.feed');  
+      });
 });
 
 Template.countDown.onCreated(function() {
-    this.autorun(() => {
-        this.subscribe('distance.all');
+    var self = this;
+      self.autorun(function() {
+        self.subscribe('distance.all');
     });
 });
 
