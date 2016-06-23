@@ -34,12 +34,10 @@ Meteor.methods({
                 };
 
                 try {
-                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities", options);
+                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1466380800", options);
                     // console.log(result);
                     result.data.forEach(insertActivity);
-
                     Meteor.call('updateDistanceCompleted');
-
                     return true;
                 }
                 catch (e) {
@@ -54,9 +52,7 @@ Meteor.methods({
               {$group: {_id: null, distance: {$sum: "$distance"}}}
             ]);
             
-            console.log(completedDistanceTotal);
-            
-            previousDistance = Distance.find({'distanceType': 'current'}).distanceCompleted
+        var previousDistance = Distance.find({'distanceType': 'current'}).distanceCompleted || 0;
             
         Distance.update({'distanceType': 'previous'},{
             'distanceType': 'previous',
