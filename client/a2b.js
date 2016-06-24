@@ -64,7 +64,8 @@ Template.top.onRendered(function() {
 }); 
 
 Template.countdown.onRendered(function(){
-    var distanceToGo = 9280 - (Math.floor(Distance.findOne({"distanceType": "current"}).distanceCompleted / 1000));
+  
+  var distanceToGo = 9280 - (Math.floor(Distance.findOne({"distanceType": "current"}).distanceCompleted / 1000));
 	var distanceLast = 9280 - (Math.floor(Distance.findOne({"distanceType": "previous"}).distanceCompleted / 1000));
     
 	var countdown = $('.countdown').FlipClock(distanceLast, {
@@ -75,10 +76,13 @@ Template.countdown.onRendered(function(){
 	
     var downcounter = setInterval(function() {
             if (countdown.getTime().time == distanceToGo) {
-                countdown.stop();
-                clearInterval(downcounter);
-                Session.set('hascounted', true);                
+                // countdown.stop();
+                // // clearInterval(downcounter);
+                // Session.set('hascounted', true);                
             } else {
+                // if (!countdown.running()) {
+                //   countdown.start();
+                // }
                 countdown.decrement();
             }
         }, 1000);
