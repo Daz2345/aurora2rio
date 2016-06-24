@@ -63,29 +63,41 @@ Template.top.onRendered(function() {
 	
 }); 
 
-Template.countdown.onRendered(function(){
-  
-  var distanceToGo = 9280 - (Math.floor(Distance.findOne({"distanceType": "current"}).distanceCompleted / 1000));
-	var distanceLast = 9280 - (Math.floor(Distance.findOne({"distanceType": "previous"}).distanceCompleted / 1000));
-    
-	var countdown = $('.countdown').FlipClock(distanceLast, {
-		clockFace: 'Counter',
-		countdown: true,
-		minimumDigits: 4
-	});
-	
-    var downcounter = setInterval(function() {
-            if (countdown.getTime().time == distanceToGo) {
-                // countdown.stop();
-                // // clearInterval(downcounter);
-                // Session.set('hascounted', true);                
-            } else {
-                // if (!countdown.running()) {
-                //   countdown.start();
-                // }
-                countdown.decrement();
-            }
-        }, 1000);
+Template.countdown.onCreated(function() {
+
+  Meteor.autorun(function() {
+
+    // subscribe to the posts publication
+    var subscription = Meteor.subscribe('distances');
+
+    // if subscription is ready, set limit to newLimit
+    if (subscription.ready()) {
+      var currentDist = Distance.findOne({"distanceType": "current"}) || {distanceCompleted: 0},
+        previousDist = Distance.findOne({"distanceType": "previous"}) || {distanceCompleted: 0},
+        distanceToGo = 9280 - (Math.floor(currentDist.distanceCompleted / 1000)),
+        distanceLast = 9280 - (Math.floor(previousDist.distanceCompleted / 1000));
+
+      var countdown = $('.countdown').FlipClock(distanceLast, {
+        clockFace: 'Counter',
+        countdown: true,
+        minimumDigits: 4
+      });
+
+      var downcounter = setInterval(function() {
+        if (countdown.getTime().time == distanceToGo) {
+          // countdown.stop();
+          // // clearInterval(downcounter);
+          // Session.set('hascounted', true);                
+        }
+        else {
+          // if (!countdown.running()) {
+          //   countdown.start();
+          // }
+          countdown.decrement();
+        }
+      }, 500);
+    }
+  });
 });
 
 Template.map.helpers({  
@@ -100,23 +112,35 @@ Template.map.helpers({
   }
 });
 
-Template.map.onCreated(function(){
-  GoogleMaps.ready('map', function(map) {
-      
-    var aurora = new google.maps.LatLng(51.5119793,-0.3104522),
-        rio = new google.maps.LatLng(-22.9068467,-43.1728965);
+Template.map.onCreated(function() {
     
-    var heading = google.maps.geometry.spherical.computeHeading(aurora, rio),
-        distance = Math.floor(Distance.findOne({'distanceType': 'current'}).distanceCompleted),
-        endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance, heading);
-        
-    var journey = new google.maps.Polyline({
-        path: [aurora, endPoint],
+    var self = this;
+    
+  GoogleMaps.ready('map', function(map) {
+      self.autorun(function() {
+      var aurora = new google.maps.LatLng(51.5119793, -0.3104522),
+        rio = new google.maps.LatLng(-22.9068467, -43.1728965);
+
+      var heading = google.maps.geometry.spherical.computeHeading(aurora, rio),
+        distance = Distance.findOne({'distanceType': 'current'}) || {distanceCompleted: 0},
+        endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance.distanceCompleted, heading);
+
+      console.log(distance.distanceCompleted);
+
+      var journey = new google.maps.Polyline({
+        path: [],
         strokeColor: '#FF0000',
         strokeOpacity: 1.0,
         strokeWeight: 3,
         map: map.instance
+      });
+      
+      // journey.setMap(null);
+      var path = journey.getPath();
+      path.push(aurora);
+      path.push(endPoint);
+      journey.setPath(path);
+      
     });
-     
-  });    
+  });
 })
