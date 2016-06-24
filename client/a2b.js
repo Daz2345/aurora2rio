@@ -112,6 +112,8 @@ Template.map.helpers({
   }
 });
 
+var journey;
+
 Template.map.onCreated(function() {
     
     var self = this;
@@ -125,22 +127,36 @@ Template.map.onCreated(function() {
         distance = Distance.findOne({'distanceType': 'current'}) || {distanceCompleted: 0},
         endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance.distanceCompleted, heading);
 
-      console.log(distance.distanceCompleted);
+      if (journey) {
+        // var path = 
+        journey.setPath([aurora, endPoint]);        
+        // path.push(endPoint);
+      } else {
 
-      var journey = new google.maps.Polyline({
-        path: [],
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 3,
-        map: map.instance
-      });
+          journey = new google.maps.Polyline({
+            path: [],
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            map: map.instance
+          });
+    
+          journey.setMap(map.instance);
+      }
+
       
-      // journey.setMap(null);
-      var path = journey.getPath();
-      path.push(aurora);
-      path.push(endPoint);
-      journey.setPath(path);
+    //   console.log(journey);
       
+    //   // journey.setMap(null);
+
+    //   // path.push(aurora);
+      
+    //   // journey.setPath(path);
+    
+    // journey.setAt(journey.getPath().getLength() - 1, endPoint);
+    
+    //   console.log(journey);
+    
     });
   });
 })
