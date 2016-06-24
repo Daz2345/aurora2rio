@@ -14,7 +14,7 @@ Template.activityFeed.onCreated(function() {
 Template.mainLayout.onCreated(function() {
     var self = this;
       self.autorun(function() {
-        self.subscribe('distances');
+        
         self.subscribe('activities.feed');  
     });
 });
@@ -26,12 +26,6 @@ Template.activityFeed.helpers({
     distanceInKm: function(activity) {
         return Math.floor(activity.distance / 1000);
     }
-});
-
-Template.loginButtons.onRendered(function() {
-
-	$('.ui .dropdown .item').removeClass('item');   
-    Session.set('hascounted', false);	
 });
 
 Template.top.onRendered(function() {
@@ -67,6 +61,7 @@ Template.top.onRendered(function() {
 Template.countdown.onRendered(function(){
   
   Tracker.autorun(function () {
+  self.subscribe('distances');
   var distanceToGo = 9280 - (Math.floor(Distance.findOne({"distanceType": "current"}).distanceCompleted / 1000));
 	var distanceLast = 9280 - (Math.floor(Distance.findOne({"distanceType": "previous"}).distanceCompleted / 1000));
     
@@ -76,7 +71,8 @@ Template.countdown.onRendered(function(){
 		minimumDigits: 4
 	});
 	
-    var downcounter = setInterval(function() {
+    // var downcounter = 
+    setInterval(function() {
             if (countdown.getTime().time == distanceToGo) {
                 // countdown.stop();
                 // // clearInterval(downcounter);
