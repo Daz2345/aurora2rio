@@ -64,8 +64,8 @@ Template.top.onRendered(function() {
 }); 
 
 Template.countdown.onRendered(function(){
-    var distanceToGo = 9280 - (Math.floor(Distance.findOne({"distanceType": "current"}).distance / 1000));
-	var distanceLast = 9280 - (Math.floor(Distance.findOne({"distanceType": "previous"}).distance / 1000));
+    var distanceToGo = 9280 - (Math.floor(Distance.findOne({"distanceType": "current"}).distanceCompleted / 1000));
+	var distanceLast = 9280 - (Math.floor(Distance.findOne({"distanceType": "previous"}).distanceCompleted / 1000));
     
 	var countdown = $('.countdown').FlipClock(distanceLast, {
 		clockFace: 'Counter',
