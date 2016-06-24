@@ -15,6 +15,7 @@ Template.mainLayout.onCreated(function() {
     var self = this;
       self.autorun(function() {
         self.subscribe('distances');
+        self.subscribe('activities.feed');  
     });
 });
 
@@ -65,6 +66,7 @@ Template.top.onRendered(function() {
 
 Template.countdown.onRendered(function(){
   
+  Tracker.autorun(function () {
   var distanceToGo = 9280 - (Math.floor(Distance.findOne({"distanceType": "current"}).distanceCompleted / 1000));
 	var distanceLast = 9280 - (Math.floor(Distance.findOne({"distanceType": "previous"}).distanceCompleted / 1000));
     
@@ -86,6 +88,7 @@ Template.countdown.onRendered(function(){
                 countdown.decrement();
             }
         }, 1000);
+  });
 });
 
 Template.map.helpers({  
@@ -102,7 +105,7 @@ Template.map.helpers({
 
 Template.map.onCreated(function(){
   GoogleMaps.ready('map', function(map) {
-      
+      Tracker.autorun(function () {
     var aurora = new google.maps.LatLng(51.5119793,-0.3104522),
         rio = new google.maps.LatLng(-22.9068467,-43.1728965);
     
@@ -117,6 +120,6 @@ Template.map.onCreated(function(){
         strokeWeight: 3,
         map: map.instance
     });
-     
+      });
   });    
 })

@@ -52,11 +52,11 @@ Meteor.methods({
               {$group: {_id: null, distance: {$sum: "$distance"}}}
             ]);
             
-        var previousDistance = Distance.find({'distanceType': 'current'}).distanceCompleted || 0;
+        var previousDistance = Distance.find({'distanceType': 'current'}) || 0;
             
         Distance.update({'distanceType': 'previous'},{
             'distanceType': 'previous',
-            "distanceCompleted": previousDistance,
+            "distanceCompleted": previousDistance[0].distanceCompleted,
             createdAt: new Date()
         },{upsert:true});
             

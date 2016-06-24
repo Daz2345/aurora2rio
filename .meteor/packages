@@ -39,3 +39,4 @@ arillo:flow-router-helpers
 useraccounts:core
 dburles:google-maps
 meteorhacks:aggregate
+meteorhacks:fast-render
