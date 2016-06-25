@@ -115,48 +115,32 @@ Template.map.helpers({
 var journey;
 
 Template.map.onCreated(function() {
-    
-    var self = this;
-    
+
+  var self = this;
+
   GoogleMaps.ready('map', function(map) {
-      self.autorun(function() {
+    self.autorun(function() {
       var aurora = new google.maps.LatLng(51.5119793, -0.3104522),
         rio = new google.maps.LatLng(-22.9068467, -43.1728965);
 
       var heading = google.maps.geometry.spherical.computeHeading(aurora, rio),
-        distance = Distance.findOne({'distanceType': 'current'}) || {distanceCompleted: 0},
+        distance = Distance.findOne({
+          'distanceType': 'current'
+        }) || {
+          distanceCompleted: 0
+        },
         endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance.distanceCompleted, heading);
 
-      if (journey) {
-        // var path = 
-        journey.setPath([aurora, endPoint]);        
-        // path.push(endPoint);
-      } else {
+        journey = new google.maps.Polyline({
+          path: [],
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 3,
+          map: map.instance
+        });
 
-          journey = new google.maps.Polyline({
-            path: [],
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 3,
-            map: map.instance
-          });
-    
-          journey.setMap(map.instance);
-      }
+        journey.setPath([aurora, endPoint]);
 
-      
-    //   console.log(journey);
-      
-    //   // journey.setMap(null);
-
-    //   // path.push(aurora);
-      
-    //   // journey.setPath(path);
-    
-    // journey.setAt(journey.getPath().getLength() - 1, endPoint);
-    
-    //   console.log(journey);
-    
     });
   });
 })
