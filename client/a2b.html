@@ -227,7 +227,7 @@
   {{#if currentUser}}
     <h1>Activity feed</h1>
     {{# each activity in activities}}
-      <p>{{moFormat activity.start_date 'dd-mm - hh:mm'}} - {{activity.username}} completed a {{activity.type}} of {{distanceInKm activity}}km 
+      <p>{{moFormat activity.start_date 'Do MMM - HH:mm'}} - {{activity.username}} completed a {{activity.type}} of {{distanceInKm activity}}km 
         {{#if activity.location_city}}
           around {{activity.location_city}}, {{activity.location_country}}
         {{/if}}    
