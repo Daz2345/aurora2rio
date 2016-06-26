@@ -40,3 +40,5 @@ useraccounts:core
 dburles:google-maps
 meteorhacks:aggregate
 meteorhacks:fast-render
+momentjs:moment
+lbee:moment-helpers

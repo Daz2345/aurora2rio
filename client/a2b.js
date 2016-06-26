@@ -104,7 +104,7 @@ Template.map.helpers({
   mapOptions: function() {
     if (GoogleMaps.loaded()) {
       return {
-        center: new google.maps.LatLng(19.366, -46.475),
+        center: new google.maps.LatLng(9.366, -21.475),
         zoom: 3,
         scrollwheel: false
       };
@@ -131,7 +131,7 @@ Template.map.onCreated(function() {
         },
         endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance.distanceCompleted, heading);
 
-        journey = new google.maps.Polyline({
+        var journey = new google.maps.Polyline({
           path: [],
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,

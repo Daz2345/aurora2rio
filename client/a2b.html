@@ -223,25 +223,18 @@
 
 </template>
 
-<template name="logo">
-  <img width=400 height=300 src="/img/uk2Brazil.jpg"/>
-</template>
-
-<template name="countDown">
-
-</template>
-
 <template name="activityFeed">
   {{#if currentUser}}
     <h1>Activity feed</h1>
     {{# each activity in activities}}
-      <p>{{activity.start_date}} - {{activity.username}} has completed a {{activity.type}} of {{distanceInKm activity}}km 
+      <p>{{moFormat activity.start_date 'dd-mm - hh:mm'}} - {{activity.username}} completed a {{activity.type}} of {{distanceInKm activity}}km 
         {{#if activity.location_city}}
           around {{activity.location_city}}, {{activity.location_country}}
         {{/if}}    
       </p>
     {{/each }}
   {{/if}}
+  <img src="img/Website-Under-Construction.jpg" />
 </template>
 
 <template name="top">
@@ -354,10 +347,10 @@
     <div class="ui inverted vertical footer segment">
       <div class="ui container">
         <div class="ui stackable inverted divided equal height stackable grid">
-          <div class="four wide column">
+          <div class="six wide column">
             <img src="https://www.dunnhumby.com/sites/all/themes/dunnhumby/images/logo.png" />
           </div>
-          <div class="twelve wide column">
+          <div class="ten wide column">
             <h4 class="ui inverted header">Aurora to Rio</h4>
             <p>Join us on the journey to Rio and raise money for an amazing charity.</p>
           </div>
@@ -375,3 +368,12 @@
     {{> googleMap name="map" options=mapOptions}}
   </div>
 </template>  
+
+<template name="profile">
+    <img src="img/Website-Under-Construction.jpg" />
+</template>
+
+<template name="leaderboard">
+    <img src="img/Website-Under-Construction.jpg" />
+</template>
+
