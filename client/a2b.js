@@ -51,6 +51,10 @@ Template.top.onRendered(function() {
       $('.ui.sidebar')
         .sidebar('attach events', '.toc.item');
 
+}); 
+
+Template.homeContent.onRendered(function() {
+  
     var currentDate = new Date();
 	var futureDate  = new Date(currentDate.getFullYear(), 7, 5, 16, 0, 0);
 	// Calculate the difference in seconds between the future and current date
