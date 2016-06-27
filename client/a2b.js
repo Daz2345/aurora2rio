@@ -27,7 +27,8 @@ Template.activityFeed.helpers({
     },
     fields: function(){
       return [
-          { key: 'start_date', label: 'When', fn: function(value, object, key) { return moment(value).format('Do MMMM - HH:mm'); }, sortByValue: true },
+          { key: 'start_date', label: 'When', fn: function(value, object, key) { return moment(value).format('Do MMMM - HH:mm'); }, sortByValue: true, sortDirection: 'descending' },
+          { key: 'team', label: 'Team' },
           { key: 'username', label: 'Name' },
           { key: 'type', label: 'Type' },
           { key: 'distance', label: 'Distance (metres)' },
