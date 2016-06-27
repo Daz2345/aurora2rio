@@ -24,6 +24,15 @@ Template.activityFeed.helpers({
     },
     distanceInKm: function(activity) {
         return Math.floor(activity.distance / 1000);
+    },
+    fields: function(){
+      return [
+    { key: 'start_date', label: 'When' },
+    { key: 'username', label: 'Name' },
+    { key: 'type', label: 'Type' },
+    { key: 'distance', label: 'Distance' },
+    { key: 'location', label: 'Location' }    
+        ];
     }
 });
 

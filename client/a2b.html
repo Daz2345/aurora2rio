@@ -208,10 +208,7 @@
       {{/if}}
     </div>
   </div>
-  
 
-
-    
     {{>Template.dynamic template=topSection}}
   
     <main>
@@ -236,10 +233,9 @@
     <!--    {{/if}}    -->
     <!--  </p>-->
     <!--{{/each }}-->
-    {{> reactiveTable collection=Activities}}
+    {{> reactiveTable collection=activities fields=fields}}
     </div>
   {{/if}}
-  <img src="img/Website-Under-Construction.jpg" />
 </template>
 
 <template name="top">
