@@ -47,6 +47,21 @@ Meteor.methods({
         });
     },
     'updateDistanceCompleted' () {
+        
+        if (Distance.find({}).count() === 0) {
+            Distance.insert({'distanceType': 'previous'},{
+                'distanceType': 'previous',
+                "distanceCompleted": 0,
+                createdAt: new Date()
+            });
+                
+            Distance.insert({'distanceType': 'current'},{
+                'distanceType': 'current',
+                "distanceCompleted": 0,
+                createdAt: new Date()
+            });            
+        }
+        
         var completedDistanceTotal = Activities.aggregate([
               {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}}
             ]);
@@ -56,7 +71,7 @@ Meteor.methods({
         if (completedDistanceTotal.length === 0){
             completedDistanceTotal = previousDistance;
         }    
-
+        
         Distance.update({'distanceType': 'previous'},{
             'distanceType': 'previous',
             "distanceCompleted": previousDistance[0].distanceCompleted,
