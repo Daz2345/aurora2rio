@@ -94,11 +94,15 @@ Template.homeContent.onRendered(function() {
 		clockFace: 'DailyCounter',
 		countdown: true
 	});
-	
-	$('.dropdown')
-    .dropdown();
-	
+
 }); 
+
+Template.createScenario.events({
+    'click .submitActivity': function(e) {
+        var activity = {}
+        
+    }
+});
 
 Template.countdown.onCreated(function() {
 
