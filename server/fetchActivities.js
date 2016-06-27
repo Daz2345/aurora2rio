@@ -66,11 +66,8 @@ Meteor.methods({
               {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}}
             ]);
             
-        var previousDistance = Distance.find({'distanceType': 'current'}).fetch() || [{distanceCompleted : 0}];
+        var previousDistance = Distance.find({'distanceType': 'current'}).fetch();
 
-        if (completedDistanceTotal.length === 0){
-            completedDistanceTotal = previousDistance;
-        }    
         
         Distance.update({'distanceType': 'previous'},{
             'distanceType': 'previous',
