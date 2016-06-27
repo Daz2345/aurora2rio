@@ -86,7 +86,7 @@ SyncedCron.add({
   name: 'Add up distances',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('every minute');
+    return parser.text('every 1 minutes');
   },
   job: function() {
     return Meteor.call('updateDistanceCompleted');
