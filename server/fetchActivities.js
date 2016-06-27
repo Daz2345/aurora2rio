@@ -75,7 +75,9 @@ Meteor.methods({
             completedDistanceTotal = previousDistance;
         }    
         
-        if (previousDistance[0].distanceCompleted !== completedDistanceTotal[0].distanceCompleted) {
+        
+        // put this in for live
+        // if (previousDistance[0].distanceCompleted !== completedDistanceTotal[0].distanceCompleted) {
             Distance.update({'distanceType': 'previous'},{
                 'distanceType': 'previous',
                 "distanceCompleted": previousDistance[0].distanceCompleted,
@@ -112,7 +114,7 @@ Meteor.methods({
         }]);   
         
         console.log(completedDistanceByTeam);
-        }
+        // }
     }
 });
 
