@@ -49,13 +49,13 @@ Meteor.methods({
     'updateDistanceCompleted' () {
         
         if (Distance.find({}).count() === 0) {
-            Distance.insert({'distanceType': 'previous'},{
+            Distance.insert({
                 'distanceType': 'previous',
                 "distanceCompleted": 0,
                 createdAt: new Date()
             });
                 
-            Distance.insert({'distanceType': 'current'},{
+            Distance.insert({
                 'distanceType': 'current',
                 "distanceCompleted": 0,
                 createdAt: new Date()
@@ -68,6 +68,9 @@ Meteor.methods({
             
         var previousDistance = Distance.find({'distanceType': 'current'}).fetch();
 
+        if (completedDistanceTotal.length() === 0){
+            completedDistanceTotal = previousDistance;
+        }    
         
         Distance.update({'distanceType': 'previous'},{
             'distanceType': 'previous',
