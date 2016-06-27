@@ -27,7 +27,7 @@ Template.activityFeed.helpers({
     },
     fields: function(){
       return [
-          { key: 'start_date', label: 'When', tmpl: Template.dateTemplate },
+          { key: 'start_date', label: 'When', fn: function(value, object, key) { return moment(value).format('Do MMMM - HH:mm'); }, sortByValue: true },
           { key: 'username', label: 'Name' },
           { key: 'type', label: 'Type' },
           { key: 'distance', label: 'Distance (metres)' },
