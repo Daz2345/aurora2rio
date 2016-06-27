@@ -238,6 +238,10 @@
   {{/if}}
 </template>
 
+<template name="dateTemplate">
+  {{moFormat activity.start_date 'Do MMMM - HH:mm'}}
+</template>
+
 <template name="top">
 
     <div class="ui {{isActiveRoute 'home'}} inverted vertical masthead center aligned segment">

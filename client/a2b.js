@@ -27,11 +27,11 @@ Template.activityFeed.helpers({
     },
     fields: function(){
       return [
-    { key: 'start_date', label: 'When' },
-    { key: 'username', label: 'Name' },
-    { key: 'type', label: 'Type' },
-    { key: 'distance', label: 'Distance' },
-    { key: 'location', label: 'Location' }    
+          { key: 'start_date', label: 'When', tmpl: Template.dateTemplate },
+          { key: 'username', label: 'Name' },
+          { key: 'type', label: 'Type' },
+          { key: 'distance', label: 'Distance (metres)' },
+          { key: 'location_country', label: 'Country' }
         ];
     }
 });
