@@ -97,10 +97,16 @@ Template.homeContent.onRendered(function() {
 
 }); 
 
-Template.createScenario.events({
+Template.homeContent.events({
     'click .submitActivity': function(e) {
-        var activity = {}
+        var activity = {};
+          activity.distance = "";
+          activity.type = "";
+          activity.start_date = new Date();
+          activity.location_country = "";
+          activity.team = Meteor.user().team || Meteor.user().fullName;          
         
+          Meteor.call('Activities.insert', activity);
     }
 });
 

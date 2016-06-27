@@ -19,7 +19,7 @@ function insertActivity(element, index, array) {
 
 Meteor.methods({
     'Activities.insert' (activity) {
-        console.log('insert activity');
+        activity.userId = this.userId;
         Activities.insert(activity);
     },
     'fetchActivities' () {
@@ -93,7 +93,7 @@ Meteor.methods({
         var completedDistanceByTeam = Activities.aggregate([{
             $group: {
                 team: {
-                    team: "$team"
+                    $team: "$team"
                 },
                 athletes: {
                     $addToSet: '$userId'
