@@ -104,11 +104,13 @@ Template.countdown.onCreated(function() {
   });
 });
 
+
+
 Template.map.helpers({  
   mapOptions: function() {
     if (GoogleMaps.loaded()) {
       return {
-        center: new google.maps.LatLng(9.366, -21.475),
+        center: new google.maps.LatLng(15.1204303,-23.7452564),
         zoom: 3,
         scrollwheel: false
       };
@@ -137,13 +139,33 @@ Template.map.onCreated(function() {
 
         var journey = new google.maps.Polyline({
           path: [],
-          strokeColor: '#FF0000',
+          strokeColor: '#A31A7E',
           strokeOpacity: 1.0,
           strokeWeight: 3,
           map: map.instance
         });
 
         journey.setPath([aurora, endPoint]);
+        var dh = "The home of dunnhumby’s global headquarters, our London office opened in 1998, nine years after the company was founded in the West London flat of Edwina Dunn and Clive Humby. Located in Ealing, about 20 km west of central London, the office is actually comprised of two buildings, Aurora House and Ealing Cross (and now holds considerably more people than our founders' spare bedroom). ",
+            br = "The 2016 Summer Olympics will take place in Rio de Janeiro, Brazil, from August 5 to August 21, 2016";
+        
+        addMarker(aurora, dh, map.instance);
+        addMarker(rio, br, map.instance);
+        
+        function addMarker(location, contentString, map) {
+          // Add the marker at the clicked location, and add the next-available label
+          // from the array of alphabetical characters.
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map
+          });
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        }
 
     });
   });

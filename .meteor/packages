@@ -42,3 +42,4 @@ meteorhacks:aggregate
 meteorhacks:fast-render
 momentjs:moment
 lbee:moment-helpers
+fcallem:reactive-table-semantic
