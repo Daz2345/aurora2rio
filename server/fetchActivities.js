@@ -68,7 +68,7 @@ Meteor.methods({
             
         var previousDistance = Distance.find({'distanceType': 'current'}).fetch();
 
-        if (completedDistanceTotal.length() === 0){
+        if (completedDistanceTotal.length === 0){
             completedDistanceTotal = previousDistance;
         }    
         
