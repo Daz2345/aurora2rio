@@ -3,17 +3,17 @@
   <link rel="icon" type="image/png" href="img/favicon.ico">
   <style type="text/css">
     .map {
-        width: 100%;
-        max-width: 100%;
-        height: 60vh;
+      width: 100%;
+      max-width: 100%;
+      height: 60vh;
     }
-  
+    
     .ui.secondary.pointing.menu.noborder {
       border-width: 0px !important;
     }
     
     .logoIcons {
-        max-height: 120px;
+      max-height: 120px;
     }
     
     .goshIcons {
@@ -70,7 +70,7 @@
       min-height: 35vw;
       padding: 1em 0em;
     }
-
+    
     .masthead.segment {
       min-height: 15vw;
       padding: 1em 0em;
@@ -177,8 +177,7 @@
         min-height: 100vh;
         flex-direction: column;
       }
-      
-      .pusher > .footer {
+      .pusher> .footer {
         flex: 1;
       }
     }
@@ -326,9 +325,40 @@
         <p>Fantastic opportunity to raise money for <strong>Great Ormond Street Hospital</strong> our helping hands charity of the year</p>
         <p>Plus get ready for this summers olympics in Rio, Brazil</p>
         
-        <h3 class="ui header">After signing in, you can record your activities automatically via Strava or input them manually</h3>
         {{#if currentUser}}
-          <div class="ui button">Manual Input</div>
+          <h3 class="ui header">Submit Activity Manually</h3>
+          <form id="activityForm" class="ui form activity submit" autocomplete="off">
+              <div class="ui three column grid">
+                  <div class="column">
+                      <div class="field">
+                          <label>Distance (in metres)</label>
+                          <input type="text" name="distance" required=true>
+                      </div>
+                  </div>
+                  <div class="column">
+                      <div class="field">
+                          <label>Activity Type</label>
+                          <select name="type" placeholder="Activity Type" class="ui fluid search floating dropdown similar">
+                              <option class="item" data-value="Swim">Swim</option>
+                              <option class="item" data-value="Bike">Bike</option>
+                              <option class="item" data-value="Run">Run</option>
+                          </select>                          
+                      </div>
+                  </div>
+                  <div class="column">
+                      <div class="field">
+                          <label>Country</label>
+                          <input name="country" type="text">
+                      </div>
+                  </div>                  
+              </div>
+              <div class="actions">
+                  <!--<div class="ui red deny button">Cancel</div>-->
+                  <div class="ui positive right labeled icon button"><i class="checkmark icon"></i>Submit Activity</div>
+              </div>              
+          </form>
+        {{ else}}
+          <h3 class="ui header">After signing in, you can record your activities automatically via Strava or input them manually</h3>
         {{/if}}
       </div>
     </div>
@@ -380,7 +410,7 @@
   <div class="map">
     {{> googleMap name="map" options=mapOptions}}
   </div>
-</template>  
+</template>
 
 <template name="profile">
     <img src="img/Website-Under-Construction.jpg" />

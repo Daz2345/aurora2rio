@@ -92,9 +92,8 @@ Meteor.methods({
         
         var completedDistanceByTeam = Activities.aggregate([{
             $group: {
-                team: {
-                    $team: "$team"
-                },
+                team: "$team"
+                ,
                 athletes: {
                     $addToSet: '$userId'
                 },

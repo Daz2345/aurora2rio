@@ -85,7 +85,7 @@ Template.top.onRendered(function() {
 
 Template.homeContent.onRendered(function() {
   
-    var currentDate = new Date();
+  var currentDate = new Date();
 	var futureDate  = new Date(currentDate.getFullYear(), 7, 5, 16, 0, 0);
 	// Calculate the difference in seconds between the future and current date
 	var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
@@ -94,6 +94,9 @@ Template.homeContent.onRendered(function() {
 		clockFace: 'DailyCounter',
 		countdown: true
 	});
+	
+	$('.dropdown')
+    .dropdown();
 	
 }); 
 
