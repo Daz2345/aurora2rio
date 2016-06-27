@@ -196,11 +196,12 @@
     <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a> 
     {{#if currentUser}}
       <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
+      <a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>      
       <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
       <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
       <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a> 
     {{/if}}
-    <a class="item">Sign in with Strava</a>
+    {{ > loginButtons }}
   </div>
       <!-- Page Contents -->
   <div class="pusher">
@@ -211,6 +212,7 @@
       <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
       {{#if currentUser}}
         <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
+        <a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>        
         <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
         <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
       <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>         
@@ -259,6 +261,7 @@
           <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
           {{#if currentUser}}
             <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
+            <a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>
             <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
             <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
       <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>             
@@ -387,3 +390,12 @@
     <img src="img/Website-Under-Construction.jpg" />
 </template>
 
+<template name="teams">
+  {{#if currentUser}}
+    <div class="ui container">
+    <h1>Team Board</h1>
+    {{> reactiveTable collection=teams fields=fields}}
+    </div>
+  {{/if}}  
+    <img src="img/Website-Under-Construction.jpg" />
+</template>

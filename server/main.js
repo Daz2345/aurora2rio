@@ -10,6 +10,15 @@ var publicActivityFields = {
 };
 
 Meteor.publish(
+    'teams', function() {
+        if (this.userId) {
+            return Teams.find({});
+        } else {
+            return [];
+        }
+    });
+
+Meteor.publish(
     'distances', function() {
         if (this.userId) {
             return Distance.find({});

@@ -4,6 +4,13 @@ if (Meteor.isClient) {
   });
 }
 
+Template.teams.onCreated(function() {
+    var self = this;
+      self.autorun(function() {
+        self.subscribe('teams');  
+      });
+});
+
 Template.activityFeed.onCreated(function() {
     var self = this;
       self.autorun(function() {
@@ -16,6 +23,19 @@ Template.mainLayout.onCreated(function() {
       self.autorun(function() {
         self.subscribe('distances');
     });
+});
+
+Template.teams.helpers({
+  teams: function() {
+    return Teams.find({}).fetch();
+  },
+  fields: function() {
+    return [
+          {key: 'team', label: 'Team Name'},
+          {key: 'athletes', label: 'Team Size'}, 
+          {key: 'distanceCompleted', label: 'Distance Completed' , sortByValue: true, sortDirection: 'descending' }
+     ];
+  }
 });
 
 Template.activityFeed.helpers({
@@ -99,14 +119,8 @@ Template.countdown.onCreated(function() {
 
       var downcounter = setInterval(function() {
         if (countdown.getTime().time == distanceToGo) {
-          // countdown.stop();
-          // // clearInterval(downcounter);
-          // Session.set('hascounted', true);                
         }
         else {
-          // if (!countdown.running()) {
-          //   countdown.start();
-          // }
           countdown.decrement();
         }
       }, 500);

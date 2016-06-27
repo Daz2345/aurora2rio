@@ -1,5 +1,6 @@
 var username = '';
 var userIdVal = '';
+var userTeam = '';
 
 function insertActivity(element, index, array) {
 
@@ -10,7 +11,8 @@ function insertActivity(element, index, array) {
     }
     else {
         element.username = username;
-        element.userId = userIdVal
+        element.userId = userIdVal;
+        element.team = userTeam;
         Meteor.call('Activities.insert', element);
     }
 }
@@ -25,8 +27,9 @@ Meteor.methods({
         Meteor.users.find().forEach(function(user) {
             if (!!user.services.strava.accessToken) {
                 username = user.profile.fullName;
-                userIdVal = user.Id;
-
+                userIdVal = user._id;
+                userTeam = user.team || username;
+                
                 var options = {
                     "headers": {
                         "authorization": "Bearer " + user.services.strava.accessToken
@@ -72,17 +75,44 @@ Meteor.methods({
             completedDistanceTotal = previousDistance;
         }    
         
-        Distance.update({'distanceType': 'previous'},{
-            'distanceType': 'previous',
-            "distanceCompleted": previousDistance[0].distanceCompleted,
-            createdAt: new Date()
-        },{upsert:true});
-            
-        Distance.update({'distanceType': 'current'},{
-            'distanceType': 'current',
-            "distanceCompleted": completedDistanceTotal[0].distanceCompleted,
-            createdAt: new Date()
-        },{upsert:true});
+        if (previousDistance[0].distanceCompleted !== completedDistanceTotal[0].distanceCompleted) {
+            Distance.update({'distanceType': 'previous'},{
+                'distanceType': 'previous',
+                "distanceCompleted": previousDistance[0].distanceCompleted,
+                createdAt: new Date()
+            },{upsert:true});
+            Distance.update({'distanceType': 'current'},{
+                'distanceType': 'current',
+                "distanceCompleted": completedDistanceTotal[0].distanceCompleted,
+                createdAt: new Date()
+            },{upsert:true});
+
+        
+        var completedDistanceByTeam = Activities.aggregate([{
+            $group: {
+                team: {
+                    $team: "$team"
+                },
+                athletes: {
+                    $addToSet: '$userId'
+                },
+                distanceCompleted: {
+                    $sum: "$distance"
+                }
+            }
+        }, {
+            $unwind: "$athletes"
+        }, {
+            $group: {
+                _id: "$_id",
+                athletesCount: {
+                    $sum: 1
+                }
+            }
+        }]);   
+        
+        console.log(completedDistanceByTeam);
+        }
     }
 });
 
@@ -101,7 +131,7 @@ SyncedCron.add({
   name: 'Add up distances',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('every 1 minutes');
+    return parser.text('every 5 minutes');
   },
   job: function() {
     return Meteor.call('updateDistanceCompleted');
