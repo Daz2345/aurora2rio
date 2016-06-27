@@ -37,7 +37,6 @@ Meteor.methods({
                     var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1466380800", options);
                     // console.log(result);
                     result.data.forEach(insertActivity);
-                    Meteor.call('updateDistanceCompleted');
                     return true;
                 }
                 catch (e) {
@@ -80,7 +79,17 @@ SyncedCron.add({
   },
   job: function() {
     return Meteor.call('fetchActivities');
-    // return numbersCrunched;
+  }
+});
+
+SyncedCron.add({
+  name: 'Add up distances',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.text('every minute');
+  },
+  job: function() {
+    return Meteor.call('updateDistanceCompleted');
   }
 });
 

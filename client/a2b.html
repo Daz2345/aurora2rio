@@ -172,12 +172,21 @@
       .clock {
         display: hidden;
       }
+      .pusher {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+      
+      .pusher > .footer {
+        flex: 1;
+      }
     }
   </style>
 
 </head>
 
-<body class="pushable">
+<body class="pushable Site">
 
 </body>
 
@@ -211,7 +220,7 @@
 
     {{>Template.dynamic template=topSection}}
   
-    <main>
+    <main class="Site-content">
       {{>Template.dynamic template=content}}
     </main>
     
