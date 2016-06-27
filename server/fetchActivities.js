@@ -71,3 +71,17 @@ Meteor.methods({
         },{upsert:true});
     }
 });
+
+SyncedCron.add({
+  name: 'Pull in numbers from Strava',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.text('every 15 minutes');
+  },
+  job: function() {
+    return Meteor.call('fetchActivities');
+    // return numbersCrunched;
+  }
+});
+
+SyncedCron.start();
