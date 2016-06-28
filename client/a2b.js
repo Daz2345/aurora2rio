@@ -26,9 +26,9 @@ Template.leaderboardIndividual.helpers({
               label: 'Rank',
               fn: function (value, object, key) { return value.index; }
           },
-          {key: 'name', label: 'Name' , sortable: false},
-          {key: 'activities', label: 'Number of activities' , sortable: false}, 
-          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false }
+          {fieldId: 'name',key: 'name', label: 'Name' , sortable: false},
+          {fieldId: 'activities',key: 'activities', label: 'Number of activities' , sortable: false}, 
+          {fieldId: 'distanceCompleted',key: 'distanceCompleted', label: 'Distance Completed' , sortable: false }
      ];
   }
 });
