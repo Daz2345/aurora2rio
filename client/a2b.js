@@ -3,17 +3,15 @@ if (Meteor.isClient) {
     GoogleMaps.load({key: 'AIzaSyCwvQIJCGO7gvCF1hqQXaptl-8HsdU40Ls', libraries: 'geometry'});
   });
   
-    var LeaderboardTeams = Meteor.subscribe('leaderboard.teams');
-    var LeaderboardIndividuals = Meteor.subscribe('leaderboard.individuals');
-    var activities = Meteor.subscribe('activities.feed');
-    var distances = Meteor.subscribe('distances');
+    var LeaderboardTeamsSub = Meteor.subscribe('leaderboard.teams');
+    var LeaderboardIndividualsSub = Meteor.subscribe('leaderboard.individuals');
+    var activitiesSub = Meteor.subscribe('activities.feed');
+    var distancesSub = Meteor.subscribe('distances');
+    var teamsSub = Meteor.subscribe('teams');  
 }
 
-Template.teams.onCreated(function() {
-    var self = this;
-      self.autorun(function() {
-        self.subscribe('teams');  
-      });
+Template.leaderboard.onRendered(function() {
+    $('.tabular.menu .item').tab();
 });
 
 Template.leaderboardIndividual.helpers({

@@ -26,6 +26,7 @@ Meteor.publish('leaderboard.individuals', function () {
     $project: {
         // an id can be added here, but when omitted, 
         // it is created automatically on the fly for you
+        _id: "$_id",
         activities: '$activities',
         distanceCompleted: '$distanceCompleted'
     } // Send the aggregation to the 'clientReport' collection available for client use
@@ -48,6 +49,7 @@ Meteor.publish('leaderboard.teams', function () {
     $project: {
         // an id can be added here, but when omitted, 
         // it is created automatically on the fly for you
+        _id: "$_id",        
         activities: '$activities',
         distanceCompleted: '$distanceCompleted'
     } // Send the aggregation to the 'clientReport' collection available for client use
