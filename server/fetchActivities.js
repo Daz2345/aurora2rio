@@ -19,13 +19,13 @@ function insertActivity(element, index, array) {
 
 Meteor.methods({
     'Activities.insert' (activity) {
-        activity.userId = this.userId;
+        console.log('insert activity');
         Activities.insert(activity);
     },
     'fetchActivities' () {
         console.log('fetching activities');
         Meteor.users.find().forEach(function(user) {
-            if (!!user.services.strava.accessToken) {
+            if (!!user.services.strava) {
                 username = user.profile.fullName;
                 userIdVal = user._id;
                 userTeam = user.team || username;
@@ -92,26 +92,29 @@ Meteor.methods({
         
         var completedDistanceByTeam = Activities.aggregate([{
             $group: {
-                team: {
-                    $team: "$team"
-                },
-                athletes: {
-                    $addToSet: '$userId'
-                },
+                _id : "$team"
+                ,
+                // athletes: {
+                //     $addToSet: '$userId'
+                // },
+                activities: {
+                    $sum: 1
+                },                
                 distanceCompleted: {
                     $sum: "$distance"
                 }
             }
-        }, {
-            $unwind: "$athletes"
-        }, {
-            $group: {
-                _id: "$_id",
-                athletesCount: {
-                    $sum: 1
-                }
-            }
-        }]);   
+        }]);
+        // , {
+        //     $unwind: "$athletes"
+        // }, {
+        //     $group: {
+        //         _id: "$_id",
+        //         athletesCount: {
+        //             $sum: 1
+        //         }
+        //     }
+        // }]);   
         
         console.log(completedDistanceByTeam);
         // }

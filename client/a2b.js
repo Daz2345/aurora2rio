@@ -99,14 +99,8 @@ Template.homeContent.onRendered(function() {
 
 Template.homeContent.events({
     'click .submitActivity': function(e) {
-        var activity = {};
-          activity.distance = "";
-          activity.type = "";
-          activity.start_date = new Date();
-          activity.location_country = "";
-          activity.team = Meteor.user().team || Meteor.user().fullName;          
+        var activity = {}
         
-          Meteor.call('Activities.insert', activity);
     }
 });
 
@@ -123,6 +117,10 @@ Template.countdown.onCreated(function() {
         previousDist = Distance.findOne({"distanceType": "previous"}) || {distanceCompleted: 0},
         distanceToGo = 9280 - (Math.floor(currentDist.distanceCompleted / 1000)),
         distanceLast = 9280 - (Math.floor(previousDist.distanceCompleted / 1000));
+
+      if (distanceLast != 9280) {
+          distanceLast = distanceLast + 10;
+      }
 
       var countdown = $('.countdown').FlipClock(distanceLast, {
         clockFace: 'Counter',
