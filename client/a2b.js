@@ -1,6 +1,8 @@
 if (Meteor.isClient) {
   Meteor.startup(function() {
     GoogleMaps.load({key: 'AIzaSyCwvQIJCGO7gvCF1hqQXaptl-8HsdU40Ls', libraries: 'geometry'});
+    Meteor.subscribe('leaderboard.team');
+    Meteor.subscribe('leaderboard.individual');
   });
 }
 
@@ -11,11 +13,16 @@ Template.teams.onCreated(function() {
       });
 });
 
-Template.leaderboardTeam.onCreated(function() {
-    var self = this;
-      self.autorun(function() {
-        self.subscribe('leaderboard.team');  
-      });
+Template.leaderboardIndividual.helpers({
+  individuals: function() {
+    return LeaderboardIndividual.find();
+  }
+});
+
+Template.leaderboardTeam.helpers({
+  teams: function() {
+    return LeaderboardTeams.find();
+  }
 });
 
 Template.activityFeed.onCreated(function() {

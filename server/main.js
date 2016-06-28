@@ -9,6 +9,25 @@ var publicActivityFields = {
     start_date:1
 };
 
+Meteor.publish('leaderboard.individual', function () {
+  ReactiveAggregate(this, Activities, [{
+            $group: {
+                _id: "$username",
+                activities: {
+                    $sum: 1
+                }, 
+                distanceCompleted: {
+                    $sum: "$distance"
+                }
+            }},
+            {
+                sort: {distanceCompleted: -1}
+            },
+            { clientCollection: "LeaderboardIndividual" }
+  ]
+  );
+});
+
 Meteor.publish('leaderboard.team', function () {
   ReactiveAggregate(this, Activities, [{
             $group: {
