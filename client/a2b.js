@@ -17,12 +17,26 @@ Template.leaderboard.onRendered(function() {
 Template.leaderboardIndividual.helpers({
   individuals: function() {
     return LeaderboardIndividuals.find().fetch();
+  },
+    fields: function() {
+    return [
+          {key: 'name', label: 'Name'},
+          {key: 'activities', label: 'Number of activities'}, 
+          {key: 'distanceCompleted', label: 'Distance Completed' , sortByValue: true, sortDirection: 'descending' }
+     ];
   }
 });
 
 Template.leaderboardTeam.helpers({
   teams: function() {
     return LeaderboardTeams.find().fetch();
+  },
+    fields: function() {
+    return [
+          {key: 'name', label: 'Team Name'},
+          {key: 'activities', label: 'Number of activities'}, 
+          {key: 'distanceCompleted', label: 'Distance Completed' , sortByValue: true, sortDirection: 'descending' }
+     ];
   }
 });
 
