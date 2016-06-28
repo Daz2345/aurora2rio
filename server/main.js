@@ -9,10 +9,36 @@ var publicActivityFields = {
     start_date:1
 };
 
-Meteor.publish(
-    'leaderboard.team', function() {
-        return Teams.find({}, {sort:{distance: -1}})
-    });
+Meteor.publish('leaderboard.team', function () {
+  ReactiveAggregate(this, Activities, [{
+    $group: {
+                _id : "$team"
+                ,
+                athletes: {
+                    $addToSet: '$userId'
+                }
+            }}, 
+            {
+            $unwind: "$athletes"
+            }, {
+            $group: {
+                _id: "$_id",
+                athletesCount: {
+                    $sum: 1
+                },
+                activities: {
+                    $sum: 1
+                }, 
+                distanceCompleted: {
+                    $sum: "$distance"
+                }
+            }},
+            {
+                sort: {distanceCompleted: -1}
+            }
+  ]
+  );
+});
 
 Meteor.publish(
     'distances', function() {
