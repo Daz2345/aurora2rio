@@ -9,7 +9,7 @@ var publicActivityFields = {
     start_date:1
 };
 
-Meteor.publish('leaderboard.individual', function () {
+Meteor.publish('leaderboard.individuals', function () {
   ReactiveAggregate(this, Activities, [{
             $group: {
                 _id: "$username",
@@ -23,7 +23,7 @@ Meteor.publish('leaderboard.individual', function () {
             {
                 sort: {distanceCompleted: -1}
             },
-            { clientCollection: "LeaderboardIndividual" }
+            { clientCollection: "LeaderboardIndividuals" }
   ]
   );
 });
