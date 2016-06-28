@@ -94,27 +94,26 @@ Meteor.methods({
             $group: {
                 _id : "$team"
                 ,
-                // athletes: {
-                //     $addToSet: '$userId'
-                // },
+                athletes: {
+                    $addToSet: '$userId'
+                },
                 activities: {
                     $sum: 1
                 },                
                 distanceCompleted: {
                     $sum: "$distance"
                 }
+            }}, 
+            {
+            $unwind: "$athletes"
+        }, {
+            $group: {
+                _id: "$_id",
+                athletesCount: {
+                    $sum: 1
+                }
             }
-        }]);
-        // , {
-        //     $unwind: "$athletes"
-        // }, {
-        //     $group: {
-        //         _id: "$_id",
-        //         athletesCount: {
-        //             $sum: 1
-        //         }
-        //     }
-        // }]);   
+        }]);   
         
         console.log(completedDistanceByTeam);
         // }
