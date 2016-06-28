@@ -1,9 +1,12 @@
 if (Meteor.isClient) {
   Meteor.startup(function() {
     GoogleMaps.load({key: 'AIzaSyCwvQIJCGO7gvCF1hqQXaptl-8HsdU40Ls', libraries: 'geometry'});
-    Meteor.subscribe('leaderboard.teams');
-    Meteor.subscribe('leaderboard.individuals');
   });
+  
+    var LeaderboardTeams = Meteor.subscribe('leaderboard.teams');
+    var LeaderboardIndividuals = Meteor.subscribe('leaderboard.individuals');
+    var activities = Meteor.subscribe('activities.feed');
+    var distances = Meteor.subscribe('distances');
 }
 
 Template.teams.onCreated(function() {
@@ -27,19 +30,19 @@ Template.leaderboardTeam.helpers({
   }
 });
 
-Template.activityFeed.onCreated(function() {
-    var self = this;
-      self.autorun(function() {
-        self.subscribe('activities.feed');  
-      });
-});
+// Template.activityFeed.onCreated(function() {
+//     var self = this;
+//       self.autorun(function() {
+//         self.subscribe('activities.feed');  
+//       });
+// });
 
-Template.mainLayout.onCreated(function() {
-    var self = this;
-      self.autorun(function() {
-        self.subscribe('distances');
-    });
-});
+// Template.mainLayout.onCreated(function() {
+//     var self = this;
+//       self.autorun(function() {
+//         self.subscribe('distances');
+//     });
+// });
 
 Template.teams.helpers({
   teams: function() {

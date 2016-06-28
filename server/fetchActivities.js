@@ -77,7 +77,7 @@ Meteor.methods({
         
         
         // put this in for live
-        // if (previousDistance[0].distanceCompleted !== completedDistanceTotal[0].distanceCompleted) {
+        if (previousDistance[0].distanceCompleted !== completedDistanceTotal[0].distanceCompleted) {
             Distance.update({'distanceType': 'previous'},{
                 'distanceType': 'previous',
                 "distanceCompleted": previousDistance[0].distanceCompleted,
@@ -89,21 +89,7 @@ Meteor.methods({
                 createdAt: new Date()
             },{upsert:true});
 
-        
-        var completedDistanceByTeam = Activities.aggregate([{
-            $group: {
-                _id : "$team",
-                activities: {
-                    $sum: 1
-                },                
-                distanceCompleted: {
-                    $sum: "$distance"
-                }
-            }
-        }]);   
-        
-        console.log(completedDistanceByTeam);
-        // }
+        }
     }
 });
 

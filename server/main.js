@@ -6,7 +6,8 @@ var publicActivityFields = {
     location_country:1,
     type:1,
     username:1,
-    start_date:1
+    start_date:1,
+    team: 1
 };
 
 Meteor.publish('leaderboard.individuals', function () {
