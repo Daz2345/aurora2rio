@@ -418,6 +418,7 @@
 </template>
 
 <template name="leaderboard">
+      <div class="ui container">
     <div class="ui tabular menu">
       <div class="item active" data-tab="Individual">Individual</div>
       <div class="item" data-tab="Team">Team</div>
@@ -428,14 +429,15 @@
     <div class="ui tab" data-tab="Team">
       {{ > leaderboardTeam}}
     </div>
+    </div>
 </template>
 
 <template name="leaderboardTeam">
-  {{> reactiveTable collection=teams}}
+  {{> reactiveTable collection=teams fields=fields}}
 </template>
 
 <template name="leaderboardIndividual">
-  {{> reactiveTable collection=individuals}}  
+  {{> reactiveTable collection=individuals fields=fields}}  
 </template>
 
 <template name="teams">
