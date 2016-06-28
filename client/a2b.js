@@ -16,7 +16,7 @@ Template.leaderboard.onRendered(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
-    return LeaderboardIndividuals.find().fetch();
+    return LeaderboardIndividuals.find({},{sort:{distanceCompleted: -1}}).fetch();
   },
     fields: function() {
     return [
@@ -29,7 +29,7 @@ Template.leaderboardIndividual.helpers({
 
 Template.leaderboardTeam.helpers({
   teams: function() {
-    return LeaderboardTeams.find().fetch();
+    return LeaderboardTeams.find({},{sort:{distanceCompleted: -1}}).fetch();
   },
     fields: function() {
     return [
