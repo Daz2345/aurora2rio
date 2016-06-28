@@ -414,7 +414,11 @@
 </template>
 
 <template name="profile">
-    
+  {{#if currentUser}}
+    <div class="ui container">
+    <h1>Profile</h1>
+    </div>
+  {{/if}}      
 </template>
 
 <template name="leaderboard">
