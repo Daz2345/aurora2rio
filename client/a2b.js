@@ -16,13 +16,13 @@ Template.leaderboard.onRendered(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
-    return LeaderboardIndividuals.find();
+    return LeaderboardIndividuals.find().fetch();
   }
 });
 
 Template.leaderboardTeam.helpers({
   teams: function() {
-    return LeaderboardTeams.find();
+    return LeaderboardTeams.find().fetch();
   }
 });
 
