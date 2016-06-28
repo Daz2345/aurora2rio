@@ -96,12 +96,6 @@ Meteor.methods({
                 ,
                 athletes: {
                     $addToSet: '$userId'
-                },
-                activities: {
-                    $sum: 1
-                },                
-                distanceCompleted: {
-                    $sum: "$distance"
                 }
             }}, 
             {
@@ -112,8 +106,12 @@ Meteor.methods({
                 athletesCount: {
                     $sum: 1
                 },
-                activities: "$activities",
-                distanceCompleted: "$distanceCompleted"
+                activities: {
+                    $sum: 1
+                }, 
+                distanceCompleted: {
+                    $sum: "$distance"
+                }
             }
         }]);   
         

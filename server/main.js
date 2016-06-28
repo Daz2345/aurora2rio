@@ -6,17 +6,12 @@ var publicActivityFields = {
     location_country:1,
     type:1,
     username:1,
-    start_date:1,
-    team: 1
+    start_date:1
 };
 
 Meteor.publish(
-    'teams', function() {
-        if (this.userId) {
-            return Teams.find({});
-        } else {
-            return [];
-        }
+    'leaderboard.team', function() {
+        return Teams.find({}, {sort:{distance: -1}})
     });
 
 Meteor.publish(
