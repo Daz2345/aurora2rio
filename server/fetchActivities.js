@@ -95,9 +95,10 @@ Meteor.methods({
             userIdVal = user._id;
             var userDistance = Activities.aggregate([
               {$match: {userId: userIdVal}},
-              {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}}
+              {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}},
+              {$project:{distanceCompleted: "$distanceCompleted"}}
             ]);
-            Meteor.users.update({_id : userIdVal},{$set:{distanceCompleted: userDistance.distanceCompleted}}, {upsert:true});
+            Meteor.users.update({_id : userIdVal},{$set:{distanceCompleted: userDistance[0].distanceCompleted}}, {upsert:true});
         });        
         
         Meteor.users.find().forEach(function(user) {
