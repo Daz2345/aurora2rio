@@ -20,15 +20,9 @@ Template.leaderboardIndividual.helpers({
   },
     fields: function() {
     return [
-          {
-              fieldId: 'rank',
-              key: 'rank',
-              label: 'Rank',
-              fn: function (value, object, key) { return value.index; }
-          },
-          {fieldId: 'name',key: 'name', label: 'Name' , sortable: false},
-          {fieldId: 'activities',key: 'activities', label: 'Number of activities' , sortable: false}, 
-          {fieldId: 'distanceCompleted',key: 'distanceCompleted', label: 'Distance Completed' , sortable: false }
+          {key: 'name', label: 'Name' , sortable: false},
+          {key: 'activities', label: 'Number of activities' , sortable: false}, 
+          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false }
      ];
   }
 });
