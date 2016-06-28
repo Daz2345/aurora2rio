@@ -11,6 +11,13 @@ Template.teams.onCreated(function() {
       });
 });
 
+Template.leaderboardTeam.onCreated(function() {
+    var self = this;
+      self.autorun(function() {
+        self.subscribe('leaderboard.team');  
+      });
+});
+
 Template.activityFeed.onCreated(function() {
     var self = this;
       self.autorun(function() {

@@ -11,21 +11,8 @@ var publicActivityFields = {
 
 Meteor.publish('leaderboard.team', function () {
   ReactiveAggregate(this, Activities, [{
-    $group: {
-                _id : "$team"
-                ,
-                athletes: {
-                    $addToSet: '$userId'
-                }
-            }}, 
-            {
-            $unwind: "$athletes"
-            }, {
             $group: {
-                _id: "$_id",
-                athletesCount: {
-                    $sum: 1
-                },
+                _id: "$team",
                 activities: {
                     $sum: 1
                 }, 
@@ -35,7 +22,8 @@ Meteor.publish('leaderboard.team', function () {
             }},
             {
                 sort: {distanceCompleted: -1}
-            }
+            },
+            { clientCollection: "LeaderboardTeams" }
   ]
   );
 });

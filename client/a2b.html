@@ -419,6 +419,22 @@
 
 <template name="leaderboard">
     <img src="img/Website-Under-Construction.jpg" />
+    
+    <div class="ui tabular menu">
+      <div class="item" data-tab="Individual">Individual</div>
+      <div class="item" data-tab="Team">Team</div>
+    </div>
+    <div class="ui tab" data-tab="Individual">
+      <!-- Tab Content !-->
+    </div>
+    <div class="ui tab" data-tab="Team">
+      {{ > leaderboardTeam}}
+    </div>
+    
+</template>
+
+<template name="leaderboardTeam">
+  
 </template>
 
 <template name="teams">
