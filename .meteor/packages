@@ -38,7 +38,7 @@ kadira:blaze-layout
 arillo:flow-router-helpers
 useraccounts:core
 dburles:google-maps
-# meteorhacks:aggregate
+meteorhacks:aggregate
 meteorhacks:fast-render
 momentjs:moment
 lbee:moment-helpers
