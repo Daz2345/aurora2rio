@@ -16,14 +16,12 @@ Template.leaderboard.onRendered(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
-    console.log("I'm working 1");
     return LeaderboardIndividuals.find();
   }
 });
 
 Template.leaderboardTeam.helpers({
   teams: function() {
-    console.log("I'm working 2");
     return LeaderboardTeams.find();
   }
 });

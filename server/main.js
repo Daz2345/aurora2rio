@@ -30,7 +30,7 @@ Meteor.publish('leaderboard.individuals', function () {
         activities: '$activities',
         distanceCompleted: '$distanceCompleted'
     } // Send the aggregation to the 'clientReport' collection available for client use
-}], { clientCollection: "LeaderboardIndividuals" });
+}], { clientCollection: "leaderboardIndividuals" });
 });
 
 Meteor.publish('leaderboard.teams', function () {
@@ -53,7 +53,7 @@ Meteor.publish('leaderboard.teams', function () {
         activities: '$activities',
         distanceCompleted: '$distanceCompleted'
     } // Send the aggregation to the 'clientReport' collection available for client use
-}], { clientCollection: "LeaderboardTeams" });
+}], { clientCollection: "leaderboardTeams" });
 });
 
 Meteor.publish(
