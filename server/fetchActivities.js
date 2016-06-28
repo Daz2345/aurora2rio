@@ -90,22 +90,36 @@ Meteor.methods({
             },{upsert:true});
 
         }
+        // // update users
+        // Meteor.users.find().forEach(function(user) {
+        //     userIdVal = user._id;
+        //     var userDistance = Activities.aggregate([
+        //       {$match: {userId: userIdVal}},
+        //       {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}}
+        //     ]);
+        //     Meteor.users.update({user},{distanceCompleted: userDistance.distanceCompleted}, {upsert:true});
+        // });        
         
-        Meteor.users.find().forEach(function(user) {
-            userIdVal = user._id;
-            var userDistance = Activities.aggregate([
-              {$match: {userId: userIdVal}},
-              {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}}
-            ]);
-            Meteor.users.update({user},{$set:{distanceCompleted: userDistance.distanceCompleted}}, {upsert:true});
-        });        
+        // Meteor.users.find().forEach(function(user) {
+        //     userIdVal = user._id;
+        //     var userRank = Meteor.users.find({$gt:{distanceCompleted: user.distanceCompleted}}).count() + 1;
+        //     Meteor.users.update({_id : userIdVal},{rank: userRank}, {upsert:true});
+        // });         
+        // update teams
+        // Teams.find().forEach(function(team) {
+        //     userIdVal = user._id;
+        //     var userDistance = Activities.aggregate([
+        //       {$match: {userId: userIdVal}},
+        //       {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}}
+        //     ]);
+        //     Meteor.users.update({user},{$set:{distanceCompleted: userDistance.distanceCompleted}}, {upsert:true});
+        // });        
         
-        Meteor.users.find().forEach(function(user) {
-            userIdVal = user._id;
-            var userRank = Meteor.users.find({$gt:{distanceCompleted: user.distanceCompleted}}).count() + 1;
-            Meteor.users.update({_id : userIdVal},{$set:{rank: userRank}}, {upsert:true});
-        });         
-        
+        // Meteor.users.find().forEach(function(user) {
+        //     userIdVal = user._id;
+        //     var userRank = Meteor.users.find({$gt:{distanceCompleted: user.distanceCompleted}}).count() + 1;
+        //     Meteor.users.update({_id : userIdVal},{$set:{rank: userRank}}, {upsert:true});
+        // });              
     }
 });
 
