@@ -111,7 +111,9 @@ Meteor.methods({
                 _id: "$_id",
                 athletesCount: {
                     $sum: 1
-                }
+                },
+                activities: "$activities",
+                distanceCompleted: "$distanceCompleted"
             }
         }]);   
         
