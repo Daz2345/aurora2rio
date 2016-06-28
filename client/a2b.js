@@ -1,7 +1,7 @@
 if (Meteor.isClient) {
   Meteor.startup(function() {
     GoogleMaps.load({key: 'AIzaSyCwvQIJCGO7gvCF1hqQXaptl-8HsdU40Ls', libraries: 'geometry'});
-    Meteor.subscribe('leaderboard.team');
+    Meteor.subscribe('leaderboard.teams');
     Meteor.subscribe('leaderboard.individuals');
   });
 }
@@ -15,12 +15,14 @@ Template.teams.onCreated(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
+    console.log("I'm working 1");
     return LeaderboardIndividuals.find();
   }
 });
 
 Template.leaderboardTeam.helpers({
   teams: function() {
+    console.log("I'm working 2");
     return LeaderboardTeams.find();
   }
 });

@@ -11,40 +11,46 @@ var publicActivityFields = {
 
 Meteor.publish('leaderboard.individuals', function () {
   ReactiveAggregate(this, Activities, [{
-            $group: {
-                _id: "$username",
-                activities: {
-                    $sum: 1
-                }, 
-                distanceCompleted: {
-                    $sum: "$distance"
-                }
-            }},
-            {
-                sort: {distanceCompleted: -1}
-            },
-            { clientCollection: "LeaderboardIndividuals" }
-  ]
-  );
+    $group: {
+        '_id': "$username",
+        'activities': {
+        // In this case, we're running summation. 
+            $sum: 1
+        },
+        'distanceCompleted': {
+            $sum: '$distance'
+        }
+    }
+}, {
+    $project: {
+        // an id can be added here, but when omitted, 
+        // it is created automatically on the fly for you
+        activities: '$activities',
+        distanceCompleted: '$distanceCompleted'
+    } // Send the aggregation to the 'clientReport' collection available for client use
+}], { clientCollection: "LeaderboardIndividuals" });
 });
 
-Meteor.publish('leaderboard.team', function () {
+Meteor.publish('leaderboard.teams', function () {
   ReactiveAggregate(this, Activities, [{
-            $group: {
-                _id: "$team",
-                activities: {
-                    $sum: 1
-                }, 
-                distanceCompleted: {
-                    $sum: "$distance"
-                }
-            }},
-            {
-                sort: {distanceCompleted: -1}
-            },
-            { clientCollection: "LeaderboardTeams" }
-  ]
-  );
+    $group: {
+        '_id': "$team",
+        'activities': {
+        // In this case, we're running summation. 
+            $sum: 1
+        },
+        'distanceCompleted': {
+            $sum: '$distance'
+        }
+    }
+}, {
+    $project: {
+        // an id can be added here, but when omitted, 
+        // it is created automatically on the fly for you
+        activities: '$activities',
+        distanceCompleted: '$distanceCompleted'
+    } // Send the aggregation to the 'clientReport' collection available for client use
+}], { clientCollection: "LeaderboardTeams" });
 });
 
 Meteor.publish(
