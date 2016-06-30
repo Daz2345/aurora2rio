@@ -1,5 +1,6 @@
 var username = '';
 var userIdVal = '';
+var teamIdVal = '';
 var userTeam = '';
 
 function insertActivity(element, index, array) {
@@ -95,32 +96,35 @@ Meteor.methods({
             userIdVal = user._id;
             var userDistance = Activities.aggregate([
               {$match: {userId: userIdVal}},
-              {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}},
-              {$project:{distanceCompleted: "$distanceCompleted"}}
+              {$group: {_id: null, distanceCompleted: {$sum: "$distance"}, activityCount:{$sum: 1}}},
+              {$project:{distanceCompleted: "$distanceCompleted", activityCount: "$activityCount"}}
             ]);
-            Meteor.users.update({_id : userIdVal},{$set:{distanceCompleted: userDistance[0].distanceCompleted}}, {upsert:true});
+            if (userDistance !== undefined) 
+                Meteor.users.update(userIdVal,{$set:{distanceCompleted: userDistance[0].distanceCompleted, activityCount: userDistance[0].activityCount}}, {upsert:true});
         });        
         
         Meteor.users.find().forEach(function(user) {
             userIdVal = user._id;
             var userRank = Meteor.users.find({distanceCompleted:{$gt: user.distanceCompleted}}).count() + 1;
-            Meteor.users.update({_id : userIdVal},{$set:{rank: userRank}}, {upsert:true});
+            Meteor.users.update(userIdVal,{$set:{rank: userRank}}, {upsert:true});
         });         
         // update teams
-        // Teams.find().forEach(function(team) {
-        //     userIdVal = user._id;
-        //     var userDistance = Activities.aggregate([
-        //       {$match: {userId: userIdVal}},
-        //       {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}}
-        //     ]);
-        //     Meteor.users.update({user},{$set:{distanceCompleted: userDistance.distanceCompleted}}, {upsert:true});
-        // });        
+        Teams.find().forEach(function(team) {
+            teamIdVal = team._id;
+            var teamDistance = Activities.aggregate([
+              {$match: {teamId: teamIdVal}},
+              {$group: {_id: null, distanceCompleted: {$sum: "$distance"}, activityCount:{$sum: 1}}},
+              {$project:{distanceCompleted: "$distanceCompleted", activityCount: "$activityCount"}}
+            ]);
+            if (teamDistance !== undefined)             
+            Teams.update(teamIdVal,{$set:{distanceCompleted: teamDistance[0].distanceCompleted, activityCount: teamDistance[0].activityCount}}, {upsert:true});
+        });        
         
-        // Meteor.users.find().forEach(function(user) {
-        //     userIdVal = user._id;
-        //     var userRank = Meteor.users.find({$gt:{distanceCompleted: user.distanceCompleted}}).count() + 1;
-        //     Meteor.users.update({_id : userIdVal},{$set:{rank: userRank}}, {upsert:true});
-        // });              
+        Teams.find().forEach(function(team) {
+            teamIdVal = team._id;
+            var teamRank = Teams.find({$gt:{distanceCompleted: team.distanceCompleted}}).count() + 1;
+            Teams.update(teamIdVal,{$set:{rank: teamRank}}, {upsert:true});
+        });              
     }
 });
 

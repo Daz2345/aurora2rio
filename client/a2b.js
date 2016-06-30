@@ -16,11 +16,12 @@ Template.leaderboard.onRendered(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
-    return LeaderboardIndividuals.find({},{sort:{distanceCompleted: -1}}).fetch();
+    return Meteor.users.find().fetch();
   },
     fields: function() {
     return [
-          {key: 'name', label: 'Name' , sortable: false},
+          {key: 'rank', label: 'Rank' , sortable: false},
+          {key: 'profile.fullName', label: 'Name' , sortable: false},
           {key: 'activities', label: 'Number of activities' , sortable: false}, 
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false }
      ];
@@ -29,10 +30,11 @@ Template.leaderboardIndividual.helpers({
 
 Template.leaderboardTeam.helpers({
   teams: function() {
-    return LeaderboardTeams.find({},{sort:{distanceCompleted: -1}}).fetch();
+    return Teams.find().fetch();
   },
     fields: function() {
     return [
+          {key: 'rank', label: 'Rank' , sortable: false},      
           {key: 'team', label: 'Team Name' , sortable: false},
           {key: 'activities', label: 'Number of activities' , sortable: false}, 
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false}
@@ -89,7 +91,7 @@ Template.activityFeed.helpers({
 Template.loginButtons.onRendered(function() {
 
 	$('.ui .dropdown .item').removeClass('item');   
-    Session.set('hascounted', false);	
+
 });
 
 Template.top.onRendered(function() {
