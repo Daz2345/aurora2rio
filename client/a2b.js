@@ -22,7 +22,7 @@ Template.leaderboardIndividual.helpers({
     return [
           {key: 'rank', label: 'Rank' , sortable: false},
           {key: 'profile.fullName', label: 'Name' , sortable: false},
-          {key: 'activities', label: 'Number of activities' , sortable: false}, 
+          {key: 'activityCount', label: 'Number of activities' , sortable: false}, 
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false }
      ];
   }
@@ -36,7 +36,7 @@ Template.leaderboardTeam.helpers({
     return [
           {key: 'rank', label: 'Rank' , sortable: false},      
           {key: 'team', label: 'Team Name' , sortable: false},
-          {key: 'activities', label: 'Number of activities' , sortable: false}, 
+          {key: 'activityCount', label: 'Number of activities' , sortable: false}, 
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false}
      ];
   }

@@ -11,7 +11,7 @@ var publicActivityFields = {
 };
 
 Meteor.publish('leaderboard.individuals', function () {
-    return Meteor.users.find({},{fields:{'profile.name':1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
+    return Meteor.users.find({},{fields:{'profile.fullName':1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
 });
 
 Meteor.publish('leaderboard.teams', function () {
