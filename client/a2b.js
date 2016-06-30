@@ -16,7 +16,7 @@ Template.leaderboard.onRendered(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
-    return Meteor.users.find({},{sort:{rank:-1}}).fetch();
+    return Meteor.users.find({},{sort:{rank:1}}).fetch();
   },
     fields: function() {
     return [
@@ -30,7 +30,7 @@ Template.leaderboardIndividual.helpers({
 
 Template.leaderboardTeam.helpers({
   teams: function() {
-    return Teams.find({},{sort:{rank:-1}}).fetch();
+    return Teams.find({},{sort:{rank:1}}).fetch();
   },
     fields: function() {
     return [
