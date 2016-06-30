@@ -126,6 +126,10 @@ Template.homeContent.onRendered(function() {
 		countdown: true
 	});
 
+$('.ui.dropdown')
+  .dropdown()
+;
+
 }); 
 
 Template.homeContent.events({
