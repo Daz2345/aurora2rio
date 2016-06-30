@@ -16,7 +16,7 @@ Template.leaderboard.onRendered(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
-    return Meteor.users.find().fetch();
+    return Meteor.users.find({},{sort:{rank:-1}}).fetch();
   },
     fields: function() {
     return [
@@ -30,7 +30,7 @@ Template.leaderboardIndividual.helpers({
 
 Template.leaderboardTeam.helpers({
   teams: function() {
-    return Teams.find().fetch();
+    return Teams.find({},{sort:{rank:-1}}).fetch();
   },
     fields: function() {
     return [
@@ -132,9 +132,54 @@ $('.ui.dropdown')
 
 }); 
 
+Template.profile.events({
+  'click .submitProfile': function(){
+    
+    var profileForm = document.getElementById('profileForm');
+    
+    var profileVals = {
+      name: profileForm.elements['first-name'].value,
+      fullName: profileForm.elements['first-name'].value + " " + profileForm.elements['last-name'].value,
+      team: profileForm.elements['team'].value
+    };
+
+  profileForm.elements['first-name'].value = "";
+  profileForm.elements['last-name'].valu = "";
+  profileForm.elements['team'].value = "";
+  
+  Meteor.call('Profile.update', profileVals);
+        
+  }
+});
+
+Template.profile.helpers({
+  distance: function(){
+    return Meteor.user().distanceCompleted;
+  }
+});
+
+Template.logoutbutton.events({
+  'click .logout': function() {
+    Meteor.logout();
+  }
+});
+
 Template.homeContent.events({
     'click .submitActivity': function(e) {
-        var activity = {}
+      
+      var activityForm = document.getElementById('activityForm');
+      
+        var activity = {
+          distance: activityForm.elements["distance"].value,
+          type: activityForm.elements["type"].value,
+          location_country: activityForm.elements["country"].value          
+        };
+        
+        activityForm.elements["distance"].value = "";
+        activityForm.elements["type"].value = "";
+        activityForm.elements["country"].value  = "";         
+        
+        Meteor.call('Activities.insert.manual', activity);
         
     }
 });
@@ -188,8 +233,6 @@ Template.map.helpers({
   }
 });
 
-var journey;
-
 Template.map.onCreated(function() {
 
   var self = this;
@@ -239,4 +282,10 @@ Template.map.onCreated(function() {
 
     });
   });
+});
+
+Template.userProfile.helpers({
+  teams: function() {
+    return Teams.find({},{sort:{name:1}});
+  }
 })

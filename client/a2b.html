@@ -2,6 +2,11 @@
   <title>Aurora 2 Rio</title>
   <link rel="icon" type="image/png" href="img/favicon.ico">
   <style type="text/css">
+  
+    .shadow {
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    }
+  
     .map {
       width: 100%;
       max-width: 100%;
@@ -72,7 +77,7 @@
     }
     
     .masthead.segment {
-      min-height: 15vw;
+      min-height: 35vw;
       padding: 1em 0em;
     }
     
@@ -195,12 +200,12 @@
     <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a> 
     {{#if currentUser}}
       <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
-      <a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>      
+      <!--<a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>      -->
       <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
       <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
       <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a> 
     {{/if}}
-    {{ > loginButtons }}
+    {{ > login}}
   </div>
       <!-- Page Contents -->
   <div class="pusher">
@@ -211,15 +216,16 @@
       <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
       {{#if currentUser}}
         <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
-        <a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>        
+        <!--<a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>        -->
         <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
         <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
       <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>         
       {{/if}}
+      {{ >login}}
     </div>
   </div>
 
-    {{>Template.dynamic template=topSection}}
+    {{>top }}
   
     <main class="Site-content">
       {{>Template.dynamic template=content}}
@@ -260,16 +266,14 @@
           <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
           {{#if currentUser}}
             <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
-            <a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>
+            <!--<a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>-->
             <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
             <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
-      <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>             
+            <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>             
           {{/if}}          
-          <div class="right active item">
-            {{ > loginButtons }}
-          </div>
-        </div>
-      </div>
+
+            {{ >login}}
+    </div>
       <div class="ui text container">
         <h1 class="ui inverted header titleColor">
           Aurora 2 Rio
@@ -279,20 +283,20 @@
         {{ > countdown}}
       {{/if}}
     </div>
-
+    </div>
 </template>
 
 <template name="countdown">
     <div class="ui vertical stripe quote segment">
 
           <div class="ui text container">
-            <h2 class="ui header center inverted align">Only</h2>
+            <h2 class="ui header center inverted align shadow">Only</h2>
           </div>
           <div class="centerText">
             <div class="countdown"></div>
           </div>
           <div class="ui text container">
-            <h2 class="ui header center inverted align">Km To Go!</h2>
+            <h2 class="ui header center inverted align shadow">Km To Go!</h2>
           </div>
 
     </div>  
@@ -332,7 +336,7 @@
                   <div class="column">
                       <div class="field">
                           <label>Distance (in metres)</label>
-                          <input type="text" name="distance" required=true>
+                          <input type="number" name="distance" required=true min="0">
                       </div>
                   </div>
                   <div class="column">
@@ -340,7 +344,7 @@
                           <label>Activity Type</label>
                           <select name="type" placeholder="Activity Type" class="ui fluid search floating dropdown similar">
                               <option class="item" data-value="Swim">Swim</option>
-                              <option class="item" data-value="Bike">Bike</option>
+                              <option class="item" data-value="Ride">Ride</option>
                               <option class="item" data-value="Run">Run</option>
                           </select>                          
                       </div>
@@ -357,7 +361,7 @@
               </div>              
           </form>
         {{ else}}
-          <h3 class="ui header">After signing in, you can record your activities automatically via Strava or input them manually</h3>
+          <h3 class="ui header">After signing in / joining, you can record your activities automatically via Strava or input them manually</h3>
         {{/if}}
       </div>
     </div>
@@ -416,7 +420,22 @@
 <template name="profile">
   {{#if currentUser}}
     <div class="ui container">
-    <h1>Profile</h1>
+      <h1>Profile</h1>
+      {{#if currentUser.profile.fullName}}
+        
+      {{else}}
+        {{> userProfile}}
+      {{/if}}
+      <div class="ui centere aligned column">
+        <div class="ui statistic">
+          <div class="value">
+            {{distance}}
+          </div>
+          <div class="label">
+            Distance Completed
+          </div>
+        </div>
+      </div>      
     </div>
   {{/if}}      
 </template>
@@ -452,4 +471,49 @@
     <h1>Team Board</h1>
     </div>
   {{/if}}  
+</template>
+
+<template name="login">
+  {{#if currentUser}}
+    {{ > logoutbutton}}
+  {{else}}
+    <a href="{{pathFor 'signin'}}" class="right item">Sign In</a>
+  {{/if}}
+</template>
+
+<template name="Auth_page">
+    <div class="ui container">  
+  {{ > atForm }}
+  </div>
+</template>
+
+<template name="logoutbutton">
+  <a href="{{pathFor 'home'}}" class="right item logout">{{currentUser.profile.fullName}} - Logout</a>
+</template>
+
+<template name="userProfile">
+  <form class="ui form" id="profileForm" >
+    <div class="field">
+      <label>First Name</label>
+      <input type="text" name="first-name" placeholder="First Name">
+    </div>
+    <div class="field">
+      <label>Last Name</label>
+      <input type="text" name="last-name" placeholder="Last Name">
+    </div>  
+  
+    <div class="field">
+      <label>Team Name</label>
+      <select name="team" placeholder="Team Name" class="ui fluid search floating dropdown similar">
+            {{#each team in teams}}
+              <option class="item" data-value="{{team._id}}">{{team.name}}</option>
+            {{/each}}
+      </select>
+    </div>
+        
+    <div class="actions">
+        <div class="ui primary button submitProfile">Update Profile</div>
+    </div>      
+  </form>
+
 </template>

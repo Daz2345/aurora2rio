@@ -1,6 +1,5 @@
 var publicActivityFields = {
     id:1,
-    name:1,
     distance:1,
     location_city:1,
     location_country:1,
@@ -11,11 +10,11 @@ var publicActivityFields = {
 };
 
 Meteor.publish('leaderboard.individuals', function () {
-    return Meteor.users.find({},{fields:{'profile.fullName':1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
+    return Meteor.users.find({},{fields:{'profile.fullName':1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:-1}});
 });
 
 Meteor.publish('leaderboard.teams', function () {
-    return Meteor.users.find({},{fields:{name:1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
+    return Meteor.users.find({},{fields:{name:1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:-1}});
 });
 
 // Meteor.publish('leaderboard.individuals', function () {

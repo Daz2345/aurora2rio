@@ -99,8 +99,10 @@ Meteor.methods({
               {$group: {_id: null, distanceCompleted: {$sum: "$distance"}, activityCount:{$sum: 1}}},
               {$project:{distanceCompleted: "$distanceCompleted", activityCount: "$activityCount"}}
             ]);
-            if (userDistance !== undefined) 
+            // console.log(userDistance);
+            if (userDistance !== undefined && userDistance.length !== 0) {
                 Meteor.users.update(userIdVal,{$set:{distanceCompleted: userDistance[0].distanceCompleted, activityCount: userDistance[0].activityCount}}, {upsert:true});
+            }
         });        
         
         Meteor.users.find().forEach(function(user) {
@@ -116,8 +118,9 @@ Meteor.methods({
               {$group: {_id: null, distanceCompleted: {$sum: "$distance"}, activityCount:{$sum: 1}}},
               {$project:{distanceCompleted: "$distanceCompleted", activityCount: "$activityCount"}}
             ]);
-            if (teamDistance !== undefined)             
-            Teams.update(teamIdVal,{$set:{distanceCompleted: teamDistance[0].distanceCompleted, activityCount: teamDistance[0].activityCount}}, {upsert:true});
+            if (teamDistance !== undefined && teamDistance.length !== 0) {      
+                Teams.update(teamIdVal,{$set:{distanceCompleted: teamDistance[0].distanceCompleted, activityCount: teamDistance[0].activityCount}}, {upsert:true});
+            }
         });        
         
         Teams.find().forEach(function(team) {
