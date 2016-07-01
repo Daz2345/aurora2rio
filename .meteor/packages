@@ -45,5 +45,8 @@ momentjs:moment
 lbee:moment-helpers
 fcallem:reactive-table-semantic
 percolate:synced-cron@=1.3.0
-jcbernack:reactive-aggregate
+# jcbernack:reactive-aggregate
 appcache
+d3js:d3
+andrasph:random-color
+underscore

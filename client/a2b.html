@@ -3,6 +3,22 @@
   <link rel="icon" type="image/png" href="img/favicon.ico">
   <style type="text/css">
   
+  .sunburst {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+  #explanation {
+  position: relative;
+  top: 260px;
+  left: 305px;
+  width: 140px;
+  text-align: center;
+  color: #666;
+  z-index: -1;
+}
     .shadow {
       text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
     }
@@ -452,6 +468,9 @@
         </div>
         <div class="ui tab" data-tab="Team">
           {{ > leaderboardTeam}}
+        </div>
+        <div class="sunburst">
+          {{ > sunburst}}
         </div>
       </div>
     {{/if}}

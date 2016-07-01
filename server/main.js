@@ -10,62 +10,22 @@ var publicActivityFields = {
 };
 
 Meteor.publish('leaderboard.individuals', function () {
-    return Meteor.users.find({},{fields:{'profile.fullName':1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:-1}});
+    return Meteor.users.find({},{fields:{'profile.fullName':1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
 });
 
 Meteor.publish('leaderboard.teams', function () {
-    return Meteor.users.find({},{fields:{name:1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:-1}});
+    return Meteor.users.find({},{fields:{name:1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
 });
 
-// Meteor.publish('leaderboard.individuals', function () {
-//   ReactiveAggregate(this, Activities, [{
-//     $group: {
-//         '_id': "$username",
-//         'activities': {
-//         // In this case, we're running summation. 
-//             $sum: 1
-//         },
-//         'distanceCompleted': {
-//             $sum: '$distance'
-//         }
-//     }
-// }, {
-//     $project: {
-//         // an id can be added here, but when omitted, 
-//         // it is created automatically on the fly for you
-//         _id: "$_id",
-//         name: "$_id",     
-//         rank: {$sum: 1},
-//         activities: '$activities',
-//         distanceCompleted: '$distanceCompleted'
-//     } // Send the aggregation to the 'clientReport' collection available for client use
-// }], { clientCollection: "leaderboardIndividuals" });
-// });
-
-// Meteor.publish('leaderboard.teams', function () {
-//   ReactiveAggregate(this, Activities, [{
-//     $group: {
-//         '_id': "$team",
-//         'activities': {
-//         // In this case, we're running summation. 
-//             $sum: 1
-//         },
-//         'distanceCompleted': {
-//             $sum: '$distance'
-//         }
-//     }
-// }, {
-//     $project: {
-//         // an id can be added here, but when omitted, 
-//         // it is created automatically on the fly for you
-//         _id: "$_id",        
-//         team: "$_id",        
-//         rank: {$sum: 1},        
-//         activities: '$activities',
-//         distanceCompleted: '$distanceCompleted'
-//     } // Send the aggregation to the 'clientReport' collection available for client use
-// }], { clientCollection: "leaderboardTeams" });
-// });
+Meteor.publish('sunburst.data', function(){
+   
+   var sbData = "";
+   
+   Activities.find().forEach(function(activity) {
+         sbData = sbData + activity.team + "-" + activity.username + "-" + activity.type + "," + activity.distance + "\n";
+    });
+   this.added("sunburstData", null, {myString: sbData});
+});
 
 Meteor.publish(
     'distances', function() {
