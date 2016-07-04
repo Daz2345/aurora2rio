@@ -437,12 +437,10 @@
   {{#if currentUser}}
     <div class="ui container">
       <h1>Profile</h1>
-      {{#if currentUser.profile.fullName}}
-        
-      {{else}}
+        <h1>{{currentUser.profile.fullName}}</h1>
+        <h1>{{currentUser.team}}</h1>
         {{> userProfile}}
-      {{/if}}
-      <div class="ui centere aligned column">
+      <div class="ui centre aligned column">
         <div class="ui statistic">
           <div class="value">
             {{distance}}
@@ -512,27 +510,34 @@
 
 <template name="userProfile">
   <form class="ui form" id="profileForm" >
-    <div class="field">
-      <label>First Name</label>
-      <input type="text" name="first-name" placeholder="First Name">
-    </div>
-    <div class="field">
-      <label>Last Name</label>
-      <input type="text" name="last-name" placeholder="Last Name">
-    </div>  
-  
-    <div class="field">
-      <label>Team Name</label>
-      <select name="team" placeholder="Team Name" class="ui fluid search floating dropdown similar">
-            {{#each team in teams}}
-              <option class="item" data-value="{{team._id}}">{{team.name}}</option>
-            {{/each}}
-      </select>
-    </div>
-        
-    <div class="actions">
-        <div class="ui primary button submitProfile">Update Profile</div>
-    </div>      
+    
+    {{#if showUpdateName}}
+      <div class="field">
+        <label>First Name</label>
+        <input type="text" name="first-name" placeholder="First Name">
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <input type="text" name="last-name" placeholder="Last Name">
+      </div>  
+    {{/if}}
+    
+    {{#if showUpdateTeam}}    
+      <div class="field">
+        <label>Team Name</label>
+        <select name="team" placeholder="Team Name" class="ui fluid search floating dropdown similar">
+              {{#each team in teams}}
+                <option class="item" data-value="{{team._id}}">{{team.name}}</option>
+              {{/each}}
+        </select>
+      </div>
+    {{/if}}
+    
+    {{#if showSubmit}}    
+      <div class="actions">
+          <div class="ui primary button submitProfile">Update Profile</div>
+      </div>      
+    {{/if}}        
   </form>
 
 </template>

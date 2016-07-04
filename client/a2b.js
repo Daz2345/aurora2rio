@@ -136,12 +136,11 @@ Template.profile.events({
   'click .submitProfile': function(){
     
     var profileForm = document.getElementById('profileForm');
-    
     var profileVals = {
-      name: profileForm.elements['first-name'].value,
-      fullName: profileForm.elements['first-name'].value + " " + profileForm.elements['last-name'].value,
-      team: profileForm.elements['team'].value
-    };
+        name: profileForm.elements['first-name'].value,
+        fullName: profileForm.elements['first-name'].value + " " + profileForm.elements['last-name'].value,
+        team: profileForm.elements['team'].value
+      };      
 
   profileForm.elements['first-name'].value = "";
   profileForm.elements['last-name'].valu = "";
@@ -287,5 +286,14 @@ Template.map.onCreated(function() {
 Template.userProfile.helpers({
   teams: function() {
     return Teams.find({},{sort:{name:1}});
+  },
+  showSubmit: function() {
+    return Meteor.user().team == "" * Meteor.user().profile.fullName == "";
+  },
+  showUpdateName: function() {
+    return !Meteor.user().profile.fullName;
+  },
+  showUpdateTeam: function() {
+    return !Meteor.user().team;
   }
 })

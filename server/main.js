@@ -24,9 +24,7 @@ Meteor.publish('sunburst.data', function(){
    var dataval = Activities.aggregate([
               {$group: {_id: {team: "$team", username: "$username", type: "$type"}, distanceCompleted: {$sum: "$distance"}}}
             ]);
-            
-    console.log(dataval);
-   
+
    dataval.forEach(function(activity) {
          sbData = sbData + activity._id.team + "-" + activity._id.username + "-" + activity._id.type + "," + activity.distanceCompleted + "\n";
     });
