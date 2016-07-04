@@ -136,17 +136,17 @@ Template.profile.events({
   'click .submitProfile': function(){
     
     var profileForm = document.getElementById('profileForm');
-    var profileVals = {
-        name: profileForm.elements['first-name'].value,
-        fullName: profileForm.elements['first-name'].value + " " + profileForm.elements['last-name'].value,
-        team: profileForm.elements['team'].value
-      };      
+    var profileVals = {};
+    
+    profileVals.name = profileForm.elements['first-name'].value;
+    profileVals.fullName = profileForm.elements['first-name'].value + " " + profileForm.elements['last-name'].value;
+    profileVals.team = profileForm.elements['team'].value;
 
-  profileForm.elements['first-name'].value = "";
-  profileForm.elements['last-name'].valu = "";
-  profileForm.elements['team'].value = "";
-  
-  Meteor.call('Profile.update', profileVals);
+    profileForm.elements['first-name'].value = "";
+    profileForm.elements['last-name'].value = "";
+    profileForm.elements['team'].value = "";
+    
+    Meteor.call('Profile.update', profileVals);
         
   }
 });
@@ -179,6 +179,8 @@ Template.homeContent.events({
         activityForm.elements["country"].value  = "";         
         
         Meteor.call('Activities.insert.manual', activity);
+        Meteor.call('users.updateDistance');
+        Meteor.call('teams.updateDistance');
         
     }
 });

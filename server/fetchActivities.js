@@ -76,8 +76,6 @@ Meteor.methods({
             completedDistanceTotal = previousDistance;
         }    
         
-        
-        // put this in for live
         if (previousDistance[0].distanceCompleted !== completedDistanceTotal[0].distanceCompleted) {
             Distance.update({'distanceType': 'previous'},{
                 'distanceType': 'previous',
@@ -89,8 +87,11 @@ Meteor.methods({
                 "distanceCompleted": completedDistanceTotal[0].distanceCompleted,
                 createdAt: new Date()
             },{upsert:true});
-
         }
+        Meteor.call('users.updateDistance');
+        Meteor.call('teams.updateDistance');
+    },
+    'users.updateDistance' () {
         // update users
         Meteor.users.find().forEach(function(user) {
             userIdVal = user._id;
@@ -110,6 +111,9 @@ Meteor.methods({
             var userRank = Meteor.users.find({distanceCompleted:{$gt: user.distanceCompleted}}).count() + 1;
             Meteor.users.update(userIdVal,{$set:{rank: userRank}}, {upsert:true});
         });         
+        
+    },
+    'teams.updateDistance' () {        
         // update teams
         Teams.find().forEach(function(team) {
             teamIdVal = team._id;

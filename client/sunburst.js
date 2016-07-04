@@ -114,7 +114,7 @@ function createVisualization(json) {
 function mouseover(d) {
 
   // var percentage = (100 * d.value / totalSize).toPrecision(3);
-  var percentageString = d.value; //percentage + "%";
+  var percentageString = Math.round(d.value); //percentage + "%";
   // if (percentage < 0.1) {
   //   percentageString = "< 0.1%";
   // }
