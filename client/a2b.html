@@ -4,11 +4,11 @@
   <style type="text/css">
   
   .sunburst {
-    margin-top: 60px;
+    margin-top: 40px;
     margin-bottom: 60px;
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
+    width: 750px;
   }
     #explanation {
     position: relative;
@@ -467,9 +467,8 @@
 </template>
 
 <template name="userProfile">
+  {{#if profileUpdate}}
   <form class="ui form" id="profileForm" >
-    
-
       <div class="field">
         <label>First Name</label>
         <input type="text" name="firstName" placeholder="First Name" value="{{firstName}}">
@@ -492,8 +491,8 @@
       <div class="actions">
           <div class="ui primary button submitProfile">Update Profile</div>
       </div>      
-
   </form>
+  {{/if}}
 </template>
 
 <template name="settings">
@@ -511,6 +510,7 @@
       </div>    
 
       <div class="ui tab" data-tab="Teams">    
+        {{#if teamCreate}}
         <h3 class="ui header">Create New Team</h3>          
         <form id="newTeam" class="ui form team submit" autocomplete="off">
             <div class="ui grid">
@@ -531,6 +531,7 @@
                 <div class="ui positive right labeled icon button submitTeam"><i class="checkmark icon"></i>Create Team</div>
             </div>       
         </form>  
+        {{/if}}
       {{> reactiveTable collection=teams fields=fields}}        
       </div>
     </div>    

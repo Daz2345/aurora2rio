@@ -1,12 +1,12 @@
 
-  var sunburstData = new Mongo.Collection("sunburstData");
-  Meteor.subscribe('sunburst.data');
+
+  // Meteor.subscribe('sunburst.data');
   
-  Template.leaderboard.helpers({
-    sunburstDataVal: function() {
-      return sunburstData.findOne()[0].myString;
-    }
-  });
+  // Template.leaderboard.helpers({
+  //   sunburstDataVal: function() {
+  //     return SunburstData.findOne()[0].myString;
+  //   }
+  // });
 
 
 Template.sunburst.rendered = function() {
@@ -52,7 +52,7 @@ var arc = d3.svg.arc()
 // Use d3.text and d3.csv.parseRows so that we do not need to have a header
 // row, and can receive the csv as an array of arrays.
 Meteor.autorun(function() {
-var dataVal = sunburstData.find().fetch();
+var dataVal = SunburstData.find().fetch();
 
 if (dataVal.length != 0) {
 
@@ -114,11 +114,14 @@ function createVisualization(json) {
 function mouseover(d) {
 
   // var percentage = (100 * d.value / totalSize).toPrecision(3);
+  var totalCompleted = Distance.findOne({distanceType: 'current'}).distanceCompleted
+  var percentageCompleted = (100 * d.value / totalCompleted).toPrecision(3) + "%";
   var percentageString = Math.round(d.value); //percentage + "%";
-  // if (percentage < 0.1) {
-  //   percentageString = "< 0.1%";
-  // }
 
+
+  d3.select("#percentageCompleted")
+      .text(percentageCompleted);
+      
   d3.select("#percentage")
       .text(percentageString);
 

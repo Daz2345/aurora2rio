@@ -38,7 +38,7 @@ Meteor.methods({
                 };
 
                 try {
-                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1466380800", options);
+                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1467849600", options);
                     // console.log(result);
                     result.data.forEach(insertActivity);
                     return true;
@@ -90,7 +90,7 @@ Meteor.methods({
         }
         Meteor.call('users.updateDistance');
         Meteor.call('teams.updateDistance');
-
+        Meteor.call('sunburst.data');
     },
     'users.updateDistance' () {
         // update users
@@ -137,6 +137,19 @@ Meteor.methods({
             Teams.update(teamIdVal,{$set:{rank: teamRank}}, {upsert:true});
             }
         });              
+    },
+    'sunburst.data' () {
+        var sbData = "";
+   
+        var dataval = Activities.aggregate([
+                  {$group: {_id: {teamName: "$teamName", username: "$username", type: "$type"}, distanceCompleted: {$sum: "$distance"}}}
+                ]);
+    
+        dataval.forEach(function(activity) {
+             sbData = sbData + "Team: " + activity._id.teamName + "-" + "Athlete: " + activity._id.username + "-" + "Activity: " + activity._id.type + "," + activity.distanceCompleted + "\n";
+         });
+         
+        SunburstData.insert({createdAt: new Date(), myString: sbData});
     }
 });
 

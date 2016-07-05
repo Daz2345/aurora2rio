@@ -9,6 +9,7 @@ if (Meteor.isClient) {
     var distancesSub = Meteor.subscribe('distances');
     var teamsSub = Meteor.subscribe('teams');  
     var userData = Meteor.subscribe('userData');
+    var sunburst = Meteor.subscribe('sunburst');
 }
 
 Template.leaderboard.onRendered(function() {
@@ -146,7 +147,7 @@ Template.homeContent.events({
         activityForm.elements["country"].value  = "";         
         
         Meteor.call('Activities.insert.manual', activity);
-
+        FlowRouter.go('feed');
     }
 });
 
@@ -255,6 +256,9 @@ Template.map.onCreated(function() {
 });
 
 Template.userProfile.helpers({
+  profileUpdate: function(){
+    return (Meteor.user().profile.fullName == undefined) ? true : false;
+  },
   teams: function() {
     return Teams.find({},{sort:{name:1}});
   },
@@ -300,6 +304,9 @@ Template.settings.events({
 });
 
 Template.settings.helpers({
+  teamCreate: function() {
+    return (Meteor.user().teamName == undefined) ? true : false;
+  },
     teams: function() {
     return Teams.find({}, {sort: {name:1}}).fetch();
   },
@@ -307,7 +314,9 @@ Template.settings.helpers({
     return Meteor.user().teamName;
   },
   fields: function() {
-    return [{key: 'name', label: 'Team Name'},{key: 'sponsorLink', label: 'Sponsorship Link'}];
+    return [{key: 'name', label: 'Team Name'},{key: 'sponsorLink', label: 'Sponsorship Page', fn: function (value) {
+    return new Spacebars.SafeString("<a href="+value+">"+value+"</a>");
+}}];
   }
 });
 
