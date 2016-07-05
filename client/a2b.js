@@ -8,6 +8,7 @@ if (Meteor.isClient) {
     var activitiesSub = Meteor.subscribe('activities.feed');
     var distancesSub = Meteor.subscribe('distances');
     var teamsSub = Meteor.subscribe('teams');  
+    var userData = Meteor.subscribe('userData');
 }
 
 Template.leaderboard.onRendered(function() {
@@ -30,12 +31,12 @@ Template.leaderboardIndividual.helpers({
 
 Template.leaderboardTeam.helpers({
   teams: function() {
-    return Teams.find({},{sort:{rank:1}}).fetch();
+    return Teams.find({distanceCompleted:{$exists:true}},{sort:{rank:1}}).fetch();
   },
     fields: function() {
     return [
           {key: 'rank', label: 'Rank' , sortable: false},      
-          {key: 'teamName', label: 'Team Name' , sortable: false},
+          {key: 'name', label: 'Team Name' , sortable: false},
           {key: 'activityCount', label: 'Number of activities' , sortable: false}, 
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false}
      ];
@@ -278,7 +279,6 @@ Template.settings.events({
     profileVals.fullName = profileVals.name + " " + profileForm.elements['lastName'].value || "";
     profileVals.team = $("select[name='team']").find(':selected').data('value') || "";
 
-    console.log(profileVals);
 
     // profileForm.elements['firstName'].getAttribute('data-value') = "";
     // profileForm.elements['lastName'].value = "";
@@ -301,10 +301,13 @@ Template.settings.events({
 
 Template.settings.helpers({
     teams: function() {
-    return Teams.find({}).fetch();
+    return Teams.find({}, {sort: {name:1}}).fetch();
   },
     team: function() {
-    return Teams.findOne({_id: Meteor.user().team}).name;
+    return Meteor.user().teamName;
+  },
+  fields: function() {
+    return [{key: 'name', label: 'Team Name'},{key: 'sponsorLink', label: 'Sponsorship Link'}];
   }
 });
 

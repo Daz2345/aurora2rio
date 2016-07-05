@@ -6,15 +6,21 @@ var publicActivityFields = {
     type:1,
     username:1,
     start_date:1,
-    team: 1
+    teamId: 1,
+    teamName: 1
 };
 
+Meteor.publish("userData", function () {
+    return Meteor.users.find({_id: this.userId},
+        {fields: {'team': 1, 'teamName': 1}});
+});
+
 Meteor.publish('leaderboard.individuals', function () {
-    return Meteor.users.find({},{fields:{'profile.fullName':1, rank:1, team:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
+    return Meteor.users.find({distanceCompleted:{$exists:true}},{fields:{'profile.fullName':1, rank:1, teamName:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
 });
 
 Meteor.publish('leaderboard.teams', function () {
-    return Teams.find({},{fields:{name:1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
+    return Teams.find({},{ sort:{rank:1}});
 });
 
 Meteor.publish('sunburst.data', function(){
