@@ -10,11 +10,11 @@ var publicActivityFields = {
 };
 
 Meteor.publish('leaderboard.individuals', function () {
-    return Meteor.users.find({},{fields:{'profile.fullName':1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
+    return Meteor.users.find({},{fields:{'profile.fullName':1, rank:1, team:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
 });
 
 Meteor.publish('leaderboard.teams', function () {
-    return Meteor.users.find({},{fields:{name:1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
+    return Teams.find({},{fields:{name:1, rank:1, distanceCompleted:1, activityCount:1}, sort:{rank:1}});
 });
 
 Meteor.publish('sunburst.data', function(){
@@ -26,7 +26,7 @@ Meteor.publish('sunburst.data', function(){
             ]);
 
    dataval.forEach(function(activity) {
-         sbData = sbData + activity._id.team + "-" + activity._id.username + "-" + activity._id.type + "," + activity.distanceCompleted + "\n";
+         sbData = sbData + "Team: " + activity._id.team + "-" + "Athlete: " + activity._id.username + "-" + "Activity: " + activity._id.type + "," + activity.distanceCompleted + "\n";
     });
    this.added("sunburstData", null, {myString: sbData});
 });

@@ -90,6 +90,7 @@ Meteor.methods({
         }
         Meteor.call('users.updateDistance');
         Meteor.call('teams.updateDistance');
+
     },
     'users.updateDistance' () {
         // update users

@@ -4,21 +4,21 @@
   <style type="text/css">
   
   .sunburst {
-    margin-top: 100px;
+    margin-top: 60px;
     margin-bottom: 60px;
     margin-left: auto;
     margin-right: auto;
     width: 60%;
-}
-  #explanation {
-  position: relative;
-  top: 260px;
-  left: 305px;
-  width: 140px;
-  text-align: center;
-  color: #666;
-  z-index: -1;
-}
+  }
+    #explanation {
+    position: relative;
+    top: 330px;
+    left: 305px;
+    width: 140px;
+    text-align: center;
+    color: #666;
+    z-index: -1;
+  }
     .shadow {
       text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
     }
@@ -159,6 +159,10 @@
       display: none;
     }
     
+    body.pushable {
+      background: '#fff' !important;
+    }
+    
     @media only screen and (max-width: 700px) {
       .ui.fixed.menu {
         display: none !important;
@@ -211,85 +215,72 @@
 </body>
 
 <template name="mainLayout">
-    <!-- Sidebar Menu -->
+  
+  <!-- Sidebar Menu -->
   <div class="ui vertical inverted sidebar menu left">
     <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a> 
     {{#if currentUser}}
       <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
       <!--<a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>      -->
-      <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
       <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
       <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a> 
+      <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>      
     {{/if}}
     {{ > login}}
   </div>
-      <!-- Page Contents -->
-  <div class="pusher">
-    
-    <!-- Following Menu -->
+  
+  <!-- Following Menu -->
   <div class="ui large top fixed hidden menu">
     <div class="ui container">
       <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
       {{#if currentUser}}
         <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
         <!--<a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>        -->
-        <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
         <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
-      <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>         
+        <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>  
+        <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>          
       {{/if}}
       {{ >login}}
     </div>
   </div>
-
-    {{>top }}
   
+  <!-- Page Contents -->
+  <div class="pusher">
+    {{>top }}
     <main class="Site-content">
       {{>Template.dynamic template=content}}
     </main>
-    
     {{> footer}}
-    
   </div>
-
 
 </template>
 
 <template name="activityFeed">
   {{#if currentUser}}
     <div class="ui container">
-    <h1>Activity feed</h1>
-    <!--{{# each activity in activities}}-->
-    <!--  <p>{{moFormat activity.start_date 'Do MMMM - HH:mm'}} {{activity.username}} completed a {{activity.type}} of {{distanceInKm activity}}km -->
-    <!--    {{#if activity.location_city}}-->
-    <!--      around {{activity.location_city}}, {{activity.location_country}}-->
-    <!--    {{/if}}    -->
-    <!--  </p>-->
-    <!--{{/each }}-->
-    {{> reactiveTable collection=activities fields=fields}}
+      <h1>Activity feed</h1>
+      {{> reactiveTable collection=activities fields=fields}}
     </div>
   {{/if}}
 </template>
 
 <template name="top">
-
-    <div class="ui {{isActiveRoute 'home'}} inverted vertical masthead center aligned segment">
-  
-      <div class="ui container">
-        <div class="ui large secondary inverted pointing menu noborder">
-          <a class="toc item">
-            <i class="sidebar icon"></i>
-          </a>
-          <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
-          {{#if currentUser}}
-            <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
-            <!--<a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>-->
-            <a class="{{isActiveRoute 'profile'}} item" href="{{pathFor 'profile'}}">Profile</a>
-            <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
-            <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>             
-          {{/if}}          
-
-            {{ >login}}
-    </div>
+  <div class="ui {{isActiveRoute 'home'}} inverted vertical masthead center aligned segment">
+    <div class="ui container">
+      <div class="ui large secondary inverted pointing menu noborder">
+        <a class="toc item">
+          <i class="sidebar icon"></i>
+        </a>
+        <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
+        {{#if currentUser}}
+          <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
+          <!--<a class="{{isActiveRoute 'teams'}} item" href="{{pathFor 'teams'}}">Teams</a>-->
+          <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
+          <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>       
+          <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>            
+        {{/if}}          
+        {{ >login}}
+      </div>
       <div class="ui text container">
         <h1 class="ui inverted header titleColor">
           Aurora 2 Rio
@@ -299,128 +290,122 @@
         {{ > countdown}}
       {{/if}}
     </div>
-    </div>
+  </div>
 </template>
 
 <template name="countdown">
-    <div class="ui vertical stripe quote segment">
-
-          <div class="ui text container">
-            <h2 class="ui header center inverted align shadow">Only</h2>
-          </div>
-          <div class="centerText">
-            <div class="countdown"></div>
-          </div>
-          <div class="ui text container">
-            <h2 class="ui header center inverted align shadow">Km To Go!</h2>
-          </div>
-
-    </div>  
+  <div class="ui vertical stripe quote segment">
+    <div class="ui text container">
+      <h2 class="ui header center inverted align shadow">Only</h2>
+    </div>
+    <div class="centerText">
+      <div class="countdown"></div>
+    </div>
+    <div class="ui text container">
+      <h2 class="ui header center inverted align shadow">Km To Go!</h2>
+    </div>
+  </div>  
 </template>
 
 <template name="homeContent">
-
   <div class="ui vertical stripe quote segment">
-      <div class="ui equal width internally celled stackable grid">
-        <div class="center aligned row">
-          <div class="column logoBG">
-            <img class="logoIcons" src="img/big-sw.png" />
-          </div>
-          <div class="column logoBG">
-            <img class="logoIcons" src="img/big-cr.png" />
-          </div>
-          <div class="column logoBG">
-            <img class="logoIcons" src="img/big-at.png" />
-          </div>        
+    <div class="ui equal width internally celled stackable grid">
+      <div class="center aligned row">
+        <div class="column logoBG">
+          <img class="logoIcons" src="img/big-sw.png" />
         </div>
-      </div>
-    </div>  
-    
-  
-    
-    <div class="ui vertical segment">
-      <div class="ui text container">
-        <h3>So we're leaving Aurora House but were going all the way to Rio!</h3>    
-        <p>Collectively we are going to Swim, Bike and Run all the way to Rio in Brazil for the start of the olympics</p>
-        <p>This is a fantastic opportunity to raise money for <strong>Great Ormond Street Hospital</strong> our helping hands charity of the year!</p>
-        <p>Plus get ready for this summers olympics in Rio, Brazil</p>
-        
-        {{#if currentUser}}
-          <h3 class="ui header">Submit Activity Manually</h3>
-          <form id="activityForm" class="ui form activity submit" autocomplete="off">
-              <div class="ui three column grid">
-                  <div class="column">
-                      <div class="field">
-                          <label>Distance (in metres)</label>
-                          <input type="number" name="distance" required=true min="0">
-                      </div>
-                  </div>
-                  <div class="column">
-                      <div class="field">
-                          <label>Activity Type</label>
-                          <select name="type" placeholder="Activity Type" class="ui fluid search floating dropdown similar">
-                              <option class="item" data-value="Swim">Swim</option>
-                              <option class="item" data-value="Ride">Ride</option>
-                              <option class="item" data-value="Run">Run</option>
-                          </select>                          
-                      </div>
-                  </div>
-                  <div class="column">
-                      <div class="field">
-                          <label>Country</label>
-                          <input name="country" type="text">
-                      </div>
-                  </div>                  
-              </div>
-              <div class="actions">
-                  <div class="ui positive right labeled icon button submitActivity"><i class="checkmark icon"></i>Submit Activity</div>
-              </div>              
-          </form>
-        {{ else}}
-          <h3 class="ui header">After signing in / joining, you can record your activities automatically via Strava or input them manually</h3>
-        {{/if}}
+        <div class="column logoBG">
+          <img class="logoIcons" src="img/big-cr.png" />
+        </div>
+        <div class="column logoBG">
+          <img class="logoIcons" src="img/big-at.png" />
+        </div>        
       </div>
     </div>
+  </div>  
 
+  <div class="ui vertical segment">
+    <div class="ui text container">
+      <h3>So we're leaving Aurora House but were going all the way to Rio!</h3>    
+      <p>Collectively we are going to Swim, Bike and Run all the way to Rio in Brazil for the start of the olympics</p>
+      <p>This is a fantastic opportunity to raise money for <strong>Great Ormond Street Hospital</strong> our helping hands charity of the year!</p>
+      <p>Plus get ready for this summers olympics in Rio, Brazil</p>
+      
+      {{#if currentUser}}
+        <h3 class="ui header">Submit Activity Manually</h3>
+        <form id="activityForm" class="ui form activity submit" autocomplete="off">
+            <div class="ui three column grid">
+                <div class="column">
+                    <div class="field">
+                        <label>Distance (in metres)</label>
+                        <input type="number" name="distance" required=true min="0" placeholder="How far did you go?">
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label>Activity Type</label>
+                        <select name="type" placeholder="Activity Type" class="ui fluid floating dropdown">
+                            <option value="" disabled selected>Activity Type</option>
+                            <option class="item" data-value="Swim">Swim</option>
+                            <option class="item" data-value="Ride">Ride</option>
+                            <option class="item" data-value="Run">Run</option>
+                        </select>                          
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label>Country</label>
+                        <input name="country" type="text">
+                    </div>
+                </div>                  
+            </div>
+            <div class="actions">
+                <div class="ui positive right labeled icon button submitActivity"><i class="checkmark icon"></i>Submit Activity</div>
+            </div>              
+        </form>
+      {{ else}}
+        <h3 class="ui header">After signing in / joining, you can record your activities automatically via Strava or input them manually</h3>
+      {{/if}}
+    </div>
+  </div>
 
-
-    <div class="ui vertical quote segment">
-      <div class="ui equal width stackable internally celled grid">
-        <div class="center aligned row">
-          <div class="column">
-            <a href="http://www.gosh.org/" target="_blank" class="item">
-              <img class="goshIcons" src="img/charity-great-ormond-street.png" />
-            </a>
-          </div>
-          <div class="column">
-            <a href="https://www.rio2016.com/en" target="_blank" class="item">
-                <img class="rioIcons" src="img/Rio2016-LogoFORMATTED.jpg"/>
-            </a>
-          </div>
+  <div class="ui vertical quote segment">
+    <div class="ui equal width stackable internally celled grid">
+      <div class="center aligned row">
+        <div class="column">
+          <a href="http://www.gosh.org/" target="_blank" class="item">
+            <img class="goshIcons" src="img/charity-great-ormond-street.png" />
+          </a>
         </div>
-        <div class="center aligned row">
-          <div class="column">
-            <div class="clock"></div> 
-          </div>  
+        <div class="column">
+          <a href="https://www.rio2016.com/en" target="_blank" class="item">
+              <img class="rioIcons" src="img/Rio2016-LogoFORMATTED.jpg"/>
+          </a>
         </div>
       </div>
+      <div class="center aligned row">
+        <div class="column">
+          <div class="clock"></div> 
+        </div>  
+      </div>
     </div>
+  </div>
 </template>
 
 <template name="footer">
-    <div class="ui inverted vertical footer segment">
-      <div class="ui container">
-        <div class="ui stackable inverted divided equal height stackable grid">
-          <div class="six wide column">
-            <img src="https://www.dunnhumby.com/sites/all/themes/dunnhumby/images/logo.png" />
-          </div>
-          <div class="ten wide column">
-            <h4 class="ui inverted header">Aurora to Rio</h4>
-            <p>Join us on the journey to Rio and raise money for an amazing charity.</p>
-          </div>
+  <div class="ui inverted vertical footer segment">
+    <div class="ui container">
+      <div class="ui stackable inverted divided equal height stackable grid">
+        <div class="six wide column">
+          <img src="https://www.dunnhumby.com/sites/all/themes/dunnhumby/images/logo.png" />
+        </div>
+        <div class="ten wide column">
+          <h4 class="ui inverted header">Aurora to Rio</h4>
+          <p>Join us on the journey to Rio and raise money for an amazing charity.</p>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <template name="mapView">
@@ -433,45 +418,26 @@
   </div>
 </template>
 
-<template name="profile">
-  {{#if currentUser}}
-    <div class="ui container">
-      <h1>Profile</h1>
-        <h1>{{currentUser.profile.fullName}}</h1>
-        <h1>{{currentUser.team}}</h1>
-        {{> userProfile}}
-      <div class="ui centre aligned column">
-        <div class="ui statistic">
-          <div class="value">
-            {{distance}}
-          </div>
-          <div class="label">
-            Distance Completed
-          </div>
-        </div>
-      </div>      
-    </div>
-  {{/if}}      
-</template>
+
 
 <template name="leaderboard">
-    {{#if currentUser}}
-      <div class="ui container">
-        <div class="ui tabular menu">
-          <div class="item active" data-tab="Individual">Individual</div>
-          <div class="item" data-tab="Team">Team</div>
-        </div>
-        <div class="ui tab active" data-tab="Individual">
-          {{ > leaderboardIndividual}}
-        </div>
-        <div class="ui tab" data-tab="Team">
-          {{ > leaderboardTeam}}
-        </div>
-        <div class="sunburst">
-          {{ > sunburst}}
-        </div>
+  {{#if currentUser}}
+    <div class="ui container">
+      <div class="ui tabular menu">
+        <div class="item active" data-tab="Individual">Individual</div>
+        <div class="item" data-tab="Team">Team</div>
       </div>
-    {{/if}}
+      <div class="ui tab active" data-tab="Individual">
+        {{ > leaderboardIndividual}}
+      </div>
+      <div class="ui tab" data-tab="Team">
+        {{ > leaderboardTeam}}
+      </div>
+      <div class="sunburst">
+        {{ > sunburst}}
+      </div>
+    </div>
+  {{/if}}
 </template>
 
 <template name="leaderboardTeam">
@@ -480,14 +446,6 @@
 
 <template name="leaderboardIndividual">
   {{> reactiveTable collection=individuals fields=fields}}  
-</template>
-
-<template name="teams">
-  {{#if currentUser}}
-    <div class="ui container">
-    <h1>Team Board</h1>
-    </div>
-  {{/if}}  
 </template>
 
 <template name="login">
@@ -499,8 +457,8 @@
 </template>
 
 <template name="Auth_page">
-    <div class="ui container">  
-  {{ > atForm }}
+  <div class="ui container">  
+    {{ > atForm }}
   </div>
 </template>
 
@@ -511,33 +469,70 @@
 <template name="userProfile">
   <form class="ui form" id="profileForm" >
     
-    {{#if showUpdateName}}
+
       <div class="field">
         <label>First Name</label>
-        <input type="text" name="first-name" placeholder="First Name">
+        <input type="text" name="firstName" placeholder="First Name" value="{{firstName}}">
       </div>
       <div class="field">
         <label>Last Name</label>
-        <input type="text" name="last-name" placeholder="Last Name">
+        <input type="text" name="lastName" placeholder="Last Name" value="{{lastName}}">
       </div>  
-    {{/if}}
-    
-    {{#if showUpdateTeam}}    
+
       <div class="field">
         <label>Team Name</label>
         <select name="team" placeholder="Team Name" class="ui fluid search floating dropdown similar">
-              {{#each team in teams}}
-                <option class="item" data-value="{{team._id}}">{{team.name}}</option>
+              <option value="" disabled selected>Select your Team</option>          
+              {{#each teams}}
+                <option class="item" data-value="{{_id}}">{{name}}</option>
               {{/each}}
         </select>
       </div>
-    {{/if}}
-    
-    {{#if showSubmit}}    
+
       <div class="actions">
           <div class="ui primary button submitProfile">Update Profile</div>
       </div>      
-    {{/if}}        
-  </form>
 
+  </form>
+</template>
+
+<template name="settings">
+  {{#if currentUser}}  
+    <div class="ui container">  
+      <div class="ui tabular menu">
+        <div class="item active" data-tab="Individual">Individual</div>
+        <div class="item" data-tab="Teams">Teams</div>
+      </div>
+      <div class="ui tab active" data-tab="Individual">    
+        <h1>Profile</h1>
+        Name: <h1>{{currentUser.profile.fullName}}</h1>
+        Team: <h1>{{team}}</h1>
+        {{> userProfile}}
+      </div>    
+
+      <div class="ui tab" data-tab="Teams">    
+        <h3 class="ui header">Create New Team</h3>          
+        <form id="newTeam" class="ui form team submit" autocomplete="off">
+            <div class="ui grid">
+                <div class="four wide column">
+                    <div class="field">
+                        <label>Team</label>
+                        <input type="text" name="teamName" required=true placeholder="Team Name">
+                    </div>
+                </div>          
+                <div class="twelve wide column">
+                    <div class="field">
+                        <label>Link to sponsorship page</label>
+                        <input type="text" name="sponsorLink" required=true>
+                    </div>
+                </div>          
+            </div>
+            <div class="actions">
+                <div class="ui positive right labeled icon button submitTeam"><i class="checkmark icon"></i>Create Team</div>
+            </div>       
+        </form>  
+      {{> reactiveTable collection=teams}}        
+      </div>
+    </div>    
+  {{/if}}      
 </template>

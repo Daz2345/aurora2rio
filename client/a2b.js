@@ -42,33 +42,6 @@ Template.leaderboardTeam.helpers({
   }
 });
 
-// Template.activityFeed.onCreated(function() {
-//     var self = this;
-//       self.autorun(function() {
-//         self.subscribe('activities.feed');  
-//       });
-// });
-
-// Template.mainLayout.onCreated(function() {
-//     var self = this;
-//       self.autorun(function() {
-//         self.subscribe('distances');
-//     });
-// });
-
-Template.teams.helpers({
-  teams: function() {
-    return Teams.find({}).fetch();
-  },
-  fields: function() {
-    return [
-          {key: 'team', label: 'Team Name'},
-          {key: 'athletes', label: 'Team Size'}, 
-          {key: 'distanceCompleted', label: 'Distance Completed' , sortByValue: true, sortDirection: 'descending' }
-     ];
-  }
-});
-
 Template.activityFeed.helpers({
     activities: function() {
         return Activities.find({}).fetch();
@@ -89,9 +62,7 @@ Template.activityFeed.helpers({
 });
 
 Template.loginButtons.onRendered(function() {
-
 	$('.ui .dropdown .item').removeClass('item');   
-
 });
 
 Template.top.onRendered(function() {
@@ -132,30 +103,25 @@ $('.ui.dropdown')
 
 }); 
 
-Template.profile.events({
-  'click .submitProfile': function(){
+Template.leaderboardTeam.events({
+  'click .submitTeam': function(){
+    var teamForm = document.getElementById('newTeam');
+    var teamVals = {
+      name: teamForm.elements['teamName'].value,
+      sponsorLink: teamForm.elements['sponsorLink'].value     
+    };
     
-    var profileForm = document.getElementById('profileForm');
-    var profileVals = {};
+    Meteor.call('Team.create', teamVals);
     
-    profileVals.name = profileForm.elements['first-name'].value;
-    profileVals.fullName = profileForm.elements['first-name'].value + " " + profileForm.elements['last-name'].value;
-    profileVals.team = profileForm.elements['team'].value;
-
-    profileForm.elements['first-name'].value = "";
-    profileForm.elements['last-name'].value = "";
-    profileForm.elements['team'].value = "";
-    
-    Meteor.call('Profile.update', profileVals);
-        
   }
 });
 
-Template.profile.helpers({
-  distance: function(){
-    return Meteor.user().distanceCompleted;
-  }
-});
+
+// Template.profile.helpers({
+//   distance: function(){
+//     return Meteor.user().distanceCompleted;
+//   }
+// });
 
 Template.logoutbutton.events({
   'click .logout': function() {
@@ -179,16 +145,12 @@ Template.homeContent.events({
         activityForm.elements["country"].value  = "";         
         
         Meteor.call('Activities.insert.manual', activity);
-        Meteor.call('users.updateDistance');
-        Meteor.call('teams.updateDistance');
-        
+
     }
 });
 
 Template.countdown.onCreated(function() {
-
   Meteor.autorun(function() {
-
     // subscribe to the posts publication
     var subscription = Meteor.subscribe('distances');
 
@@ -209,7 +171,7 @@ Template.countdown.onCreated(function() {
         minimumDigits: 4
       });
 
-      var downcounter = setInterval(function() {
+      setInterval(function() {
         if (countdown.getTime().time == distanceToGo) {
         }
         else {
@@ -239,17 +201,9 @@ Template.map.onCreated(function() {
   var self = this;
 
   GoogleMaps.ready('map', function(map) {
-    self.autorun(function() {
+
       var aurora = new google.maps.LatLng(51.5119793, -0.3104522),
         rio = new google.maps.LatLng(-22.9068467, -43.1728965);
-
-      var heading = google.maps.geometry.spherical.computeHeading(aurora, rio),
-        distance = Distance.findOne({
-          'distanceType': 'current'
-        }) || {
-          distanceCompleted: 0
-        },
-        endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance.distanceCompleted, heading);
 
         var journey = new google.maps.Polyline({
           path: [],
@@ -258,8 +212,22 @@ Template.map.onCreated(function() {
           strokeWeight: 3,
           map: map.instance
         });
-
-        journey.setPath([aurora, endPoint]);
+  
+        self.autorun(function() {
+          var heading = google.maps.geometry.spherical.computeHeading(aurora, rio),
+            distance = Distance.findOne({
+              'distanceType': 'current'
+            }) || {
+              distanceCompleted: 0
+            },
+            endPoint = google.maps.geometry.spherical.computeOffset(aurora, distance.distanceCompleted, heading);
+            
+          journey.getPath().removeAt(1);
+          journey.getPath().removeAt(0);
+          journey.getPath().insertAt(0, aurora);
+          journey.getPath().insertAt(1, endPoint);
+        });
+      
         var dh = "The home of dunnhumby’s global headquarters, our London office opened in 1998, nine years after the company was founded in the West London flat of Edwina Dunn and Clive Humby. Located in Ealing, about 20 km west of central London, the office is actually comprised of two buildings, Aurora House and Ealing Cross (and now holds considerably more people than our founders' spare bedroom). ",
             br = "The 2016 Summer Olympics will take place in Rio de Janeiro, Brazil, from August 5 to August 21, 2016";
         
@@ -281,7 +249,7 @@ Template.map.onCreated(function() {
           });
         }
 
-    });
+
   });
 });
 
@@ -289,13 +257,57 @@ Template.userProfile.helpers({
   teams: function() {
     return Teams.find({},{sort:{name:1}});
   },
-  showSubmit: function() {
-    return Meteor.user().team == "" * Meteor.user().profile.fullName == "";
+  firstName: function() {
+    return Meteor.user().profile.name;
   },
-  showUpdateName: function() {
-    return !Meteor.user().profile.fullName;
+  lastName: function() {
+    return Meteor.user().profile.fullName.replace(Meteor.user().profile.name + " ","");
   },
-  showUpdateTeam: function() {
-    return !Meteor.user().team;
+  team: function() {
+    return Teams.find(Meteor.user().team).name;
   }
-})
+});
+
+Template.settings.events({
+  'click .submitProfile': function(){
+    
+    var profileForm = document.getElementById('profileForm');
+    var profileVals = {};
+    
+    profileVals.name = profileForm.elements['firstName'].value || "";
+    profileVals.fullName = profileVals.name + " " + profileForm.elements['lastName'].value || "";
+    profileVals.team = $("select[name='team']").find(':selected').data('value') || "";
+
+    console.log(profileVals);
+
+    // profileForm.elements['firstName'].getAttribute('data-value') = "";
+    // profileForm.elements['lastName'].value = "";
+    // profileForm.elements['team'].value = "";
+    
+    Meteor.call('Profile.update', profileVals);
+        
+  },
+  'click .submitTeam': function(){
+    var teamForm = document.getElementById('newTeam');
+    var teamVals = {
+      name: teamForm.elements['teamName'].value,
+      sponsorLink: teamForm.elements['sponsorLink'].value     
+    };
+    
+    Meteor.call('Team.create', teamVals);
+    
+  }
+});
+
+Template.settings.helpers({
+    teams: function() {
+    return Teams.find({}).fetch();
+  },
+    team: function() {
+    return Teams.findOne({_id: Meteor.user().team}).name;
+  }
+});
+
+Template.settings.onRendered(function() {
+    $('.tabular.menu .item').tab();
+});
