@@ -22,11 +22,11 @@ Meteor.publish('sunburst.data', function(){
    var sbData = "";
    
    var dataval = Activities.aggregate([
-              {$group: {_id: {team: "$team", username: "$username", type: "$type"}, distanceCompleted: {$sum: "$distance"}}}
+              {$group: {_id: {team: "$teamName", username: "$username", type: "$type"}, distanceCompleted: {$sum: "$distance"}}}
             ]);
 
    dataval.forEach(function(activity) {
-         sbData = sbData + "Team: " + activity._id.team + "-" + "Athlete: " + activity._id.username + "-" + "Activity: " + activity._id.type + "," + activity.distanceCompleted + "\n";
+         sbData = sbData + "Team: " + activity._id.teamName + "-" + "Athlete: " + activity._id.username + "-" + "Activity: " + activity._id.type + "," + activity.distanceCompleted + "\n";
     });
    this.added("sunburstData", null, {myString: sbData});
 });

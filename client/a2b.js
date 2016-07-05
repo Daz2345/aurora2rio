@@ -35,7 +35,7 @@ Template.leaderboardTeam.helpers({
     fields: function() {
     return [
           {key: 'rank', label: 'Rank' , sortable: false},      
-          {key: 'team', label: 'Team Name' , sortable: false},
+          {key: 'teamName', label: 'Team Name' , sortable: false},
           {key: 'activityCount', label: 'Number of activities' , sortable: false}, 
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false}
      ];
@@ -52,7 +52,7 @@ Template.activityFeed.helpers({
     fields: function(){
       return [
           { key: 'start_date', label: 'When', fn: function(value, object, key) { return moment(value).format('Do MMMM - HH:mm'); }, sortByValue: true, sortDirection: 'descending' },
-          { key: 'team', label: 'Team' },
+          { key: 'teamName', label: 'Team' },
           { key: 'username', label: 'Name' },
           { key: 'type', label: 'Type' },
           { key: 'distance', label: 'Distance (metres)' },

@@ -108,9 +108,11 @@ Meteor.methods({
         });        
         
         Meteor.users.find().forEach(function(user) {
+            if (user.distanceCompleted != undefined) {
             userIdVal = user._id;
             var userRank = Meteor.users.find({distanceCompleted:{$gt: user.distanceCompleted}}).count() + 1;
             Meteor.users.update(userIdVal,{$set:{rank: userRank}}, {upsert:true});
+            }
         });         
         
     },
@@ -129,9 +131,11 @@ Meteor.methods({
         });        
         
         Teams.find().forEach(function(team) {
+            if (team.distanceCompleted != undefined) {
             teamIdVal = team._id;
             var teamRank = Teams.find({$gt:{distanceCompleted: team.distanceCompleted}}).count() + 1;
             Teams.update(teamIdVal,{$set:{rank: teamRank}}, {upsert:true});
+            }
         });              
     }
 });
