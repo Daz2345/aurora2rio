@@ -89,15 +89,15 @@
 
 <template name="countdown">
   <div class="ui vertical stripe quote segment">
-    <div class="ui text container">
-      <h2 class="ui header center inverted align shadow">Only</h2>
-    </div>
-    <div class="centerText">
-      <div class="countdown"></div>
-    </div>
-    <div class="ui text container">
-      <h2 class="ui header center inverted align shadow">Km To Go!</h2>
-    </div>
+      <div class="ui text container">      
+        <h2 class="ui header center inverted align shadow">Only</h2>
+      </div>
+      <div class="centerText">
+          <div class="countdown"></div>
+      </div>
+      <div class="ui text container">
+        <h2 class="ui header center inverted align shadow">Km To Go!</h2>
+      </div>
   </div>  
 </template>
 
@@ -120,6 +120,18 @@
 
   <div class="ui vertical segment">
     <div class="ui text container">
+    {{#if completedDistance}}
+        <div class="ui text container center aligned">
+        <h1 class="ui header">We Made It!</h1>
+        </div>
+        <div class="ui container center aligned">        
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/RUhNjot1nC8?t=6s" frameborder="0" allowfullscreen></iframe>      
+        </div>       
+       <div class="ui text container center aligned ">      
+        <h2 class="ui header">A huge round of applause to everyone that took part!</h2>
+        <h3 class="ui header">Weve managed to raise a massive amount of money</h3>
+      </div> 
+    {{else}}      
       <h3>So we're leaving Aurora House but were going all the way to Rio!</h3>    
       <p>Collectively we are going to Swim, Bike and Run all the way to Rio in Brazil for the start of the olympics</p>
       <p>This is a fantastic opportunity to raise money for <strong>Great Ormond Street Hospital</strong> our helping hands charity of the year!</p>
@@ -161,7 +173,8 @@
       {{ else}}
         <h3 class="ui header">After signing in / joining, you can record your activities automatically via Strava or input them manually</h3>
       {{/if}}
-    </div>
+    {{/if}}
+    </div>    
   </div>
 
   <div class="ui vertical quote segment">

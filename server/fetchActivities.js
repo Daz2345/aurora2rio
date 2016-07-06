@@ -3,12 +3,17 @@ var userIdVal = '';
 var teamIdVal = '';
 var userTeam = '';
 
+var compDates = [
+    '2016-07-07',
+    '2016-07-08'    
+];
+
+
 function insertActivity(element, index, array) {
 
     if (!!Activities.findOne({
             id: element.id
         })) {
-        console.log('duplicate activity');
     }
     else {
         element.username = username;
@@ -20,11 +25,9 @@ function insertActivity(element, index, array) {
 
 Meteor.methods({
     'Activities.insert' (activity) {
-        console.log('insert activity');
         Activities.insert(activity);
     },
     'fetchActivities' () {
-        console.log('fetching activities');
         Meteor.users.find().forEach(function(user) {
             if (!!user.services.strava) {
                 username = user.profile.fullName;

@@ -90,7 +90,7 @@ Template.top.onRendered(function() {
 Template.homeContent.onRendered(function() {
   
   var currentDate = new Date();
-	var futureDate  = new Date(currentDate.getFullYear(), 7, 5, 16, 0, 0);
+	var futureDate  = new Date(currentDate.getFullYear(), 7, 6, 0, 0, 0);
 	// Calculate the difference in seconds between the future and current date
 	var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
 	// Instantiate a coutdown FlipClock
@@ -177,7 +177,11 @@ Template.countdown.onCreated(function() {
   });
 });
 
-
+Template.homeContent.helpers({
+  completedDistance: function(){
+    return Distance.findOne({"distanceType": "current"}) >= 9280000 ;
+  }
+});
 
 Template.map.helpers({  
   mapOptions: function() {
@@ -265,6 +269,10 @@ Template.userProfile.helpers({
 });
 
 Template.settings.events({
+  'click a': function (event) {
+    event.preventDefault();
+    window.open(event.target.href, '_blank');
+  },
   'click .submitProfile': function(){
     
     var profileForm = document.getElementById('profileForm');
@@ -283,10 +291,18 @@ Template.settings.events({
         
   },
   'click .submitTeam': function(){
+    
+    var addHttp = function (url) {
+      if (!/^(f|ht)tps?:\/\//i.test (url)) {
+        url = "http://" + url;
+      }
+      return url;
+    };
+    
     var teamForm = document.getElementById('newTeam');
     var teamVals = {
       name: teamForm.elements['teamName'].value,
-      sponsorLink: teamForm.elements['sponsorLink'].value     
+      sponsorLink: addHttp(teamForm.elements['sponsorLink'].value)     
     };
     
     Meteor.call('Team.create', teamVals);
@@ -306,7 +322,7 @@ Template.settings.helpers({
   },
   fields: function() {
     return [{key: 'name', label: 'Team Name'},{key: 'sponsorLink', label: 'Sponsorship Page', fn: function (value) {
-    return new Spacebars.SafeString("<a href="+value+">"+value+"</a>");
+    return new Spacebars.SafeString("<a href=" + value + ">" + value + "</a>");
 }}];
   }
 });
