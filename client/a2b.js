@@ -118,13 +118,6 @@ Template.leaderboardTeam.events({
   }
 });
 
-
-// Template.profile.helpers({
-//   distance: function(){
-//     return Meteor.user().distanceCompleted;
-//   }
-// });
-
 Template.logoutbutton.events({
   'click .logout': function() {
     Meteor.logout();
@@ -250,8 +243,6 @@ Template.map.onCreated(function() {
             infowindow.open(map, marker);
           });
         }
-
-
   });
 });
 

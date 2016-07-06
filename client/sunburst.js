@@ -11,7 +11,6 @@
 
 Template.sunburst.rendered = function() {
     
-    // Tracker.autorun(function() {
     // Dimensions of sunburst.
 var width = 750;
 var height = 600;
@@ -30,7 +29,9 @@ var colors = {
   };
 
 // Total size of all segments; we set this later, after loading the data.
-var totalSize = 0; 
+// var totalSize = 0; 
+
+// d3.select("#chart").remove("svg:svg")
 
 var vis = d3.select("#chart").append("svg:svg")
     .attr("width", width)
@@ -49,6 +50,14 @@ var arc = d3.svg.arc()
     .innerRadius(function(d) { return Math.sqrt(d.y); })
     .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
 
+  // Bounding circle underneath the sunburst, to make it easier to detect
+  // when the mouse leaves the parent g.
+  vis.append("svg:circle")
+      .attr("r", radius)
+      .style("opacity", 0);
+
+  initializeBreadcrumbTrail();
+
 // Use d3.text and d3.csv.parseRows so that we do not need to have a header
 // row, and can receive the csv as an array of arrays.
 Meteor.autorun(function() {
@@ -56,19 +65,20 @@ var dataVal = SunburstData.find().fetch();
 
 if (dataVal.length != 0) {
 
-// d3.text(dataVal[0].myString, function(text) {
   var csv = d3.csv.parseRows(dataVal[0].myString);
   
   csv.forEach(function(elements){
     elements[0].split("-").forEach(function(element) {
-        colors[element] = randomColor();
+        if (!colors.hasOwnProperty(element)) {
+          colors[element] = randomColor();
+        }
     });
   });
 
   var json = buildHierarchy(csv);
 
   createVisualization(json);
-// });
+
 
 }
 });
@@ -77,15 +87,9 @@ if (dataVal.length != 0) {
 function createVisualization(json) {
 
   // Basic setup of page elements.
-  initializeBreadcrumbTrail();
-  drawLegend();
-  d3.select("#togglelegend").on("click", toggleLegend);
 
-  // Bounding circle underneath the sunburst, to make it easier to detect
-  // when the mouse leaves the parent g.
-  vis.append("svg:circle")
-      .attr("r", radius * 1.1)
-      .style("opacity", 0);
+  // drawLegend();
+  d3.select("#togglelegend").on("click", toggleLegend);
 
   // For efficiency, filter nodes to keep only those large enough to see.
   var nodes = partition.nodes(json)
@@ -94,8 +98,11 @@ function createVisualization(json) {
       });
 
   var path = vis.data([json]).selectAll("path")
-      .data(nodes)
-      .enter().append("svg:path")
+      .data(nodes);
+      
+      path.exit().remove();
+      
+      path.enter().append("svg:path")
       .attr("display", function(d) { return d.depth ? null : "none"; })
       .attr("d", arc)
       .attr("fill-rule", "evenodd")
@@ -103,12 +110,16 @@ function createVisualization(json) {
       .style("opacity", 1)
       .on("mouseover", mouseover);
 
+      path.transition();
+
   // Add the mouseleave handler to the bounding circle.
   d3.select("#container").on("mouseleave", mouseleave);
 
   // Get total size of the tree = value of root node from partition.
-  totalSize = path.node().__data__.value;
- };
+  // if (path.node() !== undefined) {
+  //   totalSize = path.node().__data__.value;
+  // }
+ }
 
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
