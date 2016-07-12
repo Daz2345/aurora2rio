@@ -7,9 +7,11 @@ if (Meteor.isClient) {
     var LeaderboardIndividualsSub = Meteor.subscribe('leaderboard.individuals');
     var activitiesSub = Meteor.subscribe('activities.feed');
     var distancesSub = Meteor.subscribe('distances');
+    var athletes = Meteor.subscribe('athletes');
     var teamsSub = Meteor.subscribe('teams');  
     var userData = Meteor.subscribe('userData');
     var sunburst = Meteor.subscribe('sunburst');
+    var sponsored = Meteor.subscribe('sponsoredData');
 }
 
 Template.leaderboard.onRendered(function() {
@@ -301,8 +303,7 @@ Template.settings.events({
     
     var teamForm = document.getElementById('newTeam');
     var teamVals = {
-      name: teamForm.elements['teamName'].value,
-      sponsorLink: addHttp(teamForm.elements['sponsorLink'].value)     
+      name: teamForm.elements['teamName'].value  
     };
     
     Meteor.call('Team.create', teamVals);
@@ -330,3 +331,87 @@ Template.settings.helpers({
 Template.settings.onRendered(function() {
     $('.tabular.menu .item').tab();
 });
+
+
+Template.sponsorsTeam.helpers({
+  Sponsorship: function(){
+    return Sponsorship.find({sponsoredType: "Team"})
+  },
+  fields: function(){
+    return [{key: 'name', label: 'Sponsor'}, {key: 'contact', label: 'Contact'}, {key: 'pledge', label: 'Sponsored / Pledge'}];
+  }
+});
+
+Template.sponsorsAthlete.helpers({
+  Sponsorship: function(){
+    return Sponsorship.find({sponsoredType: "Individual"})
+  },
+  fields: function(){
+    return [{key: 'name', label: 'Sponsor'}, {key: 'contact', label: 'Contact'}, {key: 'pledge', label: 'Sponsored / Pledge'}];
+  }
+});
+
+Template.sponsor.helpers({
+  teams: function() {
+    return Teams.find({},{sort:{name:1}});
+  },
+  athletes: function(){
+    return Meteor.users.find({},{sort:{"profile.name":1}});    
+  },
+  correctInsert: function(){
+    return (Session.get('correctInsert')) ? "success" : "";
+  },
+  sponsored: function(){
+    return Session.get('sponsored');
+  }
+});
+
+Template.sponsor.onRendered(function() {
+    Session.set('sponsored', "");
+    Session.set('correctInsert', false);
+    $('.tabular.menu .item').tab();
+    $('#search-select1').dropdown();
+    $('#search-select2').dropdown();    
+    $('.ui.form').form()
+    Session.set('sponsored', 'athlete');
+});
+
+Template.sponsor.events({
+  'click .athleteSponsor': function() {
+    Session.set('sponsored', 'athlete');
+  },
+  'click .teamSponsor': function() {
+    Session.set('sponsored', 'team');
+  },
+  'click .submitTeam': function(){
+    var sponsorshipForm = document.getElementById('sponsorForm'),
+        sponsoredId = (Session.get("sponsored") === "athlete") ? $('#search-select1').dropdown('get value') : $('#search-select2').dropdown('get value'),
+        sponsoredType = (Session.get("sponsored") === "athlete") ? 'Individual' : 'Team';
+
+    var sponsoredVal;
+    if (Session.get("sponsored") === "athlete") {
+      sponsoredVal = Meteor.users.findOne({_id: sponsoredId}).profile.fullName;
+    } else {
+      sponsoredVal = Teams.findOne({_id: sponsoredId}).name
+    }        
+        
+    var sponsorshipVals = {
+          name: sponsorshipForm.elements['name'].value,
+          pledge: sponsorshipForm.elements['pledge'].value,
+          contact: sponsorshipForm.elements['contact'].value,
+          sponsored: sponsoredId,
+          sponsoredName: sponsoredVal,
+          sponsoredType: sponsoredType
+        };
+
+    sponsorshipForm.elements['name'].value = "";
+    sponsorshipForm.elements['pledge'].value = "";
+    sponsorshipForm.elements['contact'].value = "";    
+    $('#search-select1').dropdown('clear');
+    $('#search-select2').dropdown('clear');
+    
+    Meteor.call('sponsorship.create', sponsorshipVals);
+    Session.set('correctInsert', true);
+    Session.set('sponsored', sponsoredVal);    
+  }
+})
