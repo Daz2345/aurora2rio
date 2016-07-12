@@ -16,7 +16,7 @@ Meteor.publish("sponsoredData", function() {
             _id: this.userId
         }).team;
         return Sponsorship.find({
-            $or: [{}, {}]
+            $or: [{sponsored: this.userId}, {sponsored:teamId}]
         });
     }
     else {
@@ -52,6 +52,9 @@ Meteor.publish('leaderboard.individuals', function() {
     if (this.userId) {
         return Meteor.users.find({
             distanceCompleted: {
+                $exists: true
+            },
+            rank: {
                 $exists: true
             }
         }, {
@@ -109,7 +112,8 @@ Meteor.publish('activities.feed', function() {
             sort: {
                 start_date: -1
             },
-            fields: publicActivityFields
+            fields: publicActivityFields,
+            limit: 20
         });
     }
     else {

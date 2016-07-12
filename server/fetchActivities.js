@@ -1,16 +1,9 @@
-var username = '';
-var userIdVal = '';
-var teamIdVal = '';
-var userTeam = '';
-
-var compDates = [
-    '2016-07-07',
-    '2016-07-08'    
-];
-
+var username,
+    userIdVal,
+    teamIdVal,
+    userTeam;
 
 function insertActivity(element, index, array) {
-
     if (!!Activities.findOne({
             id: element.id
         })) {
@@ -108,14 +101,18 @@ Meteor.methods({
             // console.log(userDistance);
             if (userDistance !== undefined && userDistance.length !== 0) {
                 Meteor.users.update(userIdVal,{$set:{distanceCompleted: userDistance[0].distanceCompleted, activityCount: userDistance[0].activityCount}}, {upsert:true});
+            } else {
+                Meteor.users.update(userIdVal,{$set:{distanceCompleted: 0, activityCount: 0}}, {upsert:true});
             }
         });        
         
         Meteor.users.find().forEach(function(user) {
             if (user.distanceCompleted !== undefined) {
-            userIdVal = user._id;
-            var userRank = Meteor.users.find({distanceCompleted:{$gt: user.distanceCompleted}}).count() + 1;
-            Meteor.users.update(userIdVal,{$set:{rank: userRank}}, {upsert:true});
+                userIdVal = user._id;
+                var userRank = Meteor.users.find({distanceCompleted:{$gt: user.distanceCompleted}}).count() + 1;
+                Meteor.users.update(userIdVal,{$set:{rank: userRank}}, {upsert:true});
+            } else {
+                Meteor.users.update(userIdVal,{$set:{rank: 999}}, {upsert:true});
             }
         });         
         
@@ -131,6 +128,8 @@ Meteor.methods({
             ]);
             if (teamDistance !== undefined && teamDistance.length !== 0) {      
                 Teams.update(teamIdVal,{$set:{distanceCompleted: teamDistance[0].distanceCompleted, activityCount: teamDistance[0].activityCount}}, {upsert:true});
+            } else {
+                Teams.update(teamIdVal,{$set:{distanceCompleted: 0, activityCount: 0}}, {upsert:true});
             }
         });        
         
@@ -139,6 +138,8 @@ Meteor.methods({
             teamIdVal = team._id;
             var teamRank = Teams.find({distanceCompleted:{$gt: team.distanceCompleted}}).count() + 1;
             Teams.update(teamIdVal,{$set:{rank: teamRank}}, {upsert:true});
+            } else {
+                Teams.update(teamIdVal,{$set:{rank: 999}}, {upsert:true});
             }
         });              
     },
@@ -148,7 +149,6 @@ Meteor.methods({
         var dataval = Activities.aggregate([
                   {$group: {_id: {teamName: "$teamName", username: "$username", type: "$type"}, distanceCompleted: {$sum: "$distance"}}}
                 ]);
-    
         dataval.forEach(function(activity) {
              sbData = sbData + "Team: " + activity._id.teamName + "-" + "Athlete: " + activity._id.username + "-" + "Activity: " + activity._id.type + "," + Math.round(activity.distanceCompleted) + "\n";
          });
