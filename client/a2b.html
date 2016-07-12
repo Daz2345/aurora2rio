@@ -226,8 +226,6 @@
   </div>
 </template>
 
-
-
 <template name="leaderboard">
   {{#if currentUser}}
     <div class="ui container basic segment">
@@ -348,8 +346,8 @@
         <div class="item teamSponsor" data-tab="Teams">Team</div>
       </div>
       <div class="ui tab active" data-tab="Individual">    
-        <div class="eight wide column">
-          <div class="required field">
+        <!--<div class="eight wide column">-->
+          <div class="field">
             <label>Individual Athlete</label>
             <div class="ui fluid search selection dropdown" id="search-select1" name="athlete">
               <input type="hidden" name="athlete">
@@ -362,11 +360,11 @@
               </div>
             </div>
           </div>
-        </div>  
+        <!--</div>  -->
       </div>    
       <div class="ui tab" data-tab="Teams">    
-        <div class="eight wide column">
-          <div class="required field">
+        <!--<div class="eight wide column">-->
+          <div class="field">
             <label>Team</label>
             <div class="ui fluid search selection dropdown" id="search-select2" name="team">
               <input type="hidden" name="team">
@@ -379,7 +377,7 @@
               </div>
             </div>
           </div>
-        </div>     
+        <!--</div>     -->
       </div>
       <div class="required field">
         <label>Pledge</label>

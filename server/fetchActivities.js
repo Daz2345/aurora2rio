@@ -18,7 +18,8 @@ function insertActivity(element, index, array) {
     else {
         element.username = username;
         element.userId = userIdVal;
-        element.team = userTeam;
+        element.teamId = userTeam;
+        element.teamName = Teams.findOne({_id: userTeam}).name || "No Team"
         Meteor.call('Activities.insert', element);
     }
 }
@@ -32,7 +33,7 @@ Meteor.methods({
             if (!!user.services.strava) {
                 username = user.profile.fullName;
                 userIdVal = user._id;
-                userTeam = user.team || username;
+                userTeam = user.team || 'No Team';
                 
                 var options = {
                     "headers": {
@@ -149,7 +150,7 @@ Meteor.methods({
                 ]);
     
         dataval.forEach(function(activity) {
-             sbData = sbData + "Team: " + activity._id.teamName + "-" + "Athlete: " + activity._id.username + "-" + "Activity: " + activity._id.type + "," + activity.distanceCompleted + "\n";
+             sbData = sbData + "Team: " + activity._id.teamName + "-" + "Athlete: " + activity._id.username + "-" + "Activity: " + activity._id.type + "," + Math.round(activity.distanceCompleted) + "\n";
          });
          
         SunburstData.insert({createdAt: new Date(), myString: sbData});

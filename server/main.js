@@ -86,12 +86,17 @@ Meteor.publish('leaderboard.teams', function() {
 });
 
 Meteor.publish('sunburst', function() {
+    if (this.userId) {    
     return SunburstData.find({}, {
         sort: {
             createdAt: -1
         },
         limit: 1
     });
+    }
+    else {
+        return [];
+    }
 });
 
 Meteor.publish('distances', function() {

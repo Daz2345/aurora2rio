@@ -27,7 +27,7 @@ Template.leaderboardIndividual.helpers({
           {key: 'rank', label: 'Rank' , sortable: false},
           {key: 'profile.fullName', label: 'Name' , sortable: false},
           {key: 'activityCount', label: 'Number of activities' , sortable: false}, 
-          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false }
+          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false, fn: function(value, object, key) { return Math.round(value)} }
      ];
   }
 });
@@ -41,7 +41,7 @@ Template.leaderboardTeam.helpers({
           {key: 'rank', label: 'Rank' , sortable: false},      
           {key: 'name', label: 'Team Name' , sortable: false},
           {key: 'activityCount', label: 'Number of activities' , sortable: false}, 
-          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false}
+          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false, fn: function(value, object, key) { return Math.round(value)}}
      ];
   }
 });
@@ -59,7 +59,7 @@ Template.activityFeed.helpers({
           { key: 'teamName', label: 'Team' },
           { key: 'username', label: 'Name' },
           { key: 'type', label: 'Type' },
-          { key: 'distance', label: 'Distance (metres)' },
+          { key: 'distance', label: 'Distance (metres)', fn: function(value, object, key) { return Math.round(value)} },
           { key: 'location_country', label: 'Country' }
         ];
     }
@@ -284,11 +284,6 @@ Template.settings.events({
     profileVals.fullName = profileVals.name + " " + profileForm.elements['lastName'].value || "";
     profileVals.team = $("select[name='team']").find(':selected').data('value') || "";
 
-
-    // profileForm.elements['firstName'].getAttribute('data-value') = "";
-    // profileForm.elements['lastName'].value = "";
-    // profileForm.elements['team'].value = "";
-    
     Meteor.call('Profile.update', profileVals);
         
   },
@@ -356,7 +351,7 @@ Template.sponsor.helpers({
     return Teams.find({},{sort:{name:1}});
   },
   athletes: function(){
-    return Meteor.users.find({},{sort:{"profile.name":1}});    
+    return Meteor.users.find({},{sort:{"profile.fullName":1}});    
   },
   correctInsert: function(){
     return (Session.get('correctInsert')) ? "success" : "";
@@ -372,7 +367,13 @@ Template.sponsor.onRendered(function() {
     $('.tabular.menu .item').tab();
     $('#search-select1').dropdown();
     $('#search-select2').dropdown();    
-    $('.ui.form').form()
+    $('.ui.form').form({
+    fields: {
+      name     : 'empty',
+      pledge   : 'empty',
+      contact : 'empty'
+    }
+  })
     Session.set('sponsored', 'athlete');
 });
 
