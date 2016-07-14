@@ -386,7 +386,7 @@ Template.sponsor.onRendered(function() {
       pledge   : 'empty',
       contact : 'empty'
     }
-  })
+  });
     Session.set('sponsored', 'athlete');
 });
 

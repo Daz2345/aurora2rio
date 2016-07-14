@@ -12,7 +12,12 @@ function insertActivity(element, index, array) {
         element.username = username;
         element.userId = userIdVal;
         element.teamId = userTeam;
-        element.teamName = Teams.findOne({_id: userTeam}).name || "No Team"
+        if (userTeam !== "No Team") {
+        element.teamName = Teams.findOne({_id: userTeam}).name;
+        }
+        else {
+            element.teamName ="No Team";
+        }
         Meteor.call('Activities.insert', element);
     }
 }
@@ -22,6 +27,7 @@ Meteor.methods({
         Activities.insert(activity);
     },
     'fetchActivities' () {
+        console.log('hello');
         Meteor.users.find().forEach(function(user) {
             if (!!user.services.strava) {
                 username = user.profile.fullName || "No name submitted";
