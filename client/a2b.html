@@ -172,6 +172,7 @@
         </form>
       {{ else}}
         <h3 class="ui header">After signing in / joining, you can record your activities automatically via Strava or input them manually</h3>
+        <h4 class="ui header">You will only be able to sign up via Strava or via manual registration</h4>        
       {{/if}}
     {{/if}}
     </div>    
@@ -269,7 +270,7 @@
 </template>
 
 <template name="logoutbutton">
-  <a href="{{pathFor 'home'}}" class="right item logout">{{currentUser.profile.fullName}} - Logout</a>
+  <a href="{{pathFor 'home'}}" class="right item logout">{{userName}} - Logout</a>
 </template>
 
 <template name="userProfile">

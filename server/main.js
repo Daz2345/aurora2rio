@@ -10,13 +10,24 @@ var publicActivityFields = {
     teamName: 1
 };
 
-Meteor.publish("sponsoredData", function() {
+Meteor.publish("sponsoredDataTeam", function() {
     if (this.userId) {
         var teamId = Meteor.users.find({
             _id: this.userId
         }).team;
         return Sponsorship.find({
-            $or: [{sponsored: this.userId}, {sponsored:teamId}]
+            sponsored: teamId
+        });
+    }
+    else {
+        return [];
+    }
+});
+
+Meteor.publish("sponsoredDataUser", function() {
+    if (this.userId) {
+        return Sponsorship.find({
+            sponsored: this.userId
         });
     }
     else {

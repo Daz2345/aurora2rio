@@ -11,7 +11,8 @@ if (Meteor.isClient) {
     var teamsSub = Meteor.subscribe('teams');  
     var userData = Meteor.subscribe('userData');
     var sunburst = Meteor.subscribe('sunburst');
-    var sponsored = Meteor.subscribe('sponsoredData');
+    var sponsoredUser = Meteor.subscribe('sponsoredDataUser');
+    var sponsoredTeam = Meteor.subscribe('sponsoredDataTeam');    
 }
 
 Template.leaderboard.onRendered(function() {
@@ -358,6 +359,18 @@ Template.sponsor.helpers({
   },
   sponsored: function(){
     return Session.get('sponsored');
+  }
+});
+
+Template.logoutbutton.helpers({
+  userName: function() {
+    var nm;
+    if (Meteor.user().profile !== undefined) {
+      nm = Meteor.user().profile.fullName;
+    } else {
+      nm = "Please fill in your name via settings";
+    }
+    return nm;
   }
 });
 
