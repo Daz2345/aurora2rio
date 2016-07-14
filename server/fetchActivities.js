@@ -24,7 +24,7 @@ Meteor.methods({
     'fetchActivities' () {
         Meteor.users.find().forEach(function(user) {
             if (!!user.services.strava) {
-                username = user.profile.fullName;
+                username = user.profile.fullName || "No name submitted";
                 userIdVal = user._id;
                 userTeam = user.team || 'No Team';
                 
@@ -36,7 +36,7 @@ Meteor.methods({
 
                 try {
                     var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1467849600", options);
-                    // console.log(result);
+                    console.log(result);
                     result.data.forEach(insertActivity);
                     return true;
                 }
