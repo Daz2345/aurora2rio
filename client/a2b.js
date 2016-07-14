@@ -267,7 +267,7 @@ Template.userProfile.helpers({
     return Meteor.user().profile.fullName.replace(Meteor.user().profile.name + " ","");
   },
   team: function() {
-    return Teams.find(Meteor.user().team).name;
+    return Teams.findOne(Meteor.user().team).name;
   }
 });
 
@@ -302,8 +302,9 @@ Template.settings.events({
       name: teamForm.elements['teamName'].value  
     };
     
-    Meteor.call('Team.create', teamVals);
-    
+    if (teamVals.name !== "") {
+      Meteor.call('Team.create', teamVals);
+    }
   }
 });
 

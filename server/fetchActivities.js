@@ -13,7 +13,7 @@ function insertActivity(element, index, array) {
         element.userId = userIdVal;
         element.teamId = userTeam;
         if (userTeam !== "No Team") {
-        element.teamName = Teams.findOne({_id: userTeam}).name;
+            element.teamName = Teams.findOne({_id: userTeam}).name;
         }
         else {
             element.teamName ="No Team";
@@ -42,7 +42,7 @@ Meteor.methods({
 
                 try {
                     var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1467849600", options);
-                    console.log(result);
+                    // console.log(result);
                     result.data.forEach(insertActivity);
                     return true;
                 }
