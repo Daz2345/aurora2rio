@@ -10,8 +10,6 @@ var publicActivityFields = {
     teamName: 1
 };
 
-Teams._ensureIndex('name', {unique: true});
-
 Meteor.publish("sponsoredDataTeam", function() {
     if (this.userId) {
         var teamId = Meteor.users.find({
