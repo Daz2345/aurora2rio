@@ -273,7 +273,6 @@
 </template>
 
 <template name="userProfile">
-
     <form class="ui form" id="profileForm" >
       <div class="field">
         <label>First Name</label>
@@ -296,27 +295,19 @@
           <div class="ui primary button submitProfile">Update Profile</div>
       </div>
     </form>
-
 </template>
 
 <template name="settings">
   {{#if currentUser}}
     <div class="ui container basic segment">
       <div class="ui two column stackable grid">
-      <!--<div class="ui tabular menu">-->
-      <!--  <div class="item active" data-tab="Individual">Individual</div>-->
-      <!--  <div class="item" data-tab="Teams">Teams</div>-->
-      <!--</div>-->
-      <!--<div class="ui tab active" data-tab="Individual">-->
         <div class="row">
           <div class="column">
             <h1>Profile</h1>
             Name: <h1>{{currentUser.profile.fullName}}</h1>
             Team: <h1>{{team}}</h1>
             {{> userProfile}}
-
           </div>
-
           <div class="column">
             <h3 class="ui header">Create New Team</h3>
             <form id="newTeam" class="ui form team submit" autocomplete="off">
@@ -334,83 +325,13 @@
             </form>
           </div>
         </div>
-        <!--<div class="row">-->
-        <!--{{> sponsorsAthlete}}-->
-        <!--</div>-->
-        <!--<div class="row">-->
-        <!--{{> sponsorsTeam}}-->
-        <!--</div>-->
       </div>
     </div>
   {{/if}}
 </template>
 
 <template name="sponsor">
-  <!--<div class="ui container basic segment">-->
-  <!--  <h1 class="ui header">Sponsor</h1>-->
-  <!--</div>-->
-    <iframe src="https://www.justgiving.com/fundraising/dunnhumby-Helping-Hands-Olympic-Relay"></iframe>
-    <!--<form id="sponsorForm" class="ui form {{correctInsert}} team submit sponsorshipForm" autocomplete="off">-->
-    <!--  <div class="ui tabular menu">-->
-    <!--    <div class="item active athleteSponsor" data-tab="Individual">Individual</div>-->
-    <!--    <div class="item teamSponsor" data-tab="Teams">Team</div>-->
-    <!--  </div>-->
-    <!--  <div class="ui tab active" data-tab="Individual">-->
-        <!--<div class="eight wide column">-->
-    <!--      <div class="field">-->
-    <!--        <label>Individual Athlete</label>-->
-    <!--        <div class="ui fluid search selection dropdown" id="search-select1" name="athlete">-->
-    <!--          <input type="hidden" name="athlete">-->
-    <!--          <i class="dropdown icon"></i>-->
-    <!--          <div class="default text">Select Athlete</div>-->
-    <!--          <div class="menu">-->
-    <!--            {{#each athlete in athletes}}-->
-    <!--              <div class="item" data-value="{{athlete._id}}">{{athlete.profile.fullName}}</div>-->
-    <!--            {{/each}}-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-        <!--</div>  -->
-    <!--  </div>-->
-    <!--  <div class="ui tab" data-tab="Teams">-->
-        <!--<div class="eight wide column">-->
-    <!--      <div class="field">-->
-    <!--        <label>Team</label>-->
-    <!--        <div class="ui fluid search selection dropdown" id="search-select2" name="team">-->
-    <!--          <input type="hidden" name="team">-->
-    <!--          <i class="dropdown icon"></i>-->
-    <!--          <div class="default text">Select Team</div>-->
-    <!--          <div class="menu">-->
-    <!--            {{#each team in teams}}-->
-    <!--              <div class="item" data-value="{{team._id}}">{{team.name}}</div>-->
-    <!--            {{/each}}-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-        <!--</div>     -->
-    <!--  </div>-->
-    <!--  <div class="required field">-->
-    <!--    <label>Pledge</label>-->
-    <!--    <textarea id="sponsorPledge" name="pledge" placeholder="Set a challenge, compete amongst yourselves, pence per km, set amount for taking part - its totally upto you! "></textarea>-->
-    <!--  </div>-->
-    <!--  <div class="required field">-->
-    <!--    <label>Your Name</label>-->
-    <!--    <input id="sponsorName" type="text" name="name">-->
-    <!--  </div>-->
-    <!--  <div class="required field">-->
-    <!--    <label>Phone / Email</label>-->
-    <!--    <input id="sponsorContact" type="text" name="contact">-->
-    <!--  </div>-->
-    <!--  <div class="ui success message">-->
-    <!--    <div class="header">Thank you for your support - Now its all upto {{sponsored}}</div>-->
-    <!--    <p></p>-->
-    <!--    <p>They will be in contact with you once they are ready to collect the sponsorship, please remember to support them on the journey to Rio (they might have very tired legs!!!)</p>-->
-    <!--  </div>-->
-    <!--  <div class="actions">-->
-    <!--    <div class="ui positive right labeled icon button submitTeam"><i class="checkmark icon"></i>Sponsor!</div>-->
-    <!--  </div>-->
-    <!--</form>-->
-
+  <iframe src="https://www.justgiving.com/fundraising/dunnhumby-Helping-Hands-Olympic-Relay"></iframe>
 </template>
 
 <template name="sponsorsAthlete">
