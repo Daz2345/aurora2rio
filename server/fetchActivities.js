@@ -27,13 +27,13 @@ Meteor.methods({
         Activities.insert(activity);
     },
     'fetchActivities' () {
-        console.log('hello');
+        // console.log('hello');
         Meteor.users.find().forEach(function(user) {
             if (!!user.services.strava) {
                 username = user.profile.fullName || "No name submitted";
                 userIdVal = user._id;
                 userTeam = user.team || 'No Team';
-                
+
                 var options = {
                     "headers": {
                         "authorization": "Bearer " + user.services.strava.accessToken
@@ -54,31 +54,31 @@ Meteor.methods({
         });
     },
     'updateDistanceCompleted' () {
-        
+
         if (Distance.find({}).count() === 0) {
             Distance.insert({
                 'distanceType': 'previous',
                 "distanceCompleted": 0,
                 createdAt: new Date()
             });
-                
+
             Distance.insert({
                 'distanceType': 'current',
                 "distanceCompleted": 0,
                 createdAt: new Date()
-            });            
+            });
         }
-        
+
         var completedDistanceTotal = Activities.aggregate([
               {$group: {_id: null, distanceCompleted: {$sum: "$distance"}}}
             ]);
-            
+
         var previousDistance = Distance.find({'distanceType': 'current'}).fetch();
 
         if (completedDistanceTotal.length === 0){
             completedDistanceTotal = previousDistance;
-        }    
-        
+        }
+
         if (previousDistance[0].distanceCompleted !== completedDistanceTotal[0].distanceCompleted) {
             Distance.update({'distanceType': 'previous'},{
                 'distanceType': 'previous',
@@ -110,8 +110,8 @@ Meteor.methods({
             } else {
                 Meteor.users.update(userIdVal,{$set:{distanceCompleted: 0, activityCount: 0}}, {upsert:true});
             }
-        });        
-        
+        });
+
         Meteor.users.find().forEach(function(user) {
             if (user.distanceCompleted !== undefined) {
                 userIdVal = user._id;
@@ -120,10 +120,10 @@ Meteor.methods({
             } else {
                 Meteor.users.update(userIdVal,{$set:{rank: 999}}, {upsert:true});
             }
-        });         
-        
+        });
+
     },
-    'teams.updateDistance' () {        
+    'teams.updateDistance' () {
         // update teams
         Teams.find().forEach(function(team) {
             teamIdVal = team._id;
@@ -132,13 +132,13 @@ Meteor.methods({
               {$group: {_id: null, distanceCompleted: {$sum: "$distance"}, activityCount:{$sum: 1}}},
               {$project:{distanceCompleted: "$distanceCompleted", activityCount: "$activityCount"}}
             ]);
-            if (teamDistance !== undefined && teamDistance.length !== 0) {      
+            if (teamDistance !== undefined && teamDistance.length !== 0) {
                 Teams.update(teamIdVal,{$set:{distanceCompleted: teamDistance[0].distanceCompleted, activityCount: teamDistance[0].activityCount}}, {upsert:true});
             } else {
                 Teams.update(teamIdVal,{$set:{distanceCompleted: 0, activityCount: 0}}, {upsert:true});
             }
-        });        
-        
+        });
+
         Teams.find().forEach(function(team) {
             if (team.distanceCompleted !== undefined) {
             teamIdVal = team._id;
@@ -147,18 +147,18 @@ Meteor.methods({
             } else {
                 Teams.update(teamIdVal,{$set:{rank: 999}}, {upsert:true});
             }
-        });              
+        });
     },
     'sunburst.data' () {
         var sbData = "";
-   
+
         var dataval = Activities.aggregate([
                   {$group: {_id: {teamName: "$teamName", username: "$username", type: "$type"}, distanceCompleted: {$sum: "$distance"}}}
                 ]);
         dataval.forEach(function(activity) {
              sbData = sbData + "Team: " + activity._id.teamName + "-" + "Athlete: " + activity._id.username + "-" + "Activity: " + activity._id.type + "," + Math.round(activity.distanceCompleted) + "\n";
          });
-         
+
         SunburstData.insert({createdAt: new Date(), myString: sbData});
     }
 });

@@ -1,44 +1,44 @@
 <head>
-  <title>Aurora 2 Rio</title>
+  <title>Brook Green 2 Rio</title>
   <link rel="icon" type="image/png" href="img/favicon.ico">
 
 </head>
 
 <body class="pushable Site">
 
-  
+
 </body>
 
 <template name="mainLayout">
-  
+
   <!-- Sidebar Menu -->
   <div class="ui vertical inverted sidebar menu left">
-     <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a> 
-     <a class="{{isActiveRoute 'sponsor'}} item" href="{{pathFor '/sponsor'}}">Sponsor</a>    
-     <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>         
+     <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
+     <a class="{{isActiveRoute 'sponsor'}} item" href="{{pathFor '/sponsor'}}">Sponsor</a>
+     <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>
     {{#if currentUser}}
       <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
-      <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
-      <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>      
+      <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a>
+      <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>
     {{/if}}
     {{ > login}}
   </div>
-  
+
   <!-- Following Menu -->
   <div class="ui large top fixed hidden menu">
     <div class="ui container">
       <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
-      <a class="{{isActiveRoute 'sponsor'}} item" href="{{pathFor '/sponsor'}}">Sponsor</a>      
-      <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>          
+      <a class="{{isActiveRoute 'sponsor'}} item" href="{{pathFor '/sponsor'}}">Sponsor</a>
+      <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>
       {{#if currentUser}}
         <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
-        <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
-        <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>          
+        <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a>
+        <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>
       {{/if}}
       {{ >login}}
     </div>
   </div>
-  
+
   <!-- Page Contents -->
   <div class="pusher">
     {{>top }}
@@ -69,17 +69,17 @@
         </a>
         <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
         <a class="{{isActiveRoute 'sponsor'}} item" href="{{pathFor '/sponsor'}}">Sponsor</a>
-        <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>            
+        <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>
         {{#if currentUser}}
           <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
-          <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a> 
-          <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>            
-        {{/if}}          
+          <a class="{{isActiveRoute 'leaderboard'}} item" href="{{pathFor 'leaderboard'}}">Leaderboard</a>
+          <a class="{{isActiveRoute 'settings'}} item" href="{{pathFor 'settings'}}">Settings</a>
+        {{/if}}
         {{ >login}}
       </div>
       <div class="ui text container">
         <h1 class="ui inverted header titleColor">
-          Aurora 2 Rio
+          Brook Green 2 Rio
         </h1>
       </div>
         {{ > countdown}}
@@ -89,7 +89,7 @@
 
 <template name="countdown">
   <div class="ui basic segment countdownSegment">
-      <div class="ui text container">      
+      <div class="ui text container">
         <h2 class="ui header center inverted align shadow">Only</h2>
       </div>
       <div class="centerText">
@@ -98,7 +98,7 @@
       <div class="ui text container">
         <h2 class="ui header center inverted align shadow">Km To Go!</h2>
       </div>
-  </div>  
+  </div>
 </template>
 
 <template name="homeContent">
@@ -113,10 +113,10 @@
         </div>
         <div class="column logoBG">
           <img class="logoIcons" src="img/big-at.png" />
-        </div>        
+        </div>
       </div>
     </div>
-  </div>  
+  </div>
 
   <div class="ui vertical segment">
     <div class="ui text container basic segment">
@@ -124,19 +124,19 @@
         <div class="ui text container center aligned">
         <h1 class="ui header">We Made It!</h1>
         </div>
-        <div class="ui container center aligned">        
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/RUhNjot1nC8?t=6s" frameborder="0" allowfullscreen></iframe>      
-        </div>       
-       <div class="ui text container center aligned ">      
+        <div class="ui container center aligned">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/RUhNjot1nC8?t=6s" frameborder="0" allowfullscreen></iframe>
+        </div>
+       <div class="ui text container center aligned ">
         <h2 class="ui header">A huge round of applause to everyone that took part!</h2>
         <h3 class="ui header">Weve managed to raise a massive amount of money</h3>
-      </div> 
-    {{else}}      
-      <h3>So we're leaving Aurora House but were going all the way to Rio!</h3>    
-      <p>Collectively we are going to Swim, Bike and Run all the way to Rio in Brazil for the start of the olympics</p>
+      </div>
+    {{else}}
+      <h3>So we've moved to Brook Green but dunnhumby is going all the way to Rio!</h3>
+      <p>Collectively we are going to Swim, Bike and Run all the way to Rio in Brazil during the month of the Summer Olympics</p>
       <p>This is a fantastic opportunity to raise money for <strong>Great Ormond Street Hospital</strong> our helping hands charity of the year!</p>
-      <p>Plus get ready for this summers olympics in Rio, Brazil</p>
-      
+      <!--<p>Plus get ready for this summers olympics in Rio, Brazil</p>-->
+
       {{#if currentUser}}
         <h3 class="ui header">Submit Activity Manually</h3>
         <form id="activityForm" class="ui form activity submit" autocomplete="off">
@@ -155,7 +155,7 @@
                             <option class="item" data-value="Swim">Swim</option>
                             <option class="item" data-value="Ride">Ride</option>
                             <option class="item" data-value="Run">Run</option>
-                        </select>                          
+                        </select>
                     </div>
                 </div>
                 <div class="column">
@@ -163,19 +163,19 @@
                         <label>Country</label>
                         <input name="country" type="text">
                     </div>
-                </div>                  
+                </div>
             </div>
             <div class="ui divider"></div>
             <div class="actions">
                 <div class="ui positive right labeled icon button submitActivity"><i class="checkmark icon"></i>Submit Activity</div>
-            </div>              
+            </div>
         </form>
       {{ else}}
         <h3 class="ui header">After signing in / joining, you can record your activities automatically via Strava or input them manually</h3>
-        <h4 class="ui header">You will only be able to sign up via Strava or via manual registration</h4>        
+        <h4 class="ui header">You will only be able to sign up via Strava or via manual registration</h4>
       {{/if}}
     {{/if}}
-    </div>    
+    </div>
   </div>
 
   <div class="ui vertical quote segment">
@@ -194,8 +194,8 @@
       </div>
       <div class="center aligned row">
         <div class="column">
-          <div class="clock"></div> 
-        </div>  
+          <div class="clock"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -221,7 +221,7 @@
   <div id="map"></div>
 </template>
 
-<template name="map">  
+<template name="map">
   <div class="map">
     {{> googleMap name="map" options=mapOptions}}
   </div>
@@ -252,7 +252,7 @@
 </template>
 
 <template name="leaderboardIndividual">
-  {{> reactiveTable collection=individuals fields=fields}}  
+  {{> reactiveTable collection=individuals fields=fields}}
 </template>
 
 <template name="login">
@@ -264,7 +264,7 @@
 </template>
 
 <template name="Auth_page">
-  <div class="ui container basic segment">  
+  <div class="ui container basic segment">
     {{ > atForm }}
   </div>
 </template>
@@ -274,7 +274,7 @@
 </template>
 
 <template name="userProfile">
-  {{#if profileUpdate}}
+
     <form class="ui form" id="profileForm" >
       <div class="field">
         <label>First Name</label>
@@ -283,11 +283,11 @@
       <div class="field">
         <label>Last Name</label>
         <input type="text" name="lastName" placeholder="Last Name" value="{{lastName}}">
-      </div>  
+      </div>
       <div class="field">
         <label>Team Name</label>
         <select name="team" placeholder="Team Name" class="ui fluid search floating dropdown similar">
-          <option value="" disabled selected>Select your Team</option>          
+          <option value="" disabled selected>Select your Team</option>
           {{#each teams}}
             <option class="item" data-value="{{_id}}">{{name}}</option>
           {{/each}}
@@ -295,29 +295,24 @@
       </div>
       <div class="actions">
           <div class="ui primary button submitProfile">Update Profile</div>
-      </div>      
+      </div>
     </form>
-  {{/if}}
+
 </template>
 
 <template name="settings">
-  {{#if currentUser}}  
-    <div class="ui container basic segment">  
+  {{#if currentUser}}
+    <div class="ui container basic segment">
       <div class="ui tabular menu">
         <div class="item active" data-tab="Individual">Individual</div>
         <div class="item" data-tab="Teams">Teams</div>
       </div>
-      <div class="ui tab active" data-tab="Individual">    
+      <div class="ui tab active" data-tab="Individual">
         <h1>Profile</h1>
         Name: <h1>{{currentUser.profile.fullName}}</h1>
         Team: <h1>{{team}}</h1>
         {{> userProfile}}
-        {{> sponsorsAthlete}}
-        {{> sponsorsTeam}}
-      </div>    
-      <div class="ui tab" data-tab="Teams">    
-        {{#if teamCreate}}
-        <h3 class="ui header">Create New Team</h3>          
+        <h3 class="ui header">Create New Team</h3>
         <form id="newTeam" class="ui form team submit" autocomplete="off">
           <div class="ui grid">
             <div class="column">
@@ -325,28 +320,34 @@
                 <label>Team</label>
                 <input type="text" name="teamName" required=true placeholder="Team Name">
               </div>
-            </div>          
+            </div>
           </div>
           <div class="actions">
             <div class="ui positive right labeled icon button submitTeam"><i class="checkmark icon"></i>Create Team</div>
-          </div>       
-        </form>  
-        {{/if}}
-      {{> reactiveTable collection=teams fields=fields}}        
+          </div>
+        </form>
+        <!--{{> sponsorsAthlete}}-->
+        <!--{{> sponsorsTeam}}-->
       </div>
-    </div>    
-  {{/if}}      
+      <div class="ui tab" data-tab="Teams">
+        <!--{{#if teamCreate}}-->
+
+        <!--{{/if}}-->
+      {{> reactiveTable collection=teams fields=fields}}
+      </div>
+    </div>
+  {{/if}}
 </template>
 
 <template name="sponsor">
-  <div class="ui container basic segment">    
-    <h1 class="ui header">Sponsor</h1>        
-    <form id="sponsorForm" class="ui form {{correctInsert}} team submit sponsorshipForm" autocomplete="off">  
+  <div class="ui container basic segment">
+    <h1 class="ui header">Sponsor</h1>
+    <form id="sponsorForm" class="ui form {{correctInsert}} team submit sponsorshipForm" autocomplete="off">
       <div class="ui tabular menu">
         <div class="item active athleteSponsor" data-tab="Individual">Individual</div>
         <div class="item teamSponsor" data-tab="Teams">Team</div>
       </div>
-      <div class="ui tab active" data-tab="Individual">    
+      <div class="ui tab active" data-tab="Individual">
         <!--<div class="eight wide column">-->
           <div class="field">
             <label>Individual Athlete</label>
@@ -362,8 +363,8 @@
             </div>
           </div>
         <!--</div>  -->
-      </div>    
-      <div class="ui tab" data-tab="Teams">    
+      </div>
+      <div class="ui tab" data-tab="Teams">
         <!--<div class="eight wide column">-->
           <div class="field">
             <label>Team</label>
@@ -387,29 +388,29 @@
       <div class="required field">
         <label>Your Name</label>
         <input id="sponsorName" type="text" name="name">
-      </div>      
+      </div>
       <div class="required field">
         <label>Phone / Email</label>
         <input id="sponsorContact" type="text" name="contact">
-      </div>    
+      </div>
       <div class="ui success message">
         <div class="header">Thank you for your support - Now its all upto {{sponsored}}</div>
         <p></p>
         <p>They will be in contact with you once they are ready to collect the sponsorship, please remember to support them on the journey to Rio (they might have very tired legs!!!)</p>
-      </div>       
+      </div>
       <div class="actions">
         <div class="ui positive right labeled icon button submitTeam"><i class="checkmark icon"></i>Sponsor!</div>
-      </div>    
-    </form>  
-  </div>     
+      </div>
+    </form>
+  </div>
 </template>
 
 <template name="sponsorsAthlete">
   <h1 class="ui header">Sponsors for you</h1>
-  {{> reactiveTable collection=Sponsorship fields=fields}}  
+  {{> reactiveTable collection=Sponsorship fields=fields}}
 </template>
 
 <template name="sponsorsTeam">
   <h1 class="ui header">Sponsors for your Team</h1>
-  {{> reactiveTable collection=Sponsorship fields=fields}}  
+  {{> reactiveTable collection=Sponsorship fields=fields}}
 </template>
