@@ -41,6 +41,8 @@ Meteor.publish("userData", function() {
             _id: this.userId
         }, {
             fields: {
+                'profile.fullName': 1,
+                'profile.name': 1,
                 'team': 1,
                 'teamName': 1
             }
@@ -100,7 +102,7 @@ Meteor.publish('leaderboard.teams', function() {
 });
 
 Meteor.publish('sunburst', function() {
-    if (this.userId) {    
+    if (this.userId) {
     return SunburstData.find({}, {
         sort: {
             createdAt: -1

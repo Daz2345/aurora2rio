@@ -163,6 +163,12 @@
       background: '#fff' !important;
     }
 
+    iframe {
+      border:0 none;
+      width: 100%;
+      height:800px;
+    }
+
     @media only screen and (max-width: 700px) {
       .ui.fixed.menu {
         display: none !important;

@@ -295,13 +295,6 @@ Template.settings.events({
   },
   'click .submitTeam': function(){
 
-    // var addHttp = function (url) {
-    //   if (!/^(f|ht)tps?:\/\//i.test (url)) {
-    //     url = "http://" + url;
-    //   }
-    //   return url;
-    // };
-
     var teamForm = document.getElementById('newTeam');
     var teamVals = {
       name: teamForm.elements['teamName'].value
@@ -310,24 +303,32 @@ Template.settings.events({
     if (teamVals.name !== "") {
       Meteor.call('Team.create', teamVals);
     }
-    teamForm.elements['teamName'].value == "";
+    teamForm.elements['teamName'].value = "";
   }
 });
 
 Template.settings.helpers({
-  // teamCreate: function() {
-  //   return (Meteor.user().teamName == undefined) ? true : false;
-  // },
-    teams: function() {
-    return Teams.find({}, {sort: {name:1}}).fetch();
+  teams: function() {
+    return Teams.find({}, {
+      sort: {
+        name: 1
+      }
+    }).fetch();
   },
-    team: function() {
+  team: function() {
     return Meteor.user().teamName;
   },
   fields: function() {
-    return [{key: 'name', label: 'Team Name'},{key: 'sponsorLink', label: 'Sponsorship Page', fn: function (value) {
-    return new Spacebars.SafeString("<a href=" + value + ">" + value + "</a>");
-}}];
+    return [{
+      key: 'name',
+      label: 'Team Name'
+    }, {
+      key: 'sponsorLink',
+      label: 'Sponsorship Page',
+      fn: function(value) {
+        return new Spacebars.SafeString("<a href=" + value + ">" + value + "</a>");
+      }
+    }];
   }
 });
 
