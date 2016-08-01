@@ -1,3 +1,5 @@
+
+
 if (Meteor.isClient) {
   Meteor.startup(function() {
     GoogleMaps.load({key: 'AIzaSyCwvQIJCGO7gvCF1hqQXaptl-8HsdU40Ls', libraries: 'geometry'});
@@ -13,6 +15,9 @@ if (Meteor.isClient) {
     var sunburst = Meteor.subscribe('sunburst');
     var sponsoredUser = Meteor.subscribe('sponsoredDataUser');
     var sponsoredTeam = Meteor.subscribe('sponsoredDataTeam');
+
+  BlazeLayout.setRoot('body');
+
 }
 
 Template.leaderboard.onRendered(function() {
@@ -156,10 +161,10 @@ Template.countdown.onCreated(function() {
     if (subscription.ready()) {
       var currentDist = Distance.findOne({"distanceType": "current"}) || {distanceCompleted: 0},
         previousDist = Distance.findOne({"distanceType": "previous"}) || {distanceCompleted: 0},
-        distanceToGo = 9280 - (Math.floor(currentDist.distanceCompleted / 1000)),
-        distanceLast = 9280 - (Math.floor(previousDist.distanceCompleted / 1000));
+        distanceToGo = 9270 - (Math.floor(currentDist.distanceCompleted / 1000)),
+        distanceLast = 9270 - (Math.floor(previousDist.distanceCompleted / 1000));
 
-      if (distanceLast != 9280) {
+      if (distanceLast != 9270) {
           distanceLast = distanceLast + 10;
       }
 
@@ -182,7 +187,7 @@ Template.countdown.onCreated(function() {
 
 Template.homeContent.helpers({
   completedDistance: function(){
-    return Distance.findOne({"distanceType": "current"}) >= 9280000 ;
+    return Distance.findOne({"distanceType": "current"}) >= 9272000 ;
   }
 });
 

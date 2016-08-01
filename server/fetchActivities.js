@@ -41,7 +41,7 @@ Meteor.methods({
                 };
 
                 try {
-                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1467849600", options);
+                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1470009600", options);
                     // console.log(result);
                     result.data.forEach(insertActivity);
                     return true;
