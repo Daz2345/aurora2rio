@@ -209,7 +209,7 @@
           <img src="https://www.dunnhumby.com/sites/all/themes/dunnhumby/images/logo.png" />
         </div>
         <div class="ten wide column">
-          <h4 class="ui inverted header">Aurora to Rio</h4>
+          <h4 class="ui inverted header">Brook Green to Rio</h4>
           <p>Join us on the journey to Rio and raise money for an amazing charity.</p>
         </div>
       </div>
@@ -326,13 +326,10 @@
             <div class="ui positive right labeled icon button submitTeam"><i class="checkmark icon"></i>Create Team</div>
           </div>
         </form>
-        <!--{{> sponsorsAthlete}}-->
-        <!--{{> sponsorsTeam}}-->
+        {{> sponsorsAthlete}}
+        {{> sponsorsTeam}}
       </div>
       <div class="ui tab" data-tab="Teams">
-        <!--{{#if teamCreate}}-->
-
-        <!--{{/if}}-->
       {{> reactiveTable collection=teams fields=fields}}
       </div>
     </div>

@@ -254,9 +254,9 @@ Template.map.onCreated(function() {
 });
 
 Template.userProfile.helpers({
-  profileUpdate: function(){
-    return (Meteor.user().profile.fullName == undefined) ? true : false;
-  },
+  // profileUpdate: function(){
+  //   return (Meteor.user().profile.fullName == undefined) ? true : false;
+  // },
   teams: function() {
     return Teams.find({},{sort:{name:1}});
   },
