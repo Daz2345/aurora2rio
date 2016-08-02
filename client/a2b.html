@@ -13,7 +13,7 @@
   <!-- Sidebar Menu -->
   <div class="ui vertical inverted sidebar menu left">
      <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
-     <a class="{{isActiveRoute 'sponsor'}} item" href="{{pathFor '/sponsor'}}">Sponsor</a>
+     <a class="item" href="https://www.justgiving.com/fundraising/dunnhumby-Helping-Hands-Olympic-Relay" target="_blank">Sponsor</a>
      <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>
     {{#if currentUser}}
       <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
@@ -27,7 +27,7 @@
   <div class="ui large top fixed hidden menu">
     <div class="ui container">
       <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
-      <a class="{{isActiveRoute 'sponsor'}} item" href="{{pathFor '/sponsor'}}">Sponsor</a>
+      <a class="item" href="https://www.justgiving.com/fundraising/dunnhumby-Helping-Hands-Olympic-Relay" target="_blank">Sponsor</a>
       <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>
       {{#if currentUser}}
         <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
@@ -67,7 +67,7 @@
           <i class="sidebar icon"></i>
         </a>
         <a class="{{isActiveRoute 'home'}} item" href="{{pathFor '/'}}">Home</a>
-        <a class="{{isActiveRoute 'sponsor'}} item" href="{{pathFor '/sponsor'}}">Sponsor</a>
+        <a class="item" href="https://www.justgiving.com/fundraising/dunnhumby-Helping-Hands-Olympic-Relay" target="_blank">Sponsor</a>
         <a class="{{isActiveRoute 'journey'}} item" href="{{pathFor 'journey'}}">Journey</a>
         {{#if currentUser}}
           <a class="{{isActiveRoute 'feed'}} item" href="{{pathFor 'feed'}}">Activity Feed</a>
@@ -151,9 +151,10 @@
                         <label>Activity Type</label>
                         <select name="type" placeholder="Activity Type" class="ui fluid floating dropdown">
                             <option value="" disabled selected>Activity Type</option>
-                            <option class="item" data-value="Swim">Swim</option>
-                            <option class="item" data-value="Ride">Ride</option>
-                            <option class="item" data-value="Run">Run</option>
+                            <option class="item" data-value="Swim">Swimming</option>
+                            <option class="item" data-value="Ride">Cycling</option>
+                            <option class="item" data-value="Run">Running</option>
+                            <option class="item" data-value="Row">Rowing</option>
                         </select>
                     </div>
                 </div>
