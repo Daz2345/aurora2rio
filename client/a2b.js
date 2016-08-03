@@ -33,7 +33,7 @@ Template.leaderboardIndividual.helpers({
           {key: 'rank', label: 'Rank' , sortable: true},
           {key: 'profile.fullName', label: 'Name' , sortable: true},
           {key: 'activityCount', label: 'Number of activities' , sortable: true},
-          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false, fn: function(value, object, key) { return Math.round(value)} }
+          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: true, fn: function(value, object, key) { return Math.round(value)} }
      ];
   }
 });
