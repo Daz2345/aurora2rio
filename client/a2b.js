@@ -26,13 +26,13 @@ Template.leaderboard.onRendered(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
-    return Meteor.users.find({},{sort:{rank:1}}).fetch();
+    return Meteor.users.find({},{sort:{distanceCompleted:1}}).fetch();
   },
     fields: function() {
     return [
-          {key: 'rank', label: 'Rank' , sortable: false},
-          {key: 'profile.fullName', label: 'Name' , sortable: false},
-          {key: 'activityCount', label: 'Number of activities' , sortable: false},
+          {key: 'rank', label: 'Rank' , sortable: true},
+          {key: 'profile.fullName', label: 'Name' , sortable: true},
+          {key: 'activityCount', label: 'Number of activities' , sortable: true},
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false, fn: function(value, object, key) { return Math.round(value)} }
      ];
   }
