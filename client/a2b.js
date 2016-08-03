@@ -30,8 +30,8 @@ Template.leaderboardIndividual.helpers({
   },
     fields: function() {
     return [
-          {key: 'rank', label: 'Rank' , sortable: true},
-          {key: 'profile.fullName', label: 'Name' , sortable: true},
+          {key: 'rank', label: 'Rank' , sortable: true, sortOrder: 1, sortDirection: 'ascending'},
+          {key: 'profile.fullName', label: 'Name' , sortable: true, sortOrder: 2, sortDirection: 'ascending'},
           {key: 'activityCount', label: 'Number of activities' , sortable: true},
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: true, sortOrder: 0, sortDirection: 'descending',  fn: function(value, object, key) { return Math.round(value)} }
      ];
@@ -44,8 +44,8 @@ Template.leaderboardTeam.helpers({
   },
     fields: function() {
     return [
-          {key: 'rank', label: 'Rank' , sortable: true},
-          {key: 'name', label: 'Team Name' , sortable: true},
+          {key: 'rank', label: 'Rank' , sortable: true, sortOrder: 1, sortDirection: 'ascending'},
+          {key: 'name', label: 'Team Name' , sortable: true, sortOrder: 2, sortDirection: 'ascending'},
           {key: 'activityCount', label: 'Number of activities' , sortable: true},
           {key: 'distanceCompleted', label: 'Distance Completed' , sortable: true, sortOrder: 0, sortDirection: 'descending', fn: function(value, object, key) { return Math.round(value)}}
      ];

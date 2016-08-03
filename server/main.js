@@ -10,30 +10,30 @@ var publicActivityFields = {
     teamName: 1
 };
 
-Meteor.publish("sponsoredDataTeam", function() {
-    if (this.userId) {
-        var teamId = Meteor.users.find({
-            _id: this.userId
-        }).team;
-        return Sponsorship.find({
-            sponsored: teamId
-        });
-    }
-    else {
-        return [];
-    }
-});
+// Meteor.publish("sponsoredDataTeam", function() {
+//     if (this.userId) {
+//         var teamId = Meteor.users.find({
+//             _id: this.userId
+//         }).team;
+//         return Sponsorship.find({
+//             sponsored: teamId
+//         });
+//     }
+//     else {
+//         return [];
+//     }
+// });
 
-Meteor.publish("sponsoredDataUser", function() {
-    if (this.userId) {
-        return Sponsorship.find({
-            sponsored: this.userId
-        });
-    }
-    else {
-        return [];
-    }
-});
+// Meteor.publish("sponsoredDataUser", function() {
+//     if (this.userId) {
+//         return Sponsorship.find({
+//             sponsored: this.userId
+//         });
+//     }
+//     else {
+//         return [];
+//     }
+// });
 
 Meteor.publish("userData", function() {
     if (this.userId) {
@@ -54,7 +54,7 @@ Meteor.publish("userData", function() {
 });
 
 Meteor.publish('athletes', function () {
-    return Meteor.users.find({}, {fields:{_id:1, 'profile.fullName': 1}});
+    return Meteor.users.find({}, {fields:{_id:1, 'profile.fullName': 1, 'profile.name': 1}});
 });
 
 Meteor.publish('teams', function () {
