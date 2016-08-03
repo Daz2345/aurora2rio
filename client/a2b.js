@@ -26,7 +26,7 @@ Template.leaderboard.onRendered(function() {
 
 Template.leaderboardIndividual.helpers({
   individuals: function() {
-    return Meteor.users.find({},{sort:{distanceCompleted:1}}).fetch();
+    return Meteor.users.find({},{sort:{distanceCompleted:-1}}).fetch();
   },
     fields: function() {
     return [
@@ -40,14 +40,14 @@ Template.leaderboardIndividual.helpers({
 
 Template.leaderboardTeam.helpers({
   teams: function() {
-    return Teams.find({distanceCompleted:{$exists:true}},{sort:{rank:1}}).fetch();
+    return Teams.find({distanceCompleted:{$exists:true}},{sort:{distanceCompleted:-1}}).fetch();
   },
     fields: function() {
     return [
-          {key: 'rank', label: 'Rank' , sortable: false},
-          {key: 'name', label: 'Team Name' , sortable: false},
-          {key: 'activityCount', label: 'Number of activities' , sortable: false},
-          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: false, fn: function(value, object, key) { return Math.round(value)}}
+          {key: 'rank', label: 'Rank' , sortable: true},
+          {key: 'name', label: 'Team Name' , sortable: true},
+          {key: 'activityCount', label: 'Number of activities' , sortable: true},
+          {key: 'distanceCompleted', label: 'Distance Completed' , sortable: true, fn: function(value, object, key) { return Math.round(value)}}
      ];
   }
 });
