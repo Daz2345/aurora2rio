@@ -132,6 +132,13 @@ Template.logoutbutton.events({
   }
 });
 
+Template.mainLayout.events({
+  'click a': function(e) {
+    $('.ui.sidebar')
+        .sidebar('hide');
+  }
+});
+
 Template.homeContent.events({
     'click .submitActivity': function(e) {
 
@@ -196,7 +203,7 @@ Template.map.helpers({
     if (GoogleMaps.loaded()) {
       return {
         center: new google.maps.LatLng(15.1204303,-23.7452564),
-        zoom: 3,
+        zoom: 2,
         scrollwheel: false
       };
     }
