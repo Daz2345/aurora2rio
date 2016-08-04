@@ -7,12 +7,15 @@ function insertActivity(element, index, array) {
     if (!!Activities.findOne({id: element.id})) {
     }
     else {
-        element.username = username;
-        element.userId = userIdVal;
-        element.teamId = userTeam;
-        console.log('insert activity for ' + username);
-        if (userTeam !== "No Team") {
-            element.teamName = Teams.findOne({_id: userTeam}).name;
+        var user = Meteor.users.findOne({'services.strava.id' : element.athlete.id});
+
+        element.username = user.profile.fullName || "No name submitted";
+        element.userId = user._id;
+        element.teamId = user.team || 'No Team';
+
+        console.log('insert activity for ' + user.profile.fullName + ' ' + user._id);
+        if (user.team !== "No Team") {
+            element.teamName = Teams.findOne({_id: user.team}).name;
         }
         else {
             element.teamName ="No Team";
@@ -29,7 +32,6 @@ Meteor.methods({
         // console.log('hello');
         Meteor.users.find().forEach(function(user) {
             if (!!user.services.strava) {
-
                 username = "";
                 userIdVal = "";
                 userTeam = "";
@@ -37,8 +39,7 @@ Meteor.methods({
                 username = user.profile.fullName || "No name submitted";
                 userIdVal = user._id;
                 userTeam = user.team || 'No Team';
-
-                console.log('getting strava for' + username);
+                console.log('getting strava for ' + username);
 
                 var options = {
                     "headers": {
