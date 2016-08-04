@@ -53,3 +53,4 @@ matb33:collection-hooks
 force-ssl
 255kb:meteor-status 
 service-configuration
+meteorhacks:kadira
