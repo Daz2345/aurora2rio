@@ -200,15 +200,15 @@ SyncedCron.add({
   }
 });
 
-SyncedCron.add({
-  name: 'Add up distances',
-  schedule: function(parser) {
-    // parser is a later.parse object
-    return parser.text('every 5 minutes');
-  },
-  job: function() {
-    return Meteor.call('updateDistanceCompleted');
-  }
-});
+// SyncedCron.add({
+//   name: 'Add up distances',
+//   schedule: function(parser) {
+//     // parser is a later.parse object
+//     return parser.text('every 5 minutes');
+//   },
+//   job: function() {
+//     return Meteor.call('updateDistanceCompleted');
+//   }
+// });
 
 SyncedCron.start();
