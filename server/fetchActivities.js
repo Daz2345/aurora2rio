@@ -9,16 +9,18 @@ function insertActivity(element, index, array) {
     else {
         var user = Meteor.users.findOne({'services.strava.id' : element.athlete.id});
 
+        var UserTeam = user.team || 'No Team';
+
         element.username = user.profile.fullName || "No name submitted";
         element.userId = user._id;
-        element.teamId = user.team || 'No Team';
+        element.teamId = UserTeam;
 
-        console.log('insert activity for ' + user.profile.fullName + ' ' + user._id + ' ' + user.team);
-        if (user.team !== "No Team") {
-            element.teamName = Teams.findOne({_id: user.team}).name;
+        console.log('insert activity for ' + user.profile.fullName + ' ' + user._id + ' ' + UserTeam);
+        if (UserTeam !== "No Team") {
+            element.teamName = Teams.findOne({_id: UserTeam}).name;
         }
         else {
-            element.teamName ="No Team";
+            element.teamName = "No Team";
         }
         Meteor.call('Activities.insert', element);
     }
