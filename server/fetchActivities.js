@@ -4,14 +4,13 @@ var username,
     userTeam;
 
 function insertActivity(element, index, array) {
-    if (!!Activities.findOne({
-            id: element.id
-        })) {
+    if (!!Activities.findOne({id: element.id})) {
     }
     else {
         element.username = username;
         element.userId = userIdVal;
         element.teamId = userTeam;
+        console.log('insert activity for ' + username);
         if (userTeam !== "No Team") {
             element.teamName = Teams.findOne({_id: userTeam}).name;
         }
@@ -30,9 +29,16 @@ Meteor.methods({
         // console.log('hello');
         Meteor.users.find().forEach(function(user) {
             if (!!user.services.strava) {
+
+                username = "";
+                userIdVal = "";
+                userTeam = "";
+
                 username = user.profile.fullName || "No name submitted";
                 userIdVal = user._id;
                 userTeam = user.team || 'No Team';
+
+                console.log('getting strava for' + username);
 
                 var options = {
                     "headers": {
@@ -48,10 +54,13 @@ Meteor.methods({
                 }
                 catch (e) {
                     // Got a network error, time-out or HTTP error in the 400 or 500 range.
+                    console.log('error with strava import');
                     return false;
                 }
             }
         });
+
+        Meteor.call('updateDistanceCompleted');
     },
     'updateDistanceCompleted' () {
 
@@ -183,7 +192,7 @@ SyncedCron.add({
   name: 'Pull in numbers from Strava',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('every 15 minutes');
+    return parser.text('every 30 minutes');
   },
   job: function() {
     return Meteor.call('fetchActivities');

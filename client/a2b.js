@@ -13,8 +13,8 @@ if (Meteor.isClient) {
     var teamsSub = Meteor.subscribe('teams');
     var userData = Meteor.subscribe('userData');
     var sunburst = Meteor.subscribe('sunburst');
-    var sponsoredUser = Meteor.subscribe('sponsoredDataUser');
-    var sponsoredTeam = Meteor.subscribe('sponsoredDataTeam');
+    // var sponsoredUser = Meteor.subscribe('sponsoredDataUser');
+    // var sponsoredTeam = Meteor.subscribe('sponsoredDataTeam');
 
   BlazeLayout.setRoot('body');
 
