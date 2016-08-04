@@ -13,7 +13,7 @@ function insertActivity(element, index, array) {
         element.userId = user._id;
         element.teamId = user.team || 'No Team';
 
-        console.log('insert activity for ' + user.profile.fullName + ' ' + user._id);
+        console.log('insert activity for ' + user.profile.fullName + ' ' + user._id + ' ' + user.team);
         if (user.team !== "No Team") {
             element.teamName = Teams.findOne({_id: user.team}).name;
         }
@@ -39,7 +39,7 @@ Meteor.methods({
                 username = user.profile.fullName || "No name submitted";
                 userIdVal = user._id;
                 userTeam = user.team || 'No Team';
-                console.log('getting strava for ' + username);
+                console.log('getting strava for ' + username + ' ' + userIdVal + ' ' + userTeam);
 
                 var options = {
                     "headers": {
@@ -56,6 +56,7 @@ Meteor.methods({
                 catch (e) {
                     // Got a network error, time-out or HTTP error in the 400 or 500 range.
                     console.log('error with strava import');
+                    console.log(e);
                     return false;
                 }
             }
