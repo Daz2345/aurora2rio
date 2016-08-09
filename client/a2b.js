@@ -150,12 +150,13 @@ Template.homeContent.events({
           location_country: activityForm.elements["country"].value
         };
 
-        activityForm.elements["distance"].value = "";
-        activityForm.elements["type"].value = "";
-        activityForm.elements["country"].value  = "";
-
-        Meteor.call('Activities.insert.manual', activity);
-        FlowRouter.go('feed');
+        if (activity.distance != "" && activity.type != "") {
+          activityForm.elements["distance"].value = "";
+          activityForm.elements["type"].value = "";
+          activityForm.elements["country"].value  = "";
+          Meteor.call('Activities.insert.manual', activity);
+          FlowRouter.go('feed');
+        }
     }
 });
 

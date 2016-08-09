@@ -175,7 +175,7 @@ Meteor.methods({
         SunburstData.insert({createdAt: new Date(), myString: sbData});
     },
     'activities.cleanUp' () {
-        Activities.find({username: "No name submitted"}).forEach(function(activity){
+        Activities.find().forEach(function(activity){
 
             var currentUser = Meteor.users.findOne({_id: activity.userId});
             var userProfile = currentUser.profile,
@@ -183,7 +183,7 @@ Meteor.methods({
                 userTeamName = currentUser.teamName;
 
            if (userProfile != undefined) {
-               Activities.update({_id: activity._id}, {$set:{username: userProfile.fullName}})
+               Activities.update({_id: activity._id}, {$set:{username: userProfile.fullName.replace("-", " ")}})
            }
            if (userTeamId != "") {
                Activities.update({_id: activity._id}, {$set:{teamId: userTeamId, teamName: userTeamName}})
