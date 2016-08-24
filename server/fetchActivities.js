@@ -4,25 +4,32 @@ var username,
     userTeam;
 
 function insertActivity(element, index, array) {
-    if (!!Activities.findOne({id: element.id})) {
-    }
-    else {
-        var user = Meteor.users.findOne({'services.strava.id' : element.athlete.id});
 
-        var UserTeam = user.team || 'No Team';
+    var startDate = new Date(element.start_date).getTime();
 
-        element.username = user.profile.fullName || "No name submitted";
-        element.userId = user._id;
-        element.teamId = UserTeam;
+        startDate = startDate / 1000;
 
-        console.log('insert activity for ' + user.profile.fullName + ' ' + user._id + ' ' + UserTeam);
-        if (UserTeam !== "No Team") {
-            element.teamName = Teams.findOne({_id: UserTeam}).name;
+    if (startDate > 1470009600) {
+        if (!!Activities.findOne({id: element.id})) {
         }
         else {
-            element.teamName = "No Team";
+            var user = Meteor.users.findOne({'services.strava.id' : element.athlete.id});
+
+            var UserTeam = user.team || 'No Team';
+
+            element.username = user.profile.fullName || "No name submitted";
+            element.userId = user._id;
+            element.teamId = UserTeam;
+
+            console.log('insert activity for ' + user.profile.fullName + ' ' + user._id + ' ' + UserTeam);
+            if (UserTeam !== "No Team") {
+                element.teamName = Teams.findOne({_id: UserTeam}).name;
+            }
+            else {
+                element.teamName = "No Team";
+            }
+            Meteor.call('Activities.insert', element);
         }
-        Meteor.call('Activities.insert', element);
     }
 }
 
@@ -50,7 +57,7 @@ Meteor.methods({
                 };
 
                 try {
-                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities?after=1470009600", options);
+                    var result = HTTP.call("GET", "https://www.strava.com/api/v3/athlete/activities", options);
                     // console.log(result);
                     result.data.forEach(insertActivity);
                     return true;

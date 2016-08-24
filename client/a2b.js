@@ -169,10 +169,10 @@ Template.countdown.onCreated(function() {
     if (subscription.ready()) {
       var currentDist = Distance.findOne({"distanceType": "current"}) || {distanceCompleted: 0},
         previousDist = Distance.findOne({"distanceType": "previous"}) || {distanceCompleted: 0},
-        distanceToGo = 9270 - (Math.floor(currentDist.distanceCompleted / 1000)),
-        distanceLast = 9270 - (Math.floor(previousDist.distanceCompleted / 1000));
+        distanceToGo = 9272 - (Math.floor(currentDist.distanceCompleted / 1000)),
+        distanceLast = 9272 - (Math.floor(previousDist.distanceCompleted / 1000));
 
-      if (distanceLast != 9270) {
+      if (distanceLast != 9272) {
           distanceLast = distanceLast + 10;
       }
 
