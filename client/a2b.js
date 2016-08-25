@@ -169,8 +169,8 @@ Template.countdown.onCreated(function() {
     if (subscription.ready()) {
       var currentDist = Distance.findOne({"distanceType": "current"}) || {distanceCompleted: 0},
         previousDist = Distance.findOne({"distanceType": "previous"}) || {distanceCompleted: 0},
-        distanceToGo = 9272 - (Math.floor(currentDist.distanceCompleted / 1000)),
-        distanceLast = 9272 - (Math.floor(previousDist.distanceCompleted / 1000));
+        distanceToGo = Math.max(9272 - (Math.floor(currentDist.distanceCompleted / 1000)), 0),
+        distanceLast = Math.max(9272 - (Math.floor(previousDist.distanceCompleted / 1000)), 0);
 
       if (distanceLast != 9272) {
           distanceLast = distanceLast + 10;
@@ -195,7 +195,7 @@ Template.countdown.onCreated(function() {
 
 Template.homeContent.helpers({
   completedDistance: function(){
-    return Distance.findOne({"distanceType": "current"}) >= 9272000 ;
+    return Distance.findOne({"distanceType": "current"}).distanceCompleted >= 9272000 ;
   }
 });
 
